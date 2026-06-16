@@ -428,24 +428,22 @@
 
   <!-- Interactive JavaScript Logic -->
   <script>
-    // Tab Switching Logic with sliding pill indicator
+    // Tab Switching Logic with smooth transition & sliding pill indicator
     function switchTab(tabId) {
-      // Deactivate all sections
-      const sections = document.querySelectorAll('.section-container');
-      sections.forEach(sec => {
-        sec.classList.remove('active');
-      });
-
-      // Activate selected section
-      const activeSection = document.getElementById(tabId);
-      if (activeSection) {
-        activeSection.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Close mobile menu if open
+      const navContainer = document.getElementById('mainNav');
+      if (navContainer) {
+        navContainer.classList.remove('open');
       }
 
-      // Update Nav active style
+      const activeSection = document.querySelector('.section-container.active');
+      const targetSection = document.getElementById(tabId);
+
+      if (!targetSection || activeSection === targetSection) return;
+
+      // Update Nav active style immediately for responsiveness
       const navTabs = document.querySelectorAll('.nav-tab');
-      navTabs.forEach((tab, index) => {
+      navTabs.forEach((tab) => {
         if (tab.innerText.toLowerCase() === tabId || (tabId === 'story' && tab.innerText.toLowerCase() === 'story')) {
           tab.classList.add('active');
           updateNavIndicator(tab);
@@ -453,6 +451,40 @@
           tab.classList.remove('active');
         }
       });
+
+      if (activeSection) {
+        // Step 1: Fade out current active section
+        activeSection.style.opacity = '0';
+        activeSection.style.transform = 'translateY(15px)';
+
+        // Step 2: After transition completes, toggle display and fade in the target
+        setTimeout(() => {
+          activeSection.classList.remove('active');
+          activeSection.style.display = 'none';
+
+          // Set initial hidden state for target
+          targetSection.style.display = 'block';
+          targetSection.style.opacity = '0';
+          targetSection.style.transform = 'translateY(15px)';
+
+          // Force reflow
+          targetSection.offsetHeight;
+
+          // Step 3: Fade in target section
+          targetSection.classList.add('active');
+          targetSection.style.opacity = '1';
+          targetSection.style.transform = 'translateY(0)';
+
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 300); // 300ms matches the CSS transition duration
+      } else {
+        // Fallback if no section was active initially
+        targetSection.style.display = 'block';
+        targetSection.offsetHeight;
+        targetSection.classList.add('active');
+        targetSection.style.opacity = '1';
+        targetSection.style.transform = 'translateY(0)';
+      }
     }
 
     // Nav Indicator positioning
@@ -538,9 +570,12 @@
       document.getElementById('contactForm').reset();
     }
 
-    // Mobile Navigation Drawer toggle (Simplified fallback)
+    // Mobile Navigation Drawer toggle
     function toggleMobileMenu() {
-      alert("Menu Navigasi:\n- Home\n- Menu\n- Story\n- Gallery\n- Contact\n\nKlik menu di atas untuk berpindah halaman.");
+      const navContainer = document.getElementById('mainNav');
+      if (navContainer) {
+        navContainer.classList.toggle('open');
+      }
     }
   </script>
 </body>
