@@ -17,7 +17,7 @@
       --green-accent: #38B000;            
       --green-accent-light: #EBF7E6;
       
-      /* Bright & Fresh Candy Mode (Menghapus total kesan dark/industrial) */
+      /* Bright & Fresh Candy Mode */
       --bg-main: #FFFFFF;                 
       --bg-soft: #FFFDF9;                 
       --card-bg: #FFFFFF;
@@ -28,7 +28,7 @@
       --font-header: 'Fredoka', sans-serif;
       --font-body: 'Quicksand', sans-serif;
       
-      /* Efek Bayangan Tebal Datar (Neubrutalism) Tanpa Emoji */
+      /* Efek Bayangan Tebal Datar (Neubrutalism) */
       --fun-shadow: 6px 6px 0px #2B2D42;
       --fun-shadow-loop: 8px 8px 0px #2B2D42;
       --fun-shadow-small: 4px 4px 0px #2B2D42;
@@ -404,6 +404,54 @@
       color: var(--text-muted);
     }
 
+    /* Input Menu Manual Kasir */
+    .input-bill-wrapper {
+      background: var(--bg-main);
+      border: 3px solid var(--text-main);
+      border-radius: 24px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--fun-shadow-small);
+    }
+
+    .input-bill-wrapper h4 {
+      font-family: var(--font-header);
+      margin-bottom: 0.8rem;
+    }
+
+    .input-group-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .bill-input {
+      flex: 1;
+      padding: 0.6rem 1rem;
+      border: 2px solid var(--text-main);
+      border-radius: 14px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .bill-input:focus {
+      border-color: var(--green-accent);
+    }
+
+    .add-bill-btn {
+      background: var(--primary-yellow);
+      border: 2px solid var(--text-main);
+      font-family: var(--font-header);
+      font-weight: 600;
+      padding: 0 1.2rem;
+      border-radius: 14px;
+      cursor: pointer;
+    }
+
+    .add-bill-btn:hover {
+      background: var(--primary-yellow-hover);
+    }
+
     .receipt-box {
       border: 3px dashed var(--text-main);
       background: var(--bg-soft);
@@ -496,6 +544,8 @@
       .home-card-left { max-width: 350px; margin: 0 auto; }
       .home-title { font-size: 3rem; }
       .admin-summary-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .input-group-row { flex-direction: column; }
+      .add-bill-btn { padding: 0.6rem; }
     }
   </style>
 </head>
@@ -626,19 +676,30 @@
 
       <div class="home-layout" style="grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start;">
         
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Nama Menu Jus</th>
-                <th>Sisa Stok (Cup)</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="tabel-stok-body">
-              </tbody>
-          </table>
+        <div>
+          <div class="input-bill-wrapper">
+            <h4>+ Input Menu Manual ke Bill</h4>
+            <div class="input-group-row">
+              <input type="text" id="manual-nama" class="bill-input" placeholder="Ketik nama menu/jus...">
+              <input type="number" id="manual-harga" class="bill-input" placeholder="Harga (Rp)...">
+              <button class="add-bill-btn" onclick="tambahMenuManual()">Masukkan ke Bill</button>
+            </div>
+          </div>
+
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nama Menu Jus</th>
+                  <th>Sisa Stok (Cup)</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-stok-body">
+                </tbody>
+            </table>
+          </div>
         </div>
 
         <div class="receipt-box">
@@ -675,7 +736,7 @@
   </footer>
 
   <script>
-    // Database utama untuk manajemen produk
+    // Database utama untuk manajemen produk asli
     const databaseStok = {
       "Lemon Mint Twist": { stok: 25 },
       "Pure Green Glow": { stok: 8 },
@@ -685,9 +746,6 @@
     let keranjangBelanja = {};
     let totalPendapatanSesi = 0;
     let totalJusTerjualSesi = 0;
-    
-    // Variabel melacak tab aktif agar tidak salah sorot warna kuning saat batal password
-    let tabAktifSaatIni = 'home';
 
     // Memuat data stok ke tabel HTML secara realtime
     function renderTabelStok() {
@@ -715,21 +773,21 @@
       }
     }
 
-    // Memasukkan item belanja dari kartu produk
+    // Memasukkan item belanja dari kartu produk depan
     function tambahKeKeranjang(nama, harga) {
-      if (databaseStok[nama].stok <= 0) {
+      if (databaseStok[nama] && databaseStok[nama].stok <= 0) {
         alert("Maaf, ketersediaan bahan menu ini sedang habis!");
         return;
       }
 
       if (keranjangBelanja[nama]) {
-        if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
+        if (databaseStok[nama] && keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
           alert("Batas maksimal pesanan sesuai sisa ketersediaan stok!");
           return;
         }
         keranjangBelanja[nama].qty += 1;
       } else {
-        keranjangBelanja[nama] = { harga: harga, qty: 1 };
+        keranjangBelanja[nama] = { harga: harga, qty: 1, isManual: false };
       }
       
       updateTampilanStruk();
@@ -739,7 +797,32 @@
       }
     }
 
-    // Mengubah daftar belanja dalam struk POS
+    /* FITUR BARU: LOGIKA MEMASUKKAN MENU MANUAL KASIR */
+    function tambahMenuManual() {
+      const namaInput = document.getElementById('manual-nama').value.trim();
+      const hargaInput = parseInt(document.getElementById('manual-harga').value);
+
+      if (namaInput === "" || isNaN(hargaInput) || hargaInput <= 0) {
+        alert("Mohon isi nama menu dan nominal harga valid terlebih dahulu!");
+        return;
+      }
+
+      // Jika produk sudah ada di keranjang, tambahkan jumlahnya (qty)
+      if (keranjangBelanja[namaInput]) {
+        keranjangBelanja[namaInput].qty += 1;
+      } else {
+        // Tandai isManual: true agar tidak crash mencari validasi databaseStok utama
+        keranjangBelanja[namaInput] = { harga: hargaInput, qty: 1, isManual: true };
+      }
+
+      updateTampilanStruk();
+
+      // Reset form input setelah sukses
+      document.getElementById('manual-nama').value = "";
+      document.getElementById('manual-harga').value = "";
+    }
+
+    // Mengubah daftar belanja dalam struk POS secara visual
     function updateTampilanStruk() {
       const container = document.getElementById('receipt-items-container');
       const totalText = document.getElementById('receipt-total-harga');
@@ -760,7 +843,7 @@
 
         let itemRow = `
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--primary-yellow); padding-bottom: 4px;">
-            <span><strong>${item.qty}x</strong> ${nama}</span>
+            <span><strong>${item.qty}x</strong> ${nama} ${item.isManual ? '<small style="color:var(--text-muted)">(Kustom)</small>' : ''}</span>
             <span>Rp ${subTotal.toLocaleString('id-ID')}</span>
           </div>
         `;
@@ -783,7 +866,12 @@
 
       daftarBelanja.forEach(nama => {
         let item = keranjangBelanja[nama];
-        databaseStok[nama].stok -= item.qty;
+        
+        // Potong stok hanya untuk produk yang terdaftar di database utama
+        if (!item.isManual && databaseStok[nama]) {
+          databaseStok[nama].stok -= item.qty;
+        }
+        
         totalBelanjaSesiIni += (item.harga * item.qty);
         totalCupSesiIni += item.qty;
       });
@@ -798,7 +886,7 @@
       updateTampilanStruk();
       renderTabelStok();
       
-      alert("Transaksi Sukses! Catatan pendapatan diperbarui dan sisa stok dikurangi.");
+      alert("Transaksi Sukses! Catatan pendapatan diperbarui.");
     }
 
     function kosongkanKeranjang() {
@@ -815,43 +903,35 @@
        Password bawaan: 1234
     */
     function switchTab(tabName) {
-      // Jika mendeteksi akses kasir, kunci mutlak dijalankan di sini sebelum halaman berubah
       if (tabName === 'kasir') {
         const inputPassword = prompt("Masukkan Password Akses Operator Kasir:");
         
         if (inputPassword !== '1234') { 
           alert("Akses Ditolak! Kata sandi salah atau tidak diisi.");
-          return; // STOP di sini, gagalkan pemindahan tab halaman
+          return; 
         }
       }
 
-      // Sembunyikan seluruh kontainer halaman
       document.getElementById('home-section').style.display = 'none';
       document.getElementById('menu-section').style.display = 'none';
       document.getElementById('kasir-section').style.display = 'none';
       
-      // Bersihkan indikator highlight warna kuning dari seluruh tombol menu atas
       document.getElementById('btn-tab-home').classList.remove('active');
       document.getElementById('btn-tab-menu').classList.remove('active');
       document.getElementById('btn-tab-kasir').classList.remove('active');
 
-      // Tampilkan halaman target & nyalakan tombol navigasinya
       if (tabName === 'home') {
         document.getElementById('home-section').style.display = 'grid';
         document.getElementById('btn-tab-home').classList.add('active');
-        tabAktifSaatIni = 'home';
       } else if (tabName === 'menu') {
         document.getElementById('menu-section').style.display = 'block';
         document.getElementById('btn-tab-menu').classList.add('active');
-        tabAktifSaatIni = 'menu';
       } else if (tabName === 'kasir') {
         document.getElementById('kasir-section').style.display = 'block';
         document.getElementById('btn-tab-kasir').classList.add('active');
-        tabAktifSaatIni = 'kasir';
       }
     }
 
-    // Memasang data stok saat file dibuka
     window.onload = function() {
       renderTabelStok();
     };
