@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fresh & Fun Juice Bar</title>
   
-  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&display=swap');
-
   <style>
+    /* Mengambil Font Bulat & Ramah dari Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&display=swap');
+
     :root {
       /* Palet Warna Utama: Pop Healthy Yellow & Creamy Fresh */
       --primary-yellow: #FFD23F;          
@@ -507,9 +508,9 @@
       <h1 class="logo-text">Juice<span>BAR</span></h1>
     </a>
     <nav class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('home')">Beranda</button>
-      <button class="nav-tab" onclick="switchTab('menu')">Menu Sehat</button>
-      <button class="nav-tab" onclick="switchTab('kasir')">Live Kasir</button>
+      <button id="btn-tab-home" class="nav-tab active" onclick="switchTab('home')">Beranda</button>
+      <button id="btn-tab-menu" class="nav-tab" onclick="switchTab('menu')">Menu Sehat</button>
+      <button id="btn-tab-kasir" class="nav-tab" onclick="switchTab('kasir')">Live Kasir</button>
     </nav>
   </header>
 
@@ -618,8 +619,8 @@
           <span class="admin-stat-label">Total Jus Terjual</span>
         </div>
         <div class="admin-stat-card">
-          <span class="admin-stat-value">Aktif</span>
-          <span class="admin-stat-label">Status Sinkronisasi</span>
+          <span class="admin-stat-value" style="color: var(--text-main);">1234</span>
+          <span class="admin-stat-label">Kode Sandi Aktif</span>
         </div>
       </div>
 
@@ -684,6 +685,9 @@
     let keranjangBelanja = {};
     let totalPendapatanSesi = 0;
     let totalJusTerjualSesi = 0;
+    
+    // Variabel melacak tab aktif agar tidak salah sorot warna kuning saat batal password
+    let tabAktifSaatIni = 'home';
 
     // Memuat data stok ke tabel HTML secara realtime
     function renderTabelStok() {
@@ -807,38 +811,47 @@
       renderTabelStok();
     }
 
-    /* PENGATUR ALUR NAVIGASI & COCOK PASSWORD AKSES 
-       Password saat ini diatur: 1234
+    /* PENGATUR ALUR NAVIGASI & SISTEM GERBANG PASSWORD MUTLAK
+       Password bawaan: 1234
     */
     function switchTab(tabName) {
+      // Jika mendeteksi akses kasir, kunci mutlak dijalankan di sini sebelum halaman berubah
       if (tabName === 'kasir') {
         const inputPassword = prompt("Masukkan Password Akses Operator Kasir:");
         
         if (inputPassword !== '1234') { 
-          alert("Akses Ditolak! Kata sandi salah.");
-          return; 
+          alert("Akses Ditolak! Kata sandi salah atau tidak diisi.");
+          return; // STOP di sini, gagalkan pemindahan tab halaman
         }
       }
 
+      // Sembunyikan seluruh kontainer halaman
       document.getElementById('home-section').style.display = 'none';
       document.getElementById('menu-section').style.display = 'none';
       document.getElementById('kasir-section').style.display = 'none';
       
-      const tabs = document.querySelectorAll('.nav-tab');
-      tabs.forEach(tab => tab.classList.remove('active'));
+      // Bersihkan indikator highlight warna kuning dari seluruh tombol menu atas
+      document.getElementById('btn-tab-home').classList.remove('active');
+      document.getElementById('btn-tab-menu').classList.remove('active');
+      document.getElementById('btn-tab-kasir').classList.remove('active');
 
+      // Tampilkan halaman target & nyalakan tombol navigasinya
       if (tabName === 'home') {
         document.getElementById('home-section').style.display = 'grid';
-        tabs[0].classList.add('active');
+        document.getElementById('btn-tab-home').classList.add('active');
+        tabAktifSaatIni = 'home';
       } else if (tabName === 'menu') {
         document.getElementById('menu-section').style.display = 'block';
-        tabs[1].classList.add('active');
+        document.getElementById('btn-tab-menu').classList.add('active');
+        tabAktifSaatIni = 'menu';
       } else if (tabName === 'kasir') {
         document.getElementById('kasir-section').style.display = 'block';
-        tabs[2].classList.add('active');
+        document.getElementById('btn-tab-kasir').classList.add('active');
+        tabAktifSaatIni = 'kasir';
       }
     }
 
+    // Memasang data stok saat file dibuka
     window.onload = function() {
       renderTabelStok();
     };
