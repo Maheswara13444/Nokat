@@ -3,62 +3,147 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NOKAT Cafe - Premium Coffee & Cozy Space</title>
+    <title>NOKAT Fresh - Healthy Juice & Smoothies Bar</title>
     <meta
       name="description"
-      content="Rasakan kopi premium dengan atmosfer cozy dan estetika modern di NOKAT Cafe. Biji pilihan terbaik, pastry lezat, dan kenyamanan maksimal."
+      content="Nikmati jus buah segar alami, smoothies booster kaya vitamin, dan cemilan sehat tanpa pengawet di NOKAT Fresh!"
     />
     <link rel="stylesheet" href="style.css" />
 
+    <!-- Google Fonts untuk Vibe Fun & Fresh -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Internal Khusus Penyelarasan Tema Kuning & Kasir Modern -->
     <style>
-      /* Memastikan Halaman yang Tidak Aktif Tersembunyi */
-      .section-container {
-        display: none !important;
-      }
-      .section-container.active {
-        display: block !important;
-      }
-      #home.section-container.active {
-        display: flex !important; /* Menjaga layout home asli Anda */
+      /* Override Font Global agar Terasa Lebih Fun */
+      :root {
+        --yellow-primary: #FBBF24;
+        --yellow-hover: #F59E0B;
+        --yellow-light: #FEF3C7;
+        --green-accent: #10B981;
+        --bg-dark: #1E1B18; /* Kontras gelap premium agar warna kuning menyala */
+        --font-fun: 'Fredoka', sans-serif;
+        --font-body: 'Quicksand', sans-serif;
       }
 
-      /* Gaya Tampilan Dashboard Admin */
-      .admin-summary-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
+      body {
+        font-family: var(--font-body);
+        background-color: var(--bg-dark);
+        color: #FFFFFF;
       }
+
+      h1, h2, h3, h4, .logo-text {
+        font-family: var(--font-fun) !important;
+        letter-spacing: 0.5px;
+      }
+
+      /* Efek Latar Belakang Kuning Glowing */
+      .bg-ambient-light {
+        background: radial-gradient(circle, rgba(251,191,36,0.15) 0%, rgba(0,0,0,0) 70%) !important;
+      }
+
+      /* Memastikan Halaman yang Tidak Aktif Tersembunyi */
+      .section-container { display: none !important; }
+      .section-container.active { display: block !important; }
+      #home.section-container.active { display: flex !important; }
+
+      /* Modifikasi Warna Navigasi & Tombol */
+      .nav-tab.active {
+        color: var(--bg-dark) !important;
+        background-color: var(--yellow-primary) !important;
+        font-weight: bold;
+        border-radius: 20px;
+        padding: 0.5rem 1.2rem;
+      }
+      .logo-text span { color: var(--yellow-primary) !important; }
+      .order-btn, .menu-option-btn {
+        background: var(--yellow-primary) !important;
+        color: var(--bg-dark) !important;
+        font-family: var(--font-fun);
+        font-weight: 600;
+        border-radius: 25px !important;
+        border: none !important;
+        transition: transform 0.2s, background 0.2s;
+      }
+      .order-btn:hover, .menu-option-btn:hover {
+        background: var(--yellow-hover) !important;
+        transform: scale(1.05);
+      }
+
+      .filter-btn.active {
+        background-color: var(--green-accent) !important;
+        color: white !important;
+        border-color: var(--green-accent) !important;
+        border-radius: 20px;
+      }
+
+      /* KARTU MENU YANG LEBIH FUN */
+      .menu-card {
+        border-radius: 20px !important;
+        overflow: hidden;
+        border: 2px solid rgba(251,191,36,0.1) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        transition: 0.3s;
+      }
+      .menu-card:hover {
+        border-color: var(--yellow-primary) !important;
+        transform: translateY(-5px);
+      }
+      .menu-card-badge {
+        background: var(--green-accent) !important;
+        color: white !important;
+        font-family: var(--font-fun);
+        border-radius: 0 0 0 15px;
+      }
+      .menu-card-price { color: var(--yellow-primary) !important; font-family: var(--font-fun); font-size: 1.3rem; }
+
+      /* GAYA DASHBOARD ADMIN KUNING KASIR */
       .admin-stat-card {
+        background: rgba(251, 191, 36, 0.05);
+        border: 2px dashed rgba(251, 191, 36, 0.2);
+        border-radius: 18px;
+      }
+      .admin-stat-value { color: var(--yellow-primary); }
+
+      .pos-section {
+        background: rgba(255, 255, 255, 0.02);
+        border: 2px solid rgba(251, 191, 36, 0.15);
+        border-radius: 20px;
+      }
+      
+      .pos-item-btn {
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 1.5rem;
         border-radius: 12px;
-        backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
+        transition: 0.2s;
       }
-      .admin-stat-label {
-        font-size: 0.85rem;
-        color: #a0aec0;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .admin-stat-value {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #ffffff;
-        margin-top: 0.5rem;
+      .pos-item-btn:hover:not(:disabled) {
+        background: var(--yellow-light) !important;
+        color: var(--bg-dark) !important;
+        border-color: var(--yellow-primary);
       }
 
-      /* PANEL INPUT KASIR BARU */
-      .pos-section {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 1.5rem;
-        border-radius: 12px;
-        margin-top: 2rem;
+      .receipt-box {
+        border: 2px dashed var(--yellow-primary);
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
       }
+
+      .stock-input-mini {
+        border: 1px solid var(--yellow-primary);
+        background: rgba(0,0,0,0.5);
+        border-radius: 6px;
+      }
+
+      .section-subtitle {
+        color: var(--yellow-primary) !important;
+        font-family: var(--font-fun);
+        text-transform: uppercase;
+      }
+
+      /* Tampilan Grid Kasir Responsif */
       .pos-grid {
         display: grid;
         grid-template-columns: 2fr 1fr;
@@ -73,489 +158,233 @@
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         gap: 1rem;
       }
-      .pos-item-btn {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #fff;
-        padding: 1rem;
-        border-radius: 8px;
-        cursor: pointer;
-        text-align: left;
-        transition: 0.2s;
-      }
-      .pos-item-btn:hover {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: #ffffff;
-      }
-      .pos-item-btn:disabled {
-        opacity: 0.3;
-        cursor: not-allowed;
-      }
-      .receipt-box {
-        background: rgba(0, 0, 0, 0.3);
-        border: 1px dashed rgba(255, 255, 255, 0.2);
-        padding: 1rem;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 200px;
-      }
-      .receipt-items {
-        font-family: monospace;
-        font-size: 0.9rem;
-        color: #e2e8f0;
-        max-height: 150px;
-        overflow-y: auto;
-      }
-      .receipt-total {
-        border-top: 1px dashed rgba(255, 255, 255, 0.3);
-        padding-top: 0.5rem;
-        margin-top: 0.5rem;
-        font-family: monospace;
-        display: flex;
-        justify-content: space-between;
-        font-weight: bold;
-        font-size: 1.1rem;
-      }
-      .pos-action-btns {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-        margin-top: 1rem;
-      }
-
-      /* Gaya Tampilan Tabel Admin */
-      .admin-table-wrapper {
-        width: 100%;
-        overflow-x: auto;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        margin-top: 1.5rem;
-      }
-      .admin-table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        color: #ffffff;
-      }
-      .admin-table th, .admin-table td {
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .admin-table th {
-        background: rgba(255, 255, 255, 0.05);
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
-      }
-      .category-badge {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
-      }
-      .status-indicator {
-        font-weight: 600;
-        font-size: 0.9rem;
-      }
-      .status-indicator.in-stock { color: #4ade80; }
-      .status-indicator.out-of-stock { color: #f87171; }
-      .action-toggle-btn {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: #fff;
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: 0.2s;
-      }
-      .action-toggle-btn:hover {
-        background: #ffffff;
-        color: #000000;
-      }
-
-      /* Gaya Tampilan Lightbox Gambar */
-      .lightbox {
-        position: fixed;
-        z-index: 9999;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        display: none;
-        align-items: center;
-        justify-content: center;
-      }
-      .lightbox.show { display: flex; }
-      .lightbox-content { max-width: 85%; max-height: 85%; border-radius: 8px; }
-      .lightbox-close {
-        position: absolute;
-        top: 20px; right: 30px;
-        color: #fff; font-size: 40px; font-weight: bold;
-        cursor: pointer;
-      }
     </style>
   </head>
   <body>
+    <!-- Ambient Light Efek Kuning -->
     <div class="bg-glow-container">
       <div class="bg-ambient-light"></div>
       <div class="bg-grid-overlay"></div>
     </div>
 
+    <!-- Header -->
     <header>
-      <a
-        href="#"
-        class="logo-container"
-        onclick="
-          switchTab('home');
-          return false;
-        "
-      >
-        <img src="assets/logo.png" alt="NOKAT Cafe Logo" class="logo-img" />
-        <span class="logo-text">NOK<span>AT</span></span>
+      <a href="#" class="logo-container" onclick="switchTab('home'); return false;">
+        <img src="assets/logo.png" alt="NOKAT Fresh Logo" class="logo-img" />
+        <span class="logo-text">NOK<span>AT</span> Fresh 🍋</span>
       </a>
 
+      <!-- Menu Tab Navigasi -->
       <nav class="nav-tabs" id="mainNav">
-        <div class="nav-indicator" id="navIndicator"></div>
         <button class="nav-tab active" onclick="switchTab('home')">Home</button>
-        <button class="nav-tab" onclick="switchTab('menu')">Menu</button>
-        <button class="nav-tab" onclick="switchTab('story')">Story</button>
+        <button class="nav-tab" onclick="switchTab('menu')">Fresh Menu</button>
+        <button class="nav-tab" onclick="switchTab('story')">Our Vibe</button>
         <button class="nav-tab" onclick="switchTab('gallery')">Gallery</button>
-        <button class="nav-tab" onclick="switchTab('contact')">Contact</button>
-        <button
-          class="nav-tab admin-nav-tab"
-          id="adminNavTab"
-          onclick="switchTab('admin')"
-          style="display: none"
-        >
-          Admin
+        <button class="nav-tab" onclick="switchTab('contact')">Find Us</button>
+        <button class="nav-tab admin-nav-tab" id="adminNavTab" onclick="switchTab('admin')" style="display: none">
+          Staff POS 🖥️
         </button>
       </nav>
 
+      <!-- Mobile Button -->
       <button class="mobile-nav-toggle" onclick="toggleMobileMenu()">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
     </header>
 
     <main>
+      <!-- SECTION 1: HOME -->
       <section id="home" class="section-container active">
         <div class="home-layout">
-          <div class="home-card-left">
-            <div class="profile-frame">
-              <img
-                src="assets/hero_bg.png"
-                alt="Signature Coffee"
-                class="profile-img"
-              />
+          <div class="home-card-left" style="border-color: var(--yellow-primary);">
+            <div class="profile-frame" style="border-radius: 30px; overflow:hidden;">
+              <img src="assets/hero_bg.png" alt="Healthy Drink" class="profile-img" />
             </div>
-            <div class="profile-badge">Est. 2026</div>
-            <h2
-              style="
-                font-family: var(--font-header);
-                font-size: 1.5rem;
-                margin-top: 1.5rem;
-                letter-spacing: 1px;
-              "
-            >
-              WELCOME COFFEE LOVER
-            </h2>
-            <p
-              style="
-                color: var(--text-muted);
-                font-size: 0.9rem;
-                margin-top: 0.5rem;
-              "
-            >
-              A sanctuary for perfect brew
-            </p>
+            <div class="profile-badge" style="background: var(--green-accent);">100% Organik 🌱</div>
+            <h2 style="margin-top: 1.5rem; color: var(--yellow-primary);">Sip Fresh, Live Vibrant!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem;">Energi alami tanpa pemanis buatan</p>
           </div>
 
           <div class="home-text-right">
-            <span class="home-subtitle">Premium Brewed Experience</span>
-            <h1 class="home-title">NOKAT<br />CAFE</h1>
+            <span class="section-subtitle">⚡ Semburan Vitamin Harianmu</span>
+            <h1 class="home-title" style="line-height: 1.1;">FEEL THE<br /><span style="color:var(--yellow-primary)">FRESHNESS!</span></h1>
             <p class="home-desc">
-              Tempat bertemunya kopi berkualitas tinggi, rasa autentik, dan
-              atmosfer industrial-modern yang cozy untuk produktivitas atau
-              bersantai.
+              Selamat datang di NOKAT Fresh! Kami meracik buah-buahan tropis segar pilihan organik murni menjadi segelas kebahagiaan penambah imun tubuh Anda.
             </p>
 
             <div class="home-menu-options">
-              <button class="menu-option-btn" onclick="switchTab('menu')">
-                Explore Menu
-              </button>
-              <button class="menu-option-btn" onclick="switchTab('story')">
-                Our Story
-              </button>
-              <button class="menu-option-btn" onclick="switchTab('contact')">
-                Find Us & Contact
-              </button>
+              <button class="menu-option-btn" onclick="switchTab('menu')">Pilih Jus Sehatmu 🍹</button>
+              <button class="menu-option-btn" onclick="switchTab('story')" style="background:transparent !important; color:#FFF !important; border:2px solid var(--yellow-primary) !important;">Lihat Komitmen Kami</button>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- SECTION 2: MENU -->
       <section id="menu" class="section-container">
         <div class="section-title-wrapper">
-          <span class="section-subtitle">Pilihan Rasa Terbaik</span>
-          <h2 class="section-title">Nokat Specialties</h2>
+          <span class="section-subtitle">Segar & Penuh Nutrisi</span>
+          <h2 class="section-title">Menu Booster Hari Ini 🍓</h2>
         </div>
 
         <div class="menu-filters">
-          <button class="filter-btn active" onclick="filterMenu('all')">
-            All Menu
-          </button>
-          <button class="filter-btn" onclick="filterMenu('coffee')">
-            Coffee
-          </button>
-          <button class="filter-btn" onclick="filterMenu('non-coffee')">
-            Non-Coffee
-          </button>
-          <button class="filter-btn" onclick="filterMenu('pastry')">
-            Pastry & Food
-          </button>
+          <button class="filter-btn active" onclick="filterMenu('all')">Semua Menu</button>
+          <button class="filter-btn" onclick="filterMenu('coffee')">Pure Cold-Pressed</button>
+          <button class="filter-btn" onclick="filterMenu('non-coffee')">Creamy Smoothies</button>
+          <button class="filter-btn" onclick="filterMenu('pastry')">Healthy Bowls</button>
         </div>
 
         <div class="menu-grid">
+          <!-- Jus 1 -->
           <div class="menu-card" data-category="coffee">
             <div class="menu-card-img-wrapper">
-              <img
-                src="assets/coffee1.png"
-                alt="Es Kopi Susu Nokat"
-                class="menu-card-img"
-              />
-              <span class="menu-card-badge">Best Seller</span>
+              <img src="assets/coffee1.png" alt="Mango Sunshine" class="menu-card-img" />
+              <span class="menu-card-badge">Super Imun</span>
             </div>
             <div class="menu-card-content">
               <div class="menu-card-header">
-                <h3 class="menu-card-title">Kopi Susu Nokat</h3>
+                <h3 class="menu-card-title">Mango Sunshine 🥭</h3>
                 <span class="menu-card-price">Rp 25K</span>
               </div>
-              <p class="menu-card-desc">
-                Es kopi susu gula aren dengan racikan espresso blend
-                arabica-robusta khas Nokat dan krim lembut.
-              </p>
+              <p class="menu-card-desc">Mangga arumanis segar dicampur perasan jeruk lemon asli dan chia seeds kaya serat.</p>
               <div class="menu-card-footer">
-                <div class="menu-rating">
-                  <span>⭐⭐⭐⭐⭐ (4.9)</span>
-                </div>
-                <button
-                  class="order-btn"
-                  onclick="orderItem('Kopi Susu Nokat')"
-                >
-                  Order
-                </button>
+                <div class="menu-rating"><span>⭐⭐⭐⭐⭐ (4.9)</span></div>
+                <button class="order-btn" onclick="orderItem('Mango Sunshine 🥭')">Pesan 🛒</button>
               </div>
             </div>
           </div>
 
+          <!-- Jus 2 -->
           <div class="menu-card" data-category="non-coffee">
             <div class="menu-card-img-wrapper">
-              <img
-                src="assets/coffee2.png"
-                alt="Premium Matcha Latte"
-                class="menu-card-img"
-              />
-              <span class="menu-card-badge">Premium</span>
+              <img src="assets/coffee2.png" alt="Avocado Creamy Smoothies" class="menu-card-img" />
+              <span class="menu-card-badge">Lemak Sehat</span>
             </div>
             <div class="menu-card-content">
               <div class="menu-card-header">
-                <h3 class="menu-card-title">Premium Matcha</h3>
+                <h3 class="menu-card-title">Avocado Booster 🥑</h3>
                 <span class="menu-card-price">Rp 28K</span>
               </div>
-              <p class="menu-card-desc">
-                Bubuk matcha Uji impor dipadukan dengan fresh milk creamy dan
-                sedikit sentuhan vanilla syrup.
-              </p>
+              <p class="menu-card-desc">Alpukat mentega murni diblend kental dengan susu almond organik dan madu hutan.</p>
               <div class="menu-card-footer">
-                <div class="menu-rating">
-                  <span>⭐⭐⭐⭐⭐ (4.7)</span>
-                </div>
-                <button class="order-btn" onclick="orderItem('Premium Matcha')">
-                  Order
-                </button>
+                <div class="menu-rating"><span>⭐⭐⭐⭐⭐ (4.8)</span></div>
+                <button class="order-btn" onclick="orderItem('Avocado Booster 🥑')">Pesan 🛒</button>
               </div>
             </div>
           </div>
 
+          <!-- Jus 3 -->
           <div class="menu-card" data-category="pastry">
             <div class="menu-card-img-wrapper">
-              <img
-                src="assets/food.png"
-                alt="Croissant Butter Glaze"
-                class="menu-card-img"
-              />
-              <span class="menu-card-badge">Fresh Baked</span>
+              <img src="assets/food.png" alt="Berry Diet Bowl" class="menu-card-img" />
+              <span class="menu-card-badge">Diet Ramah</span>
             </div>
             <div class="menu-card-content">
               <div class="menu-card-header">
-                <h3 class="menu-card-title">Butter Croissant</h3>
-                <span class="menu-card-price">Rp 22K</span>
+                <h3 class="menu-card-title">Berry Acai Bowl 🍓</h3>
+                <span class="menu-card-price">Rp 35K</span>
               </div>
-              <p class="menu-card-desc">
-                Croissant klasik yang renyah di luar, lembut di dalam, dengan
-                sentuhan mentega premium melimpah.
-              </p>
+              <p class="menu-card-desc">Sereal oat premium dengan topping buah stroberi segar, pisang, granola renyah.</p>
               <div class="menu-card-footer">
-                <div class="menu-rating">
-                  <span>⭐⭐⭐⭐⭐ (4.8)</span>
-                </div>
-                <button
-                  class="order-btn"
-                  onclick="orderItem('Butter Croissant')"
-                >
-                  Order
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-card" data-category="coffee">
-            <div class="menu-card-img-wrapper">
-              <img
-                src="assets/gallery1.png"
-                alt="Espresso"
-                class="menu-card-img"
-              />
-              <span class="menu-card-badge">Classic</span>
-            </div>
-            <div class="menu-card-content">
-              <div class="menu-card-header">
-                <h3 class="menu-card-title">Americano Double Shot</h3>
-                <span class="menu-card-price">Rp 20K</span>
-              </div>
-              <p class="menu-card-desc">
-                Double shot espresso robusta-arabica blend dengan rasa clean,
-                aroma kaya, dan acidity berimbang.
-              </p>
-              <div class="menu-card-footer">
-                <div class="menu-rating">
-                  <span>⭐⭐⭐⭐⭐ (4.6)</span>
-                </div>
-                <button
-                  class="order-btn"
-                  onclick="orderItem('Americano Double Shot')"
-                >
-                  Order
-                </button>
+                <div class="menu-rating"><span>⭐⭐⭐⭐⭐ (4.7)</span></div>
+                <button class="order-btn" onclick="orderItem('Berry Acai Bowl 🍓')">Pesan 🛒</button>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- SECTION 3: STORY -->
       <section id="story" class="section-container">
         <div class="section-title-wrapper">
-          <span class="section-subtitle">Lebih Dekat Dengan Kami</span>
-          <h2 class="section-title">About Nokat</h2>
+          <span class="section-subtitle">Komitmen Bersih</span>
+          <h2 class="section-title">Kenapa Harus Nokat Fresh? 🌿</h2>
         </div>
-        <p style="padding: 0 2rem; color: var(--text-muted);">
-          Didirikan pada tahun 2026, NOKAT berkomitmen menyajikan racikan kopi terbaik...
+        <p style="padding: 0 2rem; max-width: 700px; margin: 0 auto; text-align: center; line-height: 1.8; color: #cbd5e1;">
+          Kami percaya hidup sehat dimulai dari apa yang kita minum. Di NOKAT Fresh, seluruh buah dicuci higienis dengan ozonizer, diproses <b>tanpa tambahan air dan gula pasir tebu sama sekali</b>. Manis alami murni langsung dari alam!
         </p>
       </section>
 
+      <!-- SECTION 4 & 5: GALLERY & CONTACT (Placeholder) -->
       <section id="gallery" class="section-container">
-        <div class="section-title-wrapper">
-          <span class="section-subtitle">Potret Kehangatan</span>
-          <h2 class="section-title">Gallery & Atmosphere</h2>
-        </div>
-        <div class="gallery-grid">
-          <div class="gallery-item" onclick="openLightbox('assets/hero_bg.png')">
-            <img src="assets/hero_bg.png" alt="Atmosphere" />
-          </div>
-        </div>
+        <div class="section-title-wrapper"><span class="section-subtitle">Galeri Bahagia</span><h2 class="section-title">Healthy Vibe</h2></div>
       </section>
-
       <section id="contact" class="section-container">
-        <div class="section-title-wrapper">
-          <span class="section-subtitle">Hubungi & Kunjungi</span>
-          <h2 class="section-title">Get In Touch</h2>
-        </div>
-      </form>
+        <div class="section-title-wrapper"><span class="section-subtitle">Hubungi Bar</span><h2 class="section-title">Datang & Segarkan Dirimu</h2></div>
       </section>
 
+      <!-- SECTION 6: KASIR UTAMA & ADMIN CONTROL -->
       <section id="admin" class="section-container">
         <div class="section-title-wrapper">
-          <span class="section-subtitle">Khusus Staff Nokat</span>
-          <h2 class="section-title">Admin Dashboard</h2>
+          <span class="section-subtitle">Panel Staff Kasir</span>
+          <h2 class="section-title">POS & Stock Dashboard 🖥️</h2>
         </div>
 
         <div class="admin-summary-grid">
           <div class="admin-stat-card">
-            <span class="admin-stat-label">Total Item Terjual</span>
+            <span class="admin-stat-label">🍹 Gelas Terjual</span>
             <span class="admin-stat-value" id="adminTotalSold">0</span>
           </div>
           <div class="admin-stat-card">
-            <span class="admin-stat-label">Total Pendapatan (Sesi Ini)</span>
+            <span class="admin-stat-label">💰 Omset Rupiah Sesi Ini</span>
             <span class="admin-stat-value" id="adminTotalRevenue">Rp 0</span>
           </div>
           <div class="admin-stat-card">
-            <span class="admin-stat-label">Status Login</span>
+            <span class="admin-stat-label">Operator Aktif</span>
             <span class="admin-stat-value" id="adminLoggedInAs" style="font-size: 1.1rem">-</span>
-            <button class="action-toggle-btn" onclick="adminLogout()" style="margin-top: 0.5rem">Logout</button>
+            <button class="action-toggle-btn" onclick="adminLogout()" style="margin-top: 0.5rem; border-color: var(--yellow-primary);">Logout Staff</button>
           </div>
         </div>
 
+        <!-- FITUR KASIR UTAMA -->
         <div class="pos-section">
-          <h3 class="highlights-title" style="margin-top: 0;">🖥️ Sistem Kasir Input Pesanan</h3>
+          <h3 style="margin-top: 0; color: var(--yellow-primary);">🍍 Input Pesanan Kasir Otomatis</h3>
           <p style="font-size: 0.85rem; color: #a0aec0; margin-bottom: 1rem;">
-            Klik menu di sebelah kiri untuk memasukkan pesanan customer ke dalam struk sementara.
+            Klik nama produk di kiri untuk input struk. Kalkulator akan menjumlahkan rupiah secara langsung.
           </p>
           
           <div class="pos-grid">
-            <div class="pos-menu-list" id="posMenuList">
-              </div>
+            <div class="pos-menu-list" id="posMenuList"></div>
 
+            <!-- Struk Kalkulator Belanja -->
             <div class="receipt-box">
               <div>
-                <h4 style="font-family: monospace; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 0.5rem; margin-bottom: 0.5rem;">
-                  STRUK BELANJA
+                <h4 style="font-family: monospace; border-bottom: 1px dashed var(--yellow-primary); padding-bottom: 0.5rem; text-align: center;">
+                  NOKAT FRESH RECEIPT
                 </h4>
-                <div class="receipt-items" id="receiptItems">
-                  (Belum ada pesanan)
+                <div class="receipt-items" id="receiptItems" style="padding-top: 0.5rem;">
+                  (Belum ada buah dipesan)
                 </div>
               </div>
               <div>
-                <div class="receipt-total">
-                  <span>TOTAL:</span>
-                  <span id="receiptTotalValue">Rp 0</span>
+                <div class="receipt-total" style="border-top: 1px dashed var(--yellow-primary);">
+                  <span>TOTAL RUPIAH:</span>
+                  <span id="receiptTotalValue" style="color: var(--yellow-primary)">Rp 0</span>
                 </div>
                 <div class="pos-action-btns">
-                  <button class="action-toggle-btn" onclick="clearCurrentReceipt()" style="border-color: #f87171; color: #f87171;">Reset</button>
-                  <button class="action-toggle-btn" onclick="checkoutReceipt()" style="background: #4ade80; color: #000; font-weight: bold; border: none;">Bayar</button>
+                  <button class="action-toggle-btn" onclick="clearCurrentReceipt()" style="border-color: #f87171; color: #f87171;">Batal</button>
+                  <button class="action-toggle-btn" onclick="checkoutReceipt()" style="background: var(--green-accent); color: #fff; font-weight: bold; border: none;">Bayar & Potong Stok</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <h3 class="highlights-title" style="margin-top: 2.5rem">📦 Kontrol Stok Menu</h3>
-        <div class="admin-table-wrapper">
+        <!-- MANAJEMEN STOK ANGKA KASIR -->
+        <h3 style="margin-top: 2.5rem; color: var(--yellow-primary);">📦 Manajemen Sisa Kuantitas Stok Buah</h3>
+        <div class="admin-table-wrapper" style="border-color: rgba(251,191,36,0.2);">
           <table class="admin-table">
             <thead>
-              <tr>
-                <th>Nama Item</th>
+              <tr style="background: rgba(251,191,36,0.1);">
+                <th>Nama Varian Sehat</th>
                 <th>Kategori</th>
-                <th>Harga</th>
-                <th>Status Stok</th>
-                <th>Aksi</th>
+                <th>Harga Satuan</th>
+                <th>Sisa Stok (Porsi)</th>
+                <th>Status Ketersediaan</th>
+                <th>Aksi Cepat</th>
               </tr>
             </thead>
-            <tbody id="adminTableBody">
-              </tbody>
+            <tbody id="adminTableBody"></tbody>
           </table>
         </div>
       </section>
@@ -563,31 +392,23 @@
 
     <footer>
       <div class="footer-bottom">
-        <p>&copy; 2026 NOKAT Cafe. All Rights Reserved.</p>
-        <div class="footer-admin-trigger" style="cursor: pointer;" onclick="promptAdminLogin()">🔒 Staff Only</div>
+        <p>&copy; 2026 NOKAT Fresh Bar. All Rights Reserved.</p>
+        <div class="footer-admin-trigger" style="color: var(--yellow-primary); font-weight: bold;" onclick="promptAdminLogin()">🔒 Masuk Aplikasi Kasir (Staff Only)</div>
       </div>
     </footer>
 
-    <div class="lightbox" id="galleryLightbox" onclick="closeLightbox()">
-      <span class="lightbox-close">&times;</span>
-      <img class="lightbox-content" id="lightboxImg" alt="Enlarged" />
-    </div>
-
+    <!-- JavaScript Integrasi Logika Kasir & Sinkronisasi Stok -->
     <script>
-      // Database produk
+      // Database Menu Bertema Sehat dengan Sisa Stok Angka Riil
       const menuData = [
-        { id: 1, name: 'Kopi Susu Nokat', category: 'coffee', price: 25000, available: true },
-        { id: 2, name: 'Premium Matcha', category: 'non-coffee', price: 28000, available: true },
-        { id: 3, name: 'Butter Croissant', category: 'pastry', price: 22000, available: true },
-        { id: 4, name: 'Americano Double Shot', category: 'coffee', price: 20000, available: true }
+        { id: 1, name: 'Mango Sunshine 🥭', category: 'coffee', price: 25000, stock: 25 },
+        { id: 2, name: 'Avocado Booster 🥑', category: 'non-coffee', price: 28000, stock: 15 },
+        { id: 3, name: 'Berry Acai Bowl 🍓', category: 'pastry', price: 35000, stock: 10 }
       ];
 
-      // State Finansial Global Admin
       let totalSoldItems = 0;
       let totalRevenue = 0;
       let isAdminLoggedIn = false;
-
-      // KASIR TEMPORARY CART (Keranjang belanja kasir saat ini)
       let currentCart = [];
 
       function switchTab(tabId) {
@@ -606,22 +427,26 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      // Sisi Pembeli klik Order biasa
       function orderItem(itemName) {
         const item = menuData.find(m => m.name === itemName);
         if (item) {
-          if (!item.available) {
-            alert(`Maaf, ${item.name} sedang habis.`);
+          if (item.stock <= 0) {
+            alert(`Yah! Stok ${item.name} sudah habis terjual untuk hari ini.`);
             return;
           }
+          item.stock -= 1;
           totalSoldItems += 1;
           totalRevenue += item.price;
-          alert(`Sukses order ${item.name}!`);
+          alert(`Sukses memesan segelas kesegaran ${item.name}! 🍹`);
           updateAdminDashboard();
+          if (isAdminLoggedIn) {
+            renderAdminTable();
+            renderPosMenu();
+          }
         }
       }
 
-      /* LOGIKA KASIR (INPUT PESANAN DAN HITUNG RUPIAH) */
+      /* PANEL MANAGEMENT KASIR (POS SYSTEM) */
       function renderPosMenu() {
         const posMenuContainer = document.getElementById('posMenuList');
         if(!posMenuContainer) return;
@@ -630,11 +455,12 @@
         menuData.forEach(item => {
           const btn = document.createElement('button');
           btn.className = 'pos-item-btn';
-          btn.disabled = !item.available;
+          btn.style.color = '#FFFFFF';
+          btn.disabled = item.stock <= 0;
           btn.innerHTML = `
             <strong>${item.name}</strong><br/>
-            <span style="font-size:0.8rem; opacity:0.8;">Rp ${item.price.toLocaleString('id-ID')}</span>
-            ${!item.available ? '<br/><span style="color:#f87171; font-size:0.75rem;">[HABIS]</span>' : ''}
+            <span style="color:var(--yellow-primary); font-size:0.85rem; font-weight:bold;">Rp ${item.price.toLocaleString('id-ID')}</span><br/>
+            <span style="font-size:0.75rem; opacity: 0.8;">Stok: ${item.stock} porsi</span>
           `;
           btn.onclick = () => addToCart(item.id);
           posMenuContainer.appendChild(btn);
@@ -646,6 +472,13 @@
         if (!item) return;
 
         const cartItem = currentCart.find(c => c.id === itemId);
+        const currentQtyInCart = cartItem ? cartItem.qty : 0;
+
+        if (currentQtyInCart >= item.stock) {
+          alert(`Stok tidak cukup! Buah segar di dapur untuk ${item.name} hanya sisa ${item.stock} porsi.`);
+          return;
+        }
+
         if (cartItem) {
           cartItem.qty += 1;
         } else {
@@ -659,7 +492,7 @@
         const totalContainer = document.getElementById('receiptTotalValue');
         
         if (currentCart.length === 0) {
-          itemsContainer.innerHTML = '(Belum ada pesanan)';
+          itemsContainer.innerHTML = '(Belum ada buah dipesan)';
           totalContainer.textContent = 'Rp 0';
           return;
         }
@@ -670,7 +503,7 @@
         currentCart.forEach(item => {
           const subtotal = item.price * item.qty;
           currentTotal += subtotal;
-          html += `<div>${item.qty}x ${item.name.padEnd(15, ' ')} Rp ${subtotal.toLocaleString('id-ID')}</div>`;
+          html += `<div style="font-family:monospace; font-size:0.85rem; margin-bottom:0.3rem;">${item.qty}x ${item.name.split(' ')[0].padEnd(10, ' ')} Rp ${subtotal.toLocaleString('id-ID')}</div>`;
         });
 
         itemsContainer.innerHTML = html;
@@ -684,40 +517,46 @@
 
       function checkoutReceipt() {
         if (currentCart.length === 0) {
-          alert('Keranjang belanja kasir masih kosong!');
+          alert('Keranjang struk belanja kasir masih kosong melompong!');
           return;
         }
 
         let grandTotal = 0;
         let itemsCount = 0;
 
-        currentCart.forEach(item => {
-          grandTotal += (item.price * item.qty);
-          itemsCount += item.qty;
+        currentCart.forEach(cartItem => {
+          const targetMenu = menuData.find(m => m.id === cartItem.id);
+          if (targetMenu) {
+            targetMenu.stock -= cartItem.qty; 
+          }
+          grandTotal += (cartItem.price * cartItem.qty);
+          itemsCount += cartItem.qty;
         });
 
-        // Simpan data kalkulasi ke data penjualan utama admin
         totalSoldItems += itemsCount;
         totalRevenue += grandTotal;
 
-        alert(`Pembayaran Sukses!\nTotal keseluruhan rupiah: Rp ${grandTotal.toLocaleString('id-ID')} telah dibukukan.`);
+        alert(`🎉 Pembayaran Berhasil!\nTotal keseluruhan: Rp ${grandTotal.toLocaleString('id-ID')} telah dibukukan kasir.`);
         
         clearCurrentReceipt();
         updateAdminDashboard();
+        renderAdminTable();
+        renderPosMenu();
       }
 
-      // Autentikasi Admin Area
       function promptAdminLogin() {
         if (isAdminLoggedIn) { switchTab('admin'); return; }
-        const password = prompt('Masukkan Kode Keamanan Staff NOKAT Cafe:');
+        const password = prompt('Masukkan Sandi Rahasia Kasir NOKAT Fresh:');
         if (password === 'nokat2026') {
           isAdminLoggedIn = true;
           document.getElementById('adminNavTab').style.display = 'inline-block';
-          document.getElementById('adminLoggedInAs').textContent = 'Barista / Admin';
+          document.getElementById('adminLoggedInAs').textContent = 'Juice Barista 🍉';
           updateAdminDashboard();
           renderAdminTable();
-          renderPosMenu(); // Panggil modul kasir
+          renderPosMenu();
           switchTab('admin');
+        } else if (password !== null) {
+          alert('Sandi salah! Gagal mengakses sistem kasir.');
         }
       }
 
@@ -728,7 +567,7 @@
       }
 
       function updateAdminDashboard() {
-        document.getElementById('adminTotalSold').textContent = totalSoldItems;
+        document.getElementById('adminTotalSold').textContent = totalSoldItems + " Gelas";
         document.getElementById('adminTotalRevenue').textContent = 'Rp ' + totalRevenue.toLocaleString('id-ID');
       }
 
@@ -736,30 +575,47 @@
         const tbody = document.getElementById('adminTableBody');
         if (!tbody) return;
         tbody.innerHTML = '';
+
         menuData.forEach(item => {
           const tr = document.createElement('tr');
+          const statusText = item.stock > 0 ? 'Segar Tersedia' : 'Habis / Re-stock';
+          const statusClass = item.stock > 0 ? 'in-stock' : 'out-of-stock';
+
           tr.innerHTML = `
             <td><strong>${item.name}</strong></td>
             <td><span class="category-badge">${item.category.toUpperCase()}</span></td>
-            <td>Rp ${item.price.toLocaleString('id-ID')}</td>
-            <td><span class="status-indicator ${item.available ? 'in-stock' : 'out-of-stock'}">${item.available ? 'Tersedia' : 'Habis'}</span></td>
-            <td><button class="action-toggle-btn" onclick="toggleStockStatus(${item.id})">Ubah Status</button></td>
+            <td style="color: var(--yellow-primary)">Rp ${item.price.toLocaleString('id-ID')}</td>
+            <td>
+              <input type="number" class="stock-input-mini" id="inputStock-${item.id}" value="${item.stock}" min="0" style="width:70px; color:#fff; text-align:center;" onchange="updateStockValueDirect(${item.id}, this.value)"> porsi
+            </td>
+            <td><span class="status-indicator ${statusClass}">${statusText}</span></td>
+            <td>
+              <button class="action-toggle-btn" onclick="setStockEmpty(${item.id})" style="color:#f87171; border-color:#f87171;">Kosongkan</button>
+            </td>
           `;
           tbody.appendChild(tr);
         });
       }
 
-      function toggleStockStatus(itemId) {
+      function updateStockValueDirect(itemId, newValue) {
         const item = menuData.find(m => m.id === itemId);
         if (item) {
-          item.available = !item.available;
+          const val = parseInt(newValue);
+          item.stock = isNaN(val) || val < 0 ? 0 : val;
           renderAdminTable();
-          renderPosMenu(); // Update tombol kasir jika dinonaktifkan stoknya
+          renderPosMenu(); 
         }
       }
 
-      function openLightbox(imgSrc) { document.getElementById('lightboxImg').src = imgSrc; document.getElementById('galleryLightbox').classList.add('show'); }
-      function closeLightbox() { document.getElementById('galleryLightbox').classList.remove('show'); }
+      function setStockEmpty(itemId) {
+        const item = menuData.find(m => m.id === itemId);
+        if (item) {
+          item.stock = 0;
+          renderAdminTable();
+          renderPosMenu();
+        }
+      }
+
       function toggleMobileMenu() { document.getElementById('mainNav').classList.toggle('mobile-active'); }
       function filterMenu(c) { const cards = document.querySelectorAll('.menu-card'); cards.forEach(card => { const cat = card.getAttribute('data-category'); card.style.display = (c === 'all' || cat === c) ? 'flex' : 'none'; }); }
     </script>
