@@ -404,54 +404,6 @@
       color: var(--text-muted);
     }
 
-    /* Input Menu Manual Kasir */
-    .input-bill-wrapper {
-      background: var(--bg-main);
-      border: 3px solid var(--text-main);
-      border-radius: 24px;
-      padding: 1.2rem;
-      margin-bottom: 1.5rem;
-      box-shadow: var(--fun-shadow-small);
-    }
-
-    .input-bill-wrapper h4 {
-      font-family: var(--font-header);
-      margin-bottom: 0.8rem;
-    }
-
-    .input-group-row {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .bill-input {
-      flex: 1;
-      padding: 0.6rem 1rem;
-      border: 2px solid var(--text-main);
-      border-radius: 14px;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      outline: none;
-    }
-
-    .bill-input:focus {
-      border-color: var(--green-accent);
-    }
-
-    .add-bill-btn {
-      background: var(--primary-yellow);
-      border: 2px solid var(--text-main);
-      font-family: var(--font-header);
-      font-weight: 600;
-      padding: 0 1.2rem;
-      border-radius: 14px;
-      cursor: pointer;
-    }
-
-    .add-bill-btn:hover {
-      background: var(--primary-yellow-hover);
-    }
-
     .receipt-box {
       border: 3px dashed var(--text-main);
       background: var(--bg-soft);
@@ -524,6 +476,23 @@
       background: var(--primary-yellow-light);
     }
 
+    /* Tombol Khusus Tambah Bill dari Tabel */
+    .bill-shortcut-btn {
+      background: var(--green-accent);
+      color: white;
+      border: 2px solid var(--text-main);
+      padding: 0.4rem 1rem;
+      border-radius: 12px;
+      font-family: var(--font-header);
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 2px 2px 0px var(--text-main);
+    }
+
+    .bill-shortcut-btn:hover {
+      background: #2d8c00;
+    }
+
     footer {
       background: var(--bg-main);
       border-top: 3px solid var(--text-main);
@@ -544,8 +513,6 @@
       .home-card-left { max-width: 350px; margin: 0 auto; }
       .home-title { font-size: 3rem; }
       .admin-summary-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .input-group-row { flex-direction: column; }
-      .add-bill-btn { padding: 0.6rem; }
     }
   </style>
 </head>
@@ -610,7 +577,7 @@
             <p class="menu-card-desc">Kombinasi lemon lokal segar dengan sensasi daun mint yang mendinginkan hari panasmu.</p>
             <div class="menu-card-footer">
               <span class="menu-rating">Rating: 4.9</span>
-              <button class="order-btn" onclick="tambahKeKeranjang('Lemon Mint Twist', 25000)">Tambah</button>
+              <button class="order-btn" onclick="tambahKeKeranjang('Lemon Mint Twist', 25000, false)">Tambah</button>
             </div>
           </div>
         </div>
@@ -628,7 +595,7 @@
             <p class="menu-card-desc">Ekstrak seledri stik, apel hijau, dan timun hidroponik untuk hidrasi dan detoksifikasi maksimal.</p>
             <div class="menu-card-footer">
               <span class="menu-rating">Rating: 4.8</span>
-              <button class="order-btn" onclick="tambahKeKeranjang('Pure Green Glow', 28000)">Tambah</button>
+              <button class="order-btn" onclick="tambahKeKeranjang('Pure Green Glow', 28000, false)">Tambah</button>
             </div>
           </div>
         </div>
@@ -646,7 +613,7 @@
             <p class="menu-card-desc">Campuran buah stroberi, superfood beri hitam, dan yogurt rendah lemak yang kaya vitamin C.</p>
             <div class="menu-card-footer">
               <span class="menu-rating">Rating: 5.0</span>
-              <button class="order-btn" onclick="tambahKeKeranjang('Berry Splash', 30000)">Tambah</button>
+              <button class="order-btn" onclick="tambahKeKeranjang('Berry Splash', 30000, false)">Tambah</button>
             </div>
           </div>
         </div>
@@ -676,30 +643,19 @@
 
       <div class="home-layout" style="grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start;">
         
-        <div>
-          <div class="input-bill-wrapper">
-            <h4>+ Input Menu Manual ke Bill</h4>
-            <div class="input-group-row">
-              <input type="text" id="manual-nama" class="bill-input" placeholder="Ketik nama menu/jus...">
-              <input type="number" id="manual-harga" class="bill-input" placeholder="Harga (Rp)...">
-              <button class="add-bill-btn" onclick="tambahMenuManual()">Masukkan ke Bill</button>
-            </div>
-          </div>
-
-          <div class="admin-table-wrapper">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Nama Menu Jus</th>
-                  <th>Sisa Stok (Cup)</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="tabel-stok-body">
-                </tbody>
-            </table>
-          </div>
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Nama Menu Jus</th>
+                <th>Sisa Stok</th>
+                <th>Pintasan Bill</th>
+                <th>Logistik</th>
+              </tr>
+            </thead>
+            <tbody id="tabel-stok-body">
+              </tbody>
+          </table>
         </div>
 
         <div class="receipt-box">
@@ -736,11 +692,11 @@
   </footer>
 
   <script>
-    // Database utama untuk manajemen produk asli
+    // Database utama untuk manajemen produk asli beserta harganya
     const databaseStok = {
-      "Lemon Mint Twist": { stok: 25 },
-      "Pure Green Glow": { stok: 8 },
-      "Berry Splash": { stok: 15 }
+      "Lemon Mint Twist": { stok: 25, harga: 25000 },
+      "Pure Green Glow": { stok: 8, harga: 28000 },
+      "Berry Splash": { stok: 15, harga: 30000 }
     };
 
     let keranjangBelanja = {};
@@ -754,17 +710,16 @@
 
       for (let namaJus in databaseStok) {
         let item = databaseStok[namaJus];
-        let statusBadgeColor = item.stok > 10 ? 'var(--green-accent)' : '#EF4444';
-        let statusText = item.stok > 10 ? 'Aman' : 'Menipis';
 
         let row = `
           <tr>
-            <td><strong>${namaJus}</strong></td>
+            <td>
+              <strong>${namaJus}</strong><br>
+              <small style="color: var(--text-muted)">Rp ${item.harga.toLocaleString('id-ID')}</small>
+            </td>
             <td><span>${item.stok}</span> Cup</td>
             <td>
-              <span class="profile-badge" style="background: ${statusBadgeColor}; border: 2px solid var(--text-main); font-size: 0.75rem; padding: 0.1rem 0.6rem; box-shadow: none; margin:0;">
-                ${statusText}
-              </span>
+              <button class="bill-shortcut-btn" onclick="tambahKeKeranjang('${namaJus}', ${item.harga}, true)">+ Ke Bill</button>
             </td>
             <td><button class="action-toggle-btn" onclick="restokItem('${namaJus}')">Isi +10</button></td>
           </tr>
@@ -773,53 +728,31 @@
       }
     }
 
-    // Memasukkan item belanja dari kartu produk depan
-    function tambahKeKeranjang(nama, harga) {
-      if (databaseStok[nama] && databaseStok[nama].stok <= 0) {
+    // Memasukkan item belanja dari kartu produk depan maupun tombol kasir
+    function tambahKeKeranjang(nama, harga, dariKasirLangsung) {
+      if (databaseStok[nama].stok <= 0) {
         alert("Maaf, ketersediaan bahan menu ini sedang habis!");
         return;
       }
 
       if (keranjangBelanja[nama]) {
-        if (databaseStok[nama] && keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
+        if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
           alert("Batas maksimal pesanan sesuai sisa ketersediaan stok!");
           return;
         }
         keranjangBelanja[nama].qty += 1;
       } else {
-        keranjangBelanja[nama] = { harga: harga, qty: 1, isManual: false };
+        keranjangBelanja[nama] = { harga: harga, qty: 1 };
       }
       
       updateTampilanStruk();
       
-      if(confirm(`Berhasil memasukkan 1 ${nama} ke struk belanja! Buka halaman kasir sekarang?`)) {
-        switchTab('kasir');
+      // Jika diklik dari halaman depan (bukan dari kasir langsung), tanyakan konfirmasi pindah halaman
+      if (!dariKasirLangsung) {
+        if(confirm(`Berhasil memasukkan 1 ${nama} ke struk belanja! Buka halaman kasir sekarang?`)) {
+          switchTab('kasir');
+        }
       }
-    }
-
-    /* FITUR BARU: LOGIKA MEMASUKKAN MENU MANUAL KASIR */
-    function tambahMenuManual() {
-      const namaInput = document.getElementById('manual-nama').value.trim();
-      const hargaInput = parseInt(document.getElementById('manual-harga').value);
-
-      if (namaInput === "" || isNaN(hargaInput) || hargaInput <= 0) {
-        alert("Mohon isi nama menu dan nominal harga valid terlebih dahulu!");
-        return;
-      }
-
-      // Jika produk sudah ada di keranjang, tambahkan jumlahnya (qty)
-      if (keranjangBelanja[namaInput]) {
-        keranjangBelanja[namaInput].qty += 1;
-      } else {
-        // Tandai isManual: true agar tidak crash mencari validasi databaseStok utama
-        keranjangBelanja[namaInput] = { harga: hargaInput, qty: 1, isManual: true };
-      }
-
-      updateTampilanStruk();
-
-      // Reset form input setelah sukses
-      document.getElementById('manual-nama').value = "";
-      document.getElementById('manual-harga').value = "";
     }
 
     // Mengubah daftar belanja dalam struk POS secara visual
@@ -843,7 +776,7 @@
 
         let itemRow = `
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--primary-yellow); padding-bottom: 4px;">
-            <span><strong>${item.qty}x</strong> ${nama} ${item.isManual ? '<small style="color:var(--text-muted)">(Kustom)</small>' : ''}</span>
+            <span><strong>${item.qty}x</strong> ${nama}</span>
             <span>Rp ${subTotal.toLocaleString('id-ID')}</span>
           </div>
         `;
@@ -866,12 +799,7 @@
 
       daftarBelanja.forEach(nama => {
         let item = keranjangBelanja[nama];
-        
-        // Potong stok hanya untuk produk yang terdaftar di database utama
-        if (!item.isManual && databaseStok[nama]) {
-          databaseStok[nama].stok -= item.qty;
-        }
-        
+        databaseStok[nama].stok -= item.qty;
         totalBelanjaSesiIni += (item.harga * item.qty);
         totalCupSesiIni += item.qty;
       });
