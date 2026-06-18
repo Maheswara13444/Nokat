@@ -4,16 +4,506 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fresh & Fun Juice Bar</title>
-  <link rel="stylesheet" href="style.css">
+  
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&display=swap');
+
+  <style>
+    :root {
+      /* Palet Warna Utama: Pop Healthy Yellow & Creamy Fresh */
+      --primary-yellow: #FFD23F;          
+      --primary-yellow-light: #FFF9E6;    
+      --primary-yellow-hover: #F4BA16;
+      --green-accent: #38B000;            
+      --green-accent-light: #EBF7E6;
+      
+      /* Bright & Fresh Candy Mode (Menghapus total kesan dark/industrial) */
+      --bg-main: #FFFFFF;                 
+      --bg-soft: #FFFDF9;                 
+      --card-bg: #FFFFFF;
+      --text-main: #2B2D42;               
+      --text-muted: #6C757D;
+      
+      /* Font Komik & Antarmuka Ceria */
+      --font-header: 'Fredoka', sans-serif;
+      --font-body: 'Quicksand', sans-serif;
+      
+      /* Efek Bayangan Tebal Datar (Neubrutalism) Tanpa Emoji */
+      --fun-shadow: 6px 6px 0px #2B2D42;
+      --fun-shadow-loop: 8px 8px 0px #2B2D42;
+      --fun-shadow-small: 4px 4px 0px #2B2D42;
+      --transition-speed: 0.25s;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--primary-yellow-light);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Pola Polkadot Halus Latar Belakang */
+    .bg-glow-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background-color: var(--primary-yellow-light);
+      background-image: radial-gradient(var(--primary-yellow) 1.5px, transparent 1.5px);
+      background-size: 30px 30px;
+      opacity: 0.4;
+    }
+
+    /* Header Berbentuk Kapsul Mengapung */
+    header {
+      position: fixed;
+      top: 1.5rem;
+      left: 5%;
+      width: 90%;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--bg-main);
+      border: 3px solid var(--text-main);
+      border-radius: 40px;
+      box-shadow: var(--fun-shadow);
+    }
+
+    .logo-text {
+      font-family: var(--font-header);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .logo-text span {
+      color: var(--green-accent);
+      background: var(--primary-yellow);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      border: 2px solid var(--text-main);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-tab {
+      padding: 0.6rem 1.2rem;
+      font-family: var(--font-header);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .nav-tab:hover {
+      background: var(--primary-yellow-light);
+      border-color: var(--text-main);
+    }
+
+    .nav-tab.active {
+      color: var(--text-main);
+      background: var(--primary-yellow);
+      border: 2px solid var(--text-main);
+      box-shadow: var(--fun-shadow-small);
+      transform: translate(-2px, -2px);
+    }
+
+    main {
+      padding-top: 8.5rem;
+      min-height: 100vh;
+    }
+
+    .section-container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto 4rem auto;
+    }
+
+    /* Tata Letak Beranda */
+    .home-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .home-card-left {
+      background: var(--bg-main);
+      border: 3px solid var(--text-main);
+      border-radius: 35px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--fun-shadow-loop);
+      transform: rotate(-1.5deg);
+      transition: transform var(--transition-speed);
+    }
+
+    .home-card-left:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .profile-frame {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 25px;
+      border: 3px solid var(--text-main);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-badge {
+      background: var(--green-accent);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      border: 3px solid var(--text-main);
+      font-family: var(--font-header);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: -1.5rem;
+      box-shadow: var(--fun-shadow-small);
+    }
+
+    .home-subtitle, .section-subtitle {
+      font-family: var(--font-header);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--green-accent);
+      background: var(--green-accent-light);
+      padding: 0.3rem 0.8rem;
+      border-radius: 10px;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+    }
+
+    .home-title {
+      font-family: var(--font-header);
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .home-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .menu-option-btn {
+      background: var(--primary-yellow);
+      border: 3px solid var(--text-main);
+      font-family: var(--font-header);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      padding: 0.8rem 2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: var(--fun-shadow-small);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .menu-option-btn:hover {
+      background: var(--primary-yellow-hover);
+      transform: translate(-2px, -2px);
+      box-shadow: var(--fun-shadow);
+    }
+
+    .section-title-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-family: var(--font-header);
+      font-size: 2.8rem;
+      color: var(--text-main);
+    }
+
+    .menu-filters {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-main);
+      border: 3px solid var(--text-main);
+      color: var(--text-main);
+      padding: 0.6rem 1.5rem;
+      border-radius: 20px;
+      font-family: var(--font-header);
+      font-weight: 600;
+      box-shadow: var(--fun-shadow-small);
+    }
+
+    /* Grid Kartu Menu Produk */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .menu-card {
+      background: var(--bg-main);
+      border: 3px solid var(--text-main);
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: var(--fun-shadow);
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    }
+
+    .menu-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--fun-shadow-loop);
+    }
+
+    .menu-card-img-wrapper {
+      position: relative;
+      border-bottom: 3px solid var(--text-main);
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .menu-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .menu-card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary-yellow);
+      color: var(--text-main);
+      border: 2px solid var(--text-main);
+      padding: 0.4rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-family: var(--font-header);
+      font-weight: 600;
+    }
+
+    .menu-card-content {
+      padding: 1.5rem;
+    }
+
+    .menu-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-card-title {
+      font-family: var(--font-header);
+      font-size: 1.3rem;
+      color: var(--text-main);
+    }
+
+    .menu-card-price {
+      font-family: var(--font-header);
+      font-size: 1.25rem;
+      color: var(--green-accent);
+    }
+
+    .menu-card-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .menu-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-rating {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .order-btn {
+      background: var(--primary-yellow);
+      border: 2px solid var(--text-main);
+      color: var(--text-main);
+      padding: 0.5rem 1.2rem;
+      border-radius: 15px;
+      font-family: var(--font-header);
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--text-main);
+    }
+
+    .order-btn:hover {
+      background: var(--primary-yellow-hover);
+    }
+
+    /* Komponen Sistem Kasir POS */
+    .admin-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .admin-stat-card {
+      background: var(--bg-main);
+      border: 3px solid var(--text-main);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: var(--fun-shadow-small);
+      text-align: center;
+    }
+
+    .admin-stat-value {
+      font-family: var(--font-header);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--green-accent);
+    }
+
+    .admin-stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .receipt-box {
+      border: 3px dashed var(--text-main);
+      background: var(--bg-soft);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: var(--fun-shadow-small);
+    }
+
+    .receipt-total {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-header);
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 1rem 0 0 0;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--green-accent);
+      color: white;
+      border: 3px solid var(--text-main);
+      padding: 1rem;
+      border-radius: 16px;
+      font-family: var(--font-header);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: var(--fun-shadow-small);
+    }
+
+    .admin-table-wrapper {
+      border: 3px solid var(--text-main);
+      border-radius: 24px;
+      background: var(--bg-main);
+      overflow: hidden;
+      box-shadow: var(--fun-shadow-small);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .admin-table th {
+      font-family: var(--font-header);
+      background: var(--primary-yellow);
+      color: var(--text-main);
+      border-bottom: 3px solid var(--text-main);
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .admin-table td {
+      padding: 1rem;
+      border-bottom: 2px solid var(--primary-yellow-light);
+    }
+
+    .action-toggle-btn {
+      background: var(--bg-main);
+      border: 2px solid var(--text-main);
+      padding: 0.4rem 1rem;
+      border-radius: 12px;
+      font-family: var(--font-header);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .action-toggle-btn:hover {
+      background: var(--primary-yellow-light);
+    }
+
+    footer {
+      background: var(--bg-main);
+      border-top: 3px solid var(--text-main);
+      padding: 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Penyesuaian Responsif Layar Kecil */
+    @media (max-width: 1024px) {
+      header { top: 0.5rem; width: 94%; left: 3%; }
+      .home-layout { grid-template-columns: 1fr !important; text-align: center; }
+      .home-card-left { max-width: 350px; margin: 0 auto; }
+      .home-title { font-size: 3rem; }
+      .admin-summary-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Efek Polkadot Latar Belakang Pop-Art -->
   <div class="bg-glow-container"></div>
 
-  <!-- Header / Kapsul Navigasi Mengapung -->
   <header>
-    <a href="#" class="logo-container">
+    <a href="#" class="logo-container" style="text-decoration: none;">
       <h1 class="logo-text">Juice<span>BAR</span></h1>
     </a>
     <nav class="nav-tabs">
@@ -23,21 +513,16 @@
     </nav>
   </header>
 
-  <!-- Konten Utama -->
   <main>
     
-    <!-- SECTION 1: HOME PAGE -->
     <section id="home-section" class="section-container home-layout">
-      <!-- Kartu Profil Kiri (Efek Miring Pop-Art) -->
       <div class="home-card-left">
         <div class="profile-frame">
-          <!-- Ganti src dengan foto outlet/jus andalan Anda -->
           <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=500&q=80" alt="Juice Bar Master" class="profile-img">
         </div>
         <span class="profile-badge">PILIHAN TERBAIK</span>
       </div>
 
-      <!-- Konten Teks Kanan -->
       <div class="home-text-right">
         <span class="home-subtitle">100% Organik & Segar</span>
         <h2 class="home-title">Energi Murni Untuk Harimu!</h2>
@@ -50,43 +535,35 @@
       </div>
     </section>
 
-    <!-- SECTION 2: MENU KARTU JUS -->
     <section id="menu-section" class="section-container" style="display: none;">
       <div class="section-title-wrapper">
         <span class="section-subtitle">Varian Rasa</span>
         <h2 class="section-title">Menu Favorit</h2>
       </div>
 
-      <!-- Filter Kategori Kembung -->
       <div class="menu-filters">
-        <button class="filter-btn active">Semua Jus</button>
-        <button class="filter-btn">Detox Hijau</button>
-        <button class="filter-btn">Citrus Segar</button>
-        <button class="filter-btn">Booster Energi</button>
+        <button class="filter-btn">Semua Kategori Jus</button>
       </div>
 
-      <!-- Grid Menu -->
       <div class="menu-grid">
-        <!-- Kartu Produk 1 -->
         <div class="menu-card">
           <div class="menu-card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" alt="Lemon Mint Juice" class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" alt="Lemon Mint Twist" class="menu-card-img">
             <span class="menu-card-badge">Terlaris</span>
           </div>
           <div class="menu-card-content">
             <div class="menu-card-header">
               <h3 class="menu-card-title">Lemon Mint Twist</h3>
-              <span class="menu-card-price">Rp 25k</span>
+              <span class="menu-card-price">Rp 25.000</span>
             </div>
             <p class="menu-card-desc">Kombinasi lemon lokal segar dengan sensasi daun mint yang mendinginkan hari panasmu.</p>
             <div class="menu-card-footer">
               <span class="menu-rating">Rating: 4.9</span>
-              <button class="order-btn">Tambah</button>
+              <button class="order-btn" onclick="tambahKeKeranjang('Lemon Mint Twist', 25000)">Tambah</button>
             </div>
           </div>
         </div>
 
-        <!-- Kartu Produk 2 -->
         <div class="menu-card">
           <div class="menu-card-img-wrapper">
             <img src="https://images.unsplash.com/photo-1622484211148-716598e04042?auto=format&fit=crop&w=500&q=80" alt="Pure Green Glow" class="menu-card-img">
@@ -95,153 +572,261 @@
           <div class="menu-card-content">
             <div class="menu-card-header">
               <h3 class="menu-card-title">Pure Green Glow</h3>
-              <span class="menu-card-price">Rp 28k</span>
+              <span class="menu-card-price">Rp 28.000</span>
             </div>
             <p class="menu-card-desc">Ekstrak seledri stik, apel hijau, dan timun hidroponik untuk hidrasi dan detoksifikasi maksimal.</p>
             <div class="menu-card-footer">
               <span class="menu-rating">Rating: 4.8</span>
-              <button class="order-btn">Tambah</button>
+              <button class="order-btn" onclick="tambahKeKeranjang('Pure Green Glow', 28000)">Tambah</button>
             </div>
           </div>
         </div>
 
-        <!-- Kartu Produk 3 -->
         <div class="menu-card">
           <div class="menu-card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=500&q=80" alt="Berry Splash Booster" class="menu-card-img">
+            <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=500&q=80" alt="Berry Splash" class="menu-card-img">
             <span class="menu-card-badge">Antioksidan</span>
           </div>
           <div class="menu-card-content">
             <div class="menu-card-header">
               <h3 class="menu-card-title">Berry Splash</h3>
-              <span class="menu-card-price">Rp 30k</span>
+              <span class="menu-card-price">Rp 30.000</span>
             </div>
             <p class="menu-card-desc">Campuran buah stroberi, superfood beri hitam, dan yogurt rendah lemak yang kaya vitamin C.</p>
             <div class="menu-card-footer">
               <span class="menu-rating">Rating: 5.0</span>
-              <button class="order-btn">Tambah</button>
+              <button class="order-btn" onclick="tambahKeKeranjang('Berry Splash', 30000)">Tambah</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SECTION 3: LIVE KASIR & MANAJEMEN STOK -->
     <section id="kasir-section" class="section-container" style="display: none;">
       <div class="section-title-wrapper">
         <span class="section-subtitle">Panel Operator</span>
         <h2 class="section-title">Kasir & Stok Realtime</h2>
       </div>
 
-      <!-- Ringkasan Statistik Bergaris Putus-putus -->
       <div class="admin-summary-grid">
         <div class="admin-stat-card">
-          <span class="admin-stat-value">Rp 1.420.000</span>
-          <span class="admin-stat-label">Pendapatan Hari Ini</span>
+          <span class="admin-stat-value" id="stat-pendapatan">Rp 0</span>
+          <span class="admin-stat-label">Pendapatan Sesi Ini</span>
         </div>
         <div class="admin-stat-card">
-          <span class="admin-stat-value">54 Cup</span>
+          <span class="admin-stat-value" id="stat-terjual">0 Cup</span>
           <span class="admin-stat-label">Total Jus Terjual</span>
         </div>
         <div class="admin-stat-card">
-          <span class="admin-stat-value">98%</span>
-          <span class="admin-stat-label">Ketersediaan Buah</span>
+          <span class="admin-stat-value">Aktif</span>
+          <span class="admin-stat-label">Status Sinkronisasi</span>
         </div>
       </div>
 
-      <!-- Tata Letak Utama Sistem Kasir -->
       <div class="home-layout" style="grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start;">
-        <!-- Tabel Pemantauan Kuantitas Stok -->
+        
         <div class="admin-table-wrapper">
           <table class="admin-table">
             <thead>
               <tr>
                 <th>Nama Menu Jus</th>
-                <th>Kategori</th>
                 <th>Sisa Stok (Cup)</th>
                 <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><strong>Lemon Mint Twist</strong></td>
-                <td>Citrus Segar</td>
-                <td>24</td>
-                <td><span class="profile-badge" style="background: var(--green-accent); border: 1px solid var(--text-main); font-size: 0.75rem; padding: 0.2rem 0.6rem;">Aman</span></td>
-                <td><button class="action-toggle-btn">Restok</button></td>
-              </tr>
-              <tr>
-                <td><strong>Pure Green Glow</strong></td>
-                <td>Detox Hijau</td>
-                <td>5</td>
-                <td><span class="profile-badge" style="background: #EF4444; border: 1px solid var(--text-main); font-size: 0.75rem; padding: 0.2rem 0.6rem;">Menipis</span></td>
-                <td><button class="action-toggle-btn" style="border-color: #EF4444; color: #EF4444;">Restok</button></td>
-              </tr>
-              <tr>
-                <td><strong>Berry Splash</strong></td>
-                <td>Booster Energi</td>
-                <td>18</td>
-                <td><span class="profile-badge" style="background: var(--green-accent); border: 1px solid var(--text-main); font-size: 0.75rem; padding: 0.2rem 0.6rem;">Aman</span></td>
-                <td><button class="action-toggle-btn">Restok</button></td>
-              </tr>
-            </tbody>
+            <tbody id="tabel-stok-body">
+              </tbody>
           </table>
         </div>
 
-        <!-- Kotak Nota Pesanan (Receipt Box) -->
         <div class="receipt-box">
           <div style="border-bottom: 2px dashed var(--text-main); padding-bottom: 1rem; margin-bottom: 1rem;">
-            <h3 font-family="var(--font-header)">Struk Transaksi #1024</h3>
-            <span style="font-size: 0.8rem; color: var(--text-muted);">Operator: Kasir-01</span>
+            <h3 style="font-family: var(--font-header);">Struk Transaksi</h3>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Mode POS Live Pop-Art</span>
           </div>
           
-          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.95rem;">
-            <div style="display: flex; justify-content: space-between;">
-              <span>2x Lemon Mint Twist</span>
-              <span>Rp 50.000</span>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <span>1x Berry Splash</span>
-              <span>Rp 30.000</span>
-            </div>
+          <div id="receipt-items-container" style="flex-grow: 1; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; min-height: 80px;">
+            <p style="color: var(--text-muted); text-align: center; font-style: italic;">Belum ada pesanan.</p>
           </div>
 
           <div class="receipt-total" style="border-top: 2px dashed var(--text-main); margin-top: 1rem;">
             <span>TOTAL:</span>
-            <span>Rp 80.000</span>
+            <span id="receipt-total-harga">Rp 0</span>
           </div>
 
-          <div class="pos-action-btns" style="margin-top: 1rem;">
-            <button class="submit-btn" style="padding: 0.8rem;">Cetak & Selesaikan</button>
+          <div class="pos-action-btns" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <button class="submit-btn" style="padding: 0.8rem; background: var(--text-main);" onclick="kosongkanKeranjang()">Batal</button>
+            <button class="submit-btn" style="padding: 0.8rem;" onclick="prosesTransaksi()">Bayar & Potong Stok</button>
           </div>
         </div>
+
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
   <footer>
     <div class="section-container footer-bottom" style="margin-bottom: 0;">
       <p>&copy; 2026 JuiceBAR Company. Dibuat dengan Energi Buah Segar.</p>
-      <span class="footer-admin-trigger" style="color: var(--text-muted); font-size: 0.85rem;">Status Sistem: Terhubung</span>
+      <span style="color: var(--text-muted); font-size: 0.85rem;">Status Sistem: Terhubung</span>
     </div>
   </footer>
 
-  <!-- Skenario Navigasi Tab Sederhana -->
   <script>
+    // Database utama untuk manajemen produk
+    const databaseStok = {
+      "Lemon Mint Twist": { stok: 25 },
+      "Pure Green Glow": { stok: 8 },
+      "Berry Splash": { stok: 15 }
+    };
+
+    let keranjangBelanja = {};
+    let totalPendapatanSesi = 0;
+    let totalJusTerjualSesi = 0;
+
+    // Memuat data stok ke tabel HTML secara realtime
+    function renderTabelStok() {
+      const tbody = document.getElementById('tabel-stok-body');
+      tbody.innerHTML = '';
+
+      for (let namaJus in databaseStok) {
+        let item = databaseStok[namaJus];
+        let statusBadgeColor = item.stok > 10 ? 'var(--green-accent)' : '#EF4444';
+        let statusText = item.stok > 10 ? 'Aman' : 'Menipis';
+
+        let row = `
+          <tr>
+            <td><strong>${namaJus}</strong></td>
+            <td><span>${item.stok}</span> Cup</td>
+            <td>
+              <span class="profile-badge" style="background: ${statusBadgeColor}; border: 2px solid var(--text-main); font-size: 0.75rem; padding: 0.1rem 0.6rem; box-shadow: none; margin:0;">
+                ${statusText}
+              </span>
+            </td>
+            <td><button class="action-toggle-btn" onclick="restokItem('${namaJus}')">Isi +10</button></td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      }
+    }
+
+    // Memasukkan item belanja dari kartu produk
+    function tambahKeKeranjang(nama, harga) {
+      if (databaseStok[nama].stok <= 0) {
+        alert("Maaf, ketersediaan bahan menu ini sedang habis!");
+        return;
+      }
+
+      if (keranjangBelanja[nama]) {
+        if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
+          alert("Batas maksimal pesanan sesuai sisa ketersediaan stok!");
+          return;
+        }
+        keranjangBelanja[nama].qty += 1;
+      } else {
+        keranjangBelanja[nama] = { harga: harga, qty: 1 };
+      }
+      
+      updateTampilanStruk();
+      
+      if(confirm(`Berhasil memasukkan 1 ${nama} ke struk belanja! Buka halaman kasir sekarang?`)) {
+        switchTab('kasir');
+      }
+    }
+
+    // Mengubah daftar belanja dalam struk POS
+    function updateTampilanStruk() {
+      const container = document.getElementById('receipt-items-container');
+      const totalText = document.getElementById('receipt-total-harga');
+      
+      container.innerHTML = '';
+      let kalkulasiTotal = 0;
+
+      if (Object.keys(keranjangBelanja).length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; font-style: italic;">Belum ada pesanan.</p>';
+        totalText.innerText = 'Rp 0';
+        return;
+      }
+
+      for (let nama in keranjangBelanja) {
+        let item = keranjangBelanja[nama];
+        let subTotal = item.harga * item.qty;
+        kalkulasiTotal += subTotal;
+
+        let itemRow = `
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--primary-yellow); padding-bottom: 4px;">
+            <span><strong>${item.qty}x</strong> ${nama}</span>
+            <span>Rp ${subTotal.toLocaleString('id-ID')}</span>
+          </div>
+        `;
+        container.innerHTML += itemRow;
+      }
+
+      totalText.innerText = 'Rp ' + kalkulasiTotal.toLocaleString('id-ID');
+    }
+
+    // Finalisasi Pembayaran & Pemotongan Sisa Stok Kuantitas Produk
+    function prosesTransaksi() {
+      let daftarBelanja = Object.keys(keranjangBelanja);
+      if (daftarBelanja.length === 0) {
+        alert("Belum ada menu yang Anda pilih!");
+        return;
+      }
+
+      let totalBelanjaSesiIni = 0;
+      let totalCupSesiIni = 0;
+
+      daftarBelanja.forEach(nama => {
+        let item = keranjangBelanja[nama];
+        databaseStok[nama].stok -= item.qty;
+        totalBelanjaSesiIni += (item.harga * item.qty);
+        totalCupSesiIni += item.qty;
+      });
+
+      totalPendapatanSesi += totalBelanjaSesiIni;
+      totalJusTerjualSesi += totalCupSesiIni;
+
+      document.getElementById('stat-pendapatan').innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+      document.getElementById('stat-terjual').innerText = totalJusTerjualSesi + ' Cup';
+
+      keranjangBelanja = {};
+      updateTampilanStruk();
+      renderTabelStok();
+      
+      alert("Transaksi Sukses! Catatan pendapatan diperbarui dan sisa stok dikurangi.");
+    }
+
+    function kosongkanKeranjang() {
+      keranjangBelanja = {};
+      updateTampilanStruk();
+    }
+
+    function restokItem(nama) {
+      databaseStok[nama].stok += 10;
+      renderTabelStok();
+    }
+
+    /* PENGATUR ALUR NAVIGASI & COCOK PASSWORD AKSES 
+       Password saat ini diatur: 1234
+    */
     function switchTab(tabName) {
-      // Sembunyikan semua bagian
+      if (tabName === 'kasir') {
+        const inputPassword = prompt("Masukkan Password Akses Operator Kasir:");
+        
+        if (inputPassword !== '1234') { 
+          alert("Akses Ditolak! Kata sandi salah.");
+          return; 
+        }
+      }
+
       document.getElementById('home-section').style.display = 'none';
       document.getElementById('menu-section').style.display = 'none';
       document.getElementById('kasir-section').style.display = 'none';
       
-      // Hapus kelas aktif dari semua tombol nav
       const tabs = document.querySelectorAll('.nav-tab');
       tabs.forEach(tab => tab.classList.remove('active'));
 
-      // Tampilkan bagian yang dipilih & aktifkan tombolnya
       if (tabName === 'home') {
         document.getElementById('home-section').style.display = 'grid';
         tabs[0].classList.add('active');
@@ -253,6 +838,10 @@
         tabs[2].classList.add('active');
       }
     }
+
+    window.onload = function() {
+      renderTabelStok();
+    };
   </script>
 </body>
 </html>
