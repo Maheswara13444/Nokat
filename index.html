@@ -522,7 +522,7 @@
 
   <header>
     <a href="#" class="logo-container" style="text-decoration: none;">
-      <img src="/Nokat_logo_fix.png" alt="Nokat Logo" style="height: 2.5rem; display: block;">
+      <img src="Nokat Logo 2 .png" alt="Nokat Logo" style="height: 2.5rem; display: block;">
     </a>
     <nav class="nav-tabs">
       <button id="btn-tab-home" class="nav-tab active" onclick="switchTab('home')">Beranda</button>
@@ -617,6 +617,31 @@
               <button class="order-btn" onclick="tambahKeKeranjang('Berry Splash', 30000, false)">Tambah</button>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about-section" class="section-container" style="display: none;">
+      <div class="section-title-wrapper">
+        <span class="section-subtitle">Tentang Kami</span>
+        <h2 class="section-title">About Nokat</h2>
+      </div>
+      <div class="home-layout" style="grid-template-columns: 1.2fr 1.8fr; gap: 3rem; align-items: start;">
+        <div class="home-card-left" style="transform: rotate(1.5deg);">
+          <div class="profile-frame">
+            <img src="assets/about_bg.png" alt="About Nokat" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=500&q=80'">
+          </div>
+          <span class="profile-badge">SEJAK 2026</span>
+        </div>
+        <div class="home-text-right">
+          <span class="home-subtitle">Kisah & Visi Kami</span>
+          <h3 style="font-family: var(--font-header); font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-main);">Menyajikan Kesegaran Terbaik</h3>
+          <p class="home-desc" style="margin-bottom: 1.5rem;">
+            Nokat Cafe berkomitmen untuk menghadirkan produk berkualitas tinggi yang diolah dari bahan alami pilihan. Kami percaya bahwa gaya hidup sehat dimulai dari apa yang kita konsumsi setiap hari.
+          </p>
+          <p class="home-desc" style="margin-bottom: 2rem;">
+            Dengan konsep modern pop-art dan atmosfer yang nyaman, kami ingin menjadi tempat terbaik bagi Anda untuk bersantai, bekerja, dan menikmati sajian segar murni berenergi.
+          </p>
         </div>
       </div>
     </section>
@@ -843,10 +868,12 @@
 
       document.getElementById('home-section').style.display = 'none';
       document.getElementById('menu-section').style.display = 'none';
+      document.getElementById('about-section').style.display = 'none';
       document.getElementById('kasir-section').style.display = 'none';
       
       document.getElementById('btn-tab-home').classList.remove('active');
       document.getElementById('btn-tab-menu').classList.remove('active');
+      document.getElementById('btn-tab-about').classList.remove('active');
       document.getElementById('btn-tab-kasir').classList.remove('active');
 
       if (tabName === 'home') {
@@ -855,6 +882,9 @@
       } else if (tabName === 'menu') {
         document.getElementById('menu-section').style.display = 'block';
         document.getElementById('btn-tab-menu').classList.add('active');
+      } else if (tabName === 'about') {
+        document.getElementById('about-section').style.display = 'block';
+        document.getElementById('btn-tab-about').classList.add('active');
       } else if (tabName === 'kasir') {
         document.getElementById('kasir-section').style.display = 'block';
         document.getElementById('btn-tab-kasir').classList.add('active');
