@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Fresh & Fun Juice Bar</title>
   
   <style>
@@ -493,6 +494,24 @@
       background: #2d8c00;
     }
 
+    /* Overlay tombol keluar khusus panel kasir */
+    .kasir-exit-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .kasir-exit-btn {
+      background: var(--text-main);
+      color: white;
+      border: 2px solid var(--text-main);
+      padding: 0.5rem 1.2rem;
+      border-radius: 14px;
+      font-family: var(--font-header);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
     footer {
       background: var(--bg-main);
       border-top: 3px solid var(--text-main);
@@ -528,7 +547,7 @@
       <button id="btn-tab-home" class="nav-tab active" onclick="switchTab('home')">Beranda</button>
       <button id="btn-tab-menu" class="nav-tab" onclick="switchTab('menu')">Menu Sehat</button>
       <button id="btn-tab-about" class="nav-tab" onclick="switchTab('about')">About us</button>
-      <button id="btn-tab-kasir" class="nav-tab" onclick="switchTab('kasir')">Live Kasir</button>
+      <!-- Tombol "Live Kasir" sengaja dihapus dari nav agar tidak ada pintu masuk yang terlihat publik -->
     </nav>
   </header>
 
@@ -646,67 +665,13 @@
       </div>
     </section>
 
-    <section id="kasir-section" class="section-container" style="display: none;">
-      <div class="section-title-wrapper">
-        <span class="section-subtitle">Panel Operator</span>
-        <h2 class="section-title">Kasir & Stok Realtime</h2>
-      </div>
-
-      <div class="admin-summary-grid">
-        <div class="admin-stat-card">
-          <span class="admin-stat-value" id="stat-pendapatan">Rp 0</span>
-          <span class="admin-stat-label">Pendapatan Sesi Ini</span>
-        </div>
-        <div class="admin-stat-card">
-          <span class="admin-stat-value" id="stat-terjual">0 Cup</span>
-          <span class="admin-stat-label">Total Jus Terjual</span>
-        </div>
-        <div class="admin-stat-card">
-          <span class="admin-stat-value" style="color: var(--text-main);">1234</span>
-          <span class="admin-stat-label">Kode Sandi Aktif</span>
-        </div>
-      </div>
-
-      <div class="home-layout" style="grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start;">
-        
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>Nama Menu Jus</th>
-                <th>Sisa Stok</th>
-                <th>Pintasan Bill</th>
-                <th>Logistik</th>
-              </tr>
-            </thead>
-            <tbody id="tabel-stok-body">
-              </tbody>
-          </table>
-        </div>
-
-        <div class="receipt-box">
-          <div style="border-bottom: 2px dashed var(--text-main); padding-bottom: 1rem; margin-bottom: 1rem;">
-            <h3 style="font-family: var(--font-header);">Struk Transaksi</h3>
-            <span style="font-size: 0.8rem; color: var(--text-muted);">Mode POS Live Pop-Art</span>
-          </div>
-          
-          <div id="receipt-items-container" style="flex-grow: 1; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; min-height: 80px;">
-            <p style="color: var(--text-muted); text-align: center; font-style: italic;">Belum ada pesanan.</p>
-          </div>
-
-          <div class="receipt-total" style="border-top: 2px dashed var(--text-main); margin-top: 1rem;">
-            <span>TOTAL:</span>
-            <span id="receipt-total-harga">Rp 0</span>
-          </div>
-
-          <div class="pos-action-btns" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
-            <button class="submit-btn" style="padding: 0.8rem; background: var(--text-main);" onclick="kosongkanKeranjang()">Batal</button>
-            <button class="submit-btn" style="padding: 0.8rem;" onclick="prosesTransaksi()">Bayar & Potong Stok</button>
-          </div>
-        </div>
-
-      </div>
-    </section>
+    <!--
+      PENTING: Section "kasir" SENGAJA TIDAK DITULIS DI SINI.
+      Seluruh markup panel kasir (tabel stok, struk, dsb.) dibuat secara dinamis
+      lewat JavaScript HANYA SETELAH password operator benar dimasukkan.
+      Dengan begitu, HTML yang dikirim ke browser / dirayapi mesin pencari
+      tidak pernah memuat konten kasir sama sekali.
+    -->
 
   </main>
 
@@ -728,10 +693,186 @@
     let keranjangBelanja = {};
     let totalPendapatanSesi = 0;
     let totalJusTerjualSesi = 0;
+    let kasirSectionDibuat = false; // penanda apakah panel kasir sudah pernah di-inject ke DOM
 
-    // Memuat data stok ke tabel HTML secara realtime
+    /* ===================== AREA PUBLIK ===================== */
+
+    function switchTab(tabName) {
+      // Daftar section publik saja. 'kasir' TIDAK ada di sini secara default.
+      const sectionMap = {
+        home: 'home-section',
+        menu: 'menu-section',
+        about: 'about-section'
+      };
+
+      Object.values(sectionMap).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      const kasirEl = document.getElementById('kasir-section');
+      if (kasirEl) kasirEl.style.display = 'none';
+
+      document.getElementById('btn-tab-home').classList.remove('active');
+      document.getElementById('btn-tab-menu').classList.remove('active');
+      document.getElementById('btn-tab-about').classList.remove('active');
+
+      if (tabName === 'home') {
+        document.getElementById('home-section').style.display = 'grid';
+        document.getElementById('btn-tab-home').classList.add('active');
+      } else if (tabName === 'menu') {
+        document.getElementById('menu-section').style.display = 'block';
+        document.getElementById('btn-tab-menu').classList.add('active');
+      } else if (tabName === 'about') {
+        document.getElementById('about-section').style.display = 'block';
+        document.getElementById('btn-tab-about').classList.add('active');
+      } else if (tabName === 'kasir' && kasirEl) {
+        // Hanya bisa ditampilkan jika sudah berhasil login (elemen sudah di-inject)
+        kasirEl.style.display = 'block';
+      }
+    }
+
+    function tambahKeKeranjang(nama, harga, dariKasirLangsung) {
+      if (databaseStok[nama].stok <= 0) {
+        alert("Maaf, ketersediaan bahan menu ini sedang habis!");
+        return;
+      }
+
+      if (keranjangBelanja[nama]) {
+        if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
+          alert("Batas maksimal pesanan sesuai sisa ketersediaan stok!");
+          return;
+        }
+        keranjangBelanja[nama].qty += 1;
+      } else {
+        keranjangBelanja[nama] = { harga: harga, qty: 1 };
+      }
+
+      updateTampilanStruk();
+
+      // Jika diklik dari halaman depan (publik), JANGAN tawarkan buka kasir.
+      // Cukup beri konfirmasi sederhana tanpa membocorkan keberadaan panel kasir.
+      if (!dariKasirLangsung) {
+        alert(`Berhasil memasukkan 1 ${nama} ke keranjang!`);
+      }
+    }
+
+    /* ===================== AREA OPERATOR (TERLINDUNGI) ===================== */
+
+    // Dipanggil lewat kombinasi tombol rahasia, BUKAN lewat tombol/link yang terlihat publik.
+    function bukaPanelKasir() {
+      const inputPassword = prompt("Masukkan Password Akses Operator Kasir:");
+      if (inputPassword !== '1234') {
+        alert("Akses Ditolak! Kata sandi salah atau tidak diisi.");
+        return;
+      }
+
+      if (!kasirSectionDibuat) {
+        injectKasirSection();
+        kasirSectionDibuat = true;
+      }
+
+      // Sembunyikan section publik lainnya, lalu tampilkan kasir
+      ['home-section', 'menu-section', 'about-section'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+      ['btn-tab-home', 'btn-tab-menu', 'btn-tab-about'].forEach(id => {
+        document.getElementById(id).classList.remove('active');
+      });
+
+      document.getElementById('kasir-section').style.display = 'block';
+      renderTabelStok();
+      updateTampilanStruk();
+    }
+
+    // Membangun seluruh markup panel kasir secara dinamis dan menyisipkannya ke <main>.
+    // Karena ini hanya dipanggil SETELAH password benar, konten kasir tidak pernah
+    // ada di HTML awal yang dikirim ke browser / mesin pencari.
+    function injectKasirSection() {
+      const main = document.querySelector('main');
+      const section = document.createElement('section');
+      section.id = 'kasir-section';
+      section.className = 'section-container';
+      section.style.display = 'none';
+
+      section.innerHTML = `
+        <div class="kasir-exit-bar">
+          <button class="kasir-exit-btn" onclick="tutupPanelKasir()">Tutup Panel Kasir</button>
+        </div>
+
+        <div class="section-title-wrapper">
+          <span class="section-subtitle">Panel Operator</span>
+          <h2 class="section-title">Kasir & Stok Realtime</h2>
+        </div>
+
+        <div class="admin-summary-grid">
+          <div class="admin-stat-card">
+            <span class="admin-stat-value" id="stat-pendapatan">Rp 0</span>
+            <span class="admin-stat-label">Pendapatan Sesi Ini</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-value" id="stat-terjual">0 Cup</span>
+            <span class="admin-stat-label">Total Jus Terjual</span>
+          </div>
+          <div class="admin-stat-card">
+            <span class="admin-stat-value" style="color: var(--text-main);">1234</span>
+            <span class="admin-stat-label">Kode Sandi Aktif</span>
+          </div>
+        </div>
+
+        <div class="home-layout" style="grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start;">
+
+          <div class="admin-table-wrapper">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nama Menu Jus</th>
+                  <th>Sisa Stok</th>
+                  <th>Pintasan Bill</th>
+                  <th>Logistik</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-stok-body"></tbody>
+            </table>
+          </div>
+
+          <div class="receipt-box">
+            <div style="border-bottom: 2px dashed var(--text-main); padding-bottom: 1rem; margin-bottom: 1rem;">
+              <h3 style="font-family: var(--font-header);">Struk Transaksi</h3>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Mode POS Live Pop-Art</span>
+            </div>
+
+            <div id="receipt-items-container" style="flex-grow: 1; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; min-height: 80px;">
+              <p style="color: var(--text-muted); text-align: center; font-style: italic;">Belum ada pesanan.</p>
+            </div>
+
+            <div class="receipt-total" style="border-top: 2px dashed var(--text-main); margin-top: 1rem;">
+              <span>TOTAL:</span>
+              <span id="receipt-total-harga">Rp 0</span>
+            </div>
+
+            <div class="pos-action-btns" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+              <button class="submit-btn" style="padding: 0.8rem; background: var(--text-main);" onclick="kosongkanKeranjang()">Batal</button>
+              <button class="submit-btn" style="padding: 0.8rem;" onclick="prosesTransaksi()">Bayar & Potong Stok</button>
+            </div>
+          </div>
+
+        </div>
+      `;
+
+      main.appendChild(section);
+    }
+
+    // Menutup panel kasir dan mengembalikan tampilan ke Beranda
+    function tutupPanelKasir() {
+      const kasirEl = document.getElementById('kasir-section');
+      if (kasirEl) kasirEl.style.display = 'none';
+      switchTab('home');
+    }
+
     function renderTabelStok() {
       const tbody = document.getElementById('tabel-stok-body');
+      if (!tbody) return;
       tbody.innerHTML = '';
 
       for (let namaJus in databaseStok) {
@@ -754,38 +895,11 @@
       }
     }
 
-    // Memasukkan item belanja dari kartu produk depan maupun tombol kasir
-    function tambahKeKeranjang(nama, harga, dariKasirLangsung) {
-      if (databaseStok[nama].stok <= 0) {
-        alert("Maaf, ketersediaan bahan menu ini sedang habis!");
-        return;
-      }
-
-      if (keranjangBelanja[nama]) {
-        if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
-          alert("Batas maksimal pesanan sesuai sisa ketersediaan stok!");
-          return;
-        }
-        keranjangBelanja[nama].qty += 1;
-      } else {
-        keranjangBelanja[nama] = { harga: harga, qty: 1 };
-      }
-      
-      updateTampilanStruk();
-      
-      // Jika diklik dari halaman depan (bukan dari kasir langsung), tanyakan konfirmasi pindah halaman
-      if (!dariKasirLangsung) {
-        if(confirm(`Berhasil memasukkan 1 ${nama} ke struk belanja! Buka halaman kasir sekarang?`)) {
-          switchTab('kasir');
-        }
-      }
-    }
-
-    // Mengubah daftar belanja dalam struk POS secara visual
     function updateTampilanStruk() {
       const container = document.getElementById('receipt-items-container');
       const totalText = document.getElementById('receipt-total-harga');
-      
+      if (!container || !totalText) return; // panel kasir belum dibuka/di-inject
+
       container.innerHTML = '';
       let kalkulasiTotal = 0;
 
@@ -812,7 +926,6 @@
       totalText.innerText = 'Rp ' + kalkulasiTotal.toLocaleString('id-ID');
     }
 
-    // Finalisasi Pembayaran & Pemotongan Sisa Stok Kuantitas Produk
     function prosesTransaksi() {
       let daftarBelanja = Object.keys(keranjangBelanja);
       if (daftarBelanja.length === 0) {
@@ -833,13 +946,15 @@
       totalPendapatanSesi += totalBelanjaSesiIni;
       totalJusTerjualSesi += totalCupSesiIni;
 
-      document.getElementById('stat-pendapatan').innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
-      document.getElementById('stat-terjual').innerText = totalJusTerjualSesi + ' Cup';
+      const statPendapatan = document.getElementById('stat-pendapatan');
+      const statTerjual = document.getElementById('stat-terjual');
+      if (statPendapatan) statPendapatan.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+      if (statTerjual) statTerjual.innerText = totalJusTerjualSesi + ' Cup';
 
       keranjangBelanja = {};
       updateTampilanStruk();
       renderTabelStok();
-      
+
       alert("Transaksi Sukses! Catatan pendapatan diperbarui.");
     }
 
@@ -853,47 +968,15 @@
       renderTabelStok();
     }
 
-    /* PENGATUR ALUR NAVIGASI & SISTEM GERBANG PASSWORD MUTLAK
-       Password bawaan: 1234
-    */
-    function switchTab(tabName) {
-      if (tabName === 'kasir') {
-        const inputPassword = prompt("Masukkan Password Akses Operator Kasir:");
-        
-        if (inputPassword !== '1234') { 
-          alert("Akses Ditolak! Kata sandi salah atau tidak diisi.");
-          return; 
-        }
+    /* ===================== GERBANG RAHASIA ===================== */
+    // Tidak ada tombol/link apa pun di UI publik yang mengarah ke kasir.
+    // Operator membuka panel dengan kombinasi tombol: Ctrl + Alt + K
+    document.addEventListener('keydown', function (e) {
+      if (e.ctrlKey && e.altKey && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        bukaPanelKasir();
       }
-
-      document.getElementById('home-section').style.display = 'none';
-      document.getElementById('menu-section').style.display = 'none';
-      document.getElementById('about-section').style.display = 'none';
-      document.getElementById('kasir-section').style.display = 'none';
-      
-      document.getElementById('btn-tab-home').classList.remove('active');
-      document.getElementById('btn-tab-menu').classList.remove('active');
-      document.getElementById('btn-tab-about').classList.remove('active');
-      document.getElementById('btn-tab-kasir').classList.remove('active');
-
-      if (tabName === 'home') {
-        document.getElementById('home-section').style.display = 'grid';
-        document.getElementById('btn-tab-home').classList.add('active');
-      } else if (tabName === 'menu') {
-        document.getElementById('menu-section').style.display = 'block';
-        document.getElementById('btn-tab-menu').classList.add('active');
-      } else if (tabName === 'about') {
-        document.getElementById('about-section').style.display = 'block';
-        document.getElementById('btn-tab-about').classList.add('active');
-      } else if (tabName === 'kasir') {
-        document.getElementById('kasir-section').style.display = 'block';
-        document.getElementById('btn-tab-kasir').classList.add('active');
-      }
-    }
-
-    window.onload = function() {
-      renderTabelStok();
-    };
+    });
   </script>
 </body>
 </html>
