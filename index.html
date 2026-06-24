@@ -621,10 +621,7 @@
       return document.getElementById('login-submit-btn');
     }
 
-    /* ======================================================
-       AREA PUBLIK
-    ====================================================== */
-
+ 
     const databaseStok = {
       "Lemon Mint Twist": { stok: 25, harga: 25000 },
       "Pure Green Glow":  { stok: 8,  harga: 28000 },
@@ -680,9 +677,7 @@
       if (!dariKasirLangsung) alert(`Berhasil memasukkan 1 ${nama} ke keranjang!`);
     }
 
-    /* ======================================================
-       PANEL KASIR — Hanya dibuka setelah hash cocok
-    ====================================================== */
+   
     function bukaKasirSetelahLogin() {
       if (!kasirSectionDibuat) {
         injectKasirSection();
