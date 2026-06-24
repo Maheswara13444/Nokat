@@ -441,11 +441,9 @@
   </footer>
 
 
-  <!-- ============================================================
+
        OVERLAY LOGIN KASIR
-       — Tidak ada password asli di sini, hanya nilai hash SHA-256.
-       — Hash tidak bisa di-reverse-engineer menjadi password asli.
-       ============================================================ -->
+  
   <div id="login-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Login Kasir">
     <div class="login-box">
       <div class="login-icon">🔐</div>
@@ -863,10 +861,7 @@
       renderTabelStok();
     }
 
-    /* ======================================================
-       GERBANG RAHASIA — Ctrl + Alt + K
-       Membuka overlay login (bukan langsung panel kasir)
-    ====================================================== */
+   
     document.addEventListener('keydown', function(e) {
       if (e.ctrlKey && e.altKey && (e.key === 'k' || e.key === 'K')) {
         e.preventDefault();
