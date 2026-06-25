@@ -896,6 +896,9 @@
     }
 
     async function selesaikanPesanan(event, orderId, produkText) {
+    console.log("TOMBOL SELESAIKAN DIKLIK");
+    console.log("ORDER ID:", orderId);
+    console.log("PRODUK:", produkText);
       const btn = event.currentTarget || event.target;
       if (!btn) return;
 
@@ -937,21 +940,33 @@
 
       alert("Pesanan sudah diantar!");
 
-      try {
-        await fetch(`${SUPABASE_URL}/rest/v1/id?id=eq.${orderId}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`
-          },
-          body: JSON.stringify({
-            produk: `[SELESAI] ${produkText}`
-          })
-        });
-      } catch (err) {
-        console.error("Update status error:", err);
-      }
+  try {
+
+  console.log("UPDATE STATUS ORDER:", orderId);
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/id?id=eq.${orderId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`
+      },
+      body: JSON.stringify({
+        status: "Selesai"
+      })
+    }
+  );
+
+  console.log("PATCH STATUS:", response.status);
+
+  const result = await response.text();
+  console.log("PATCH RESULT:", result);
+
+} catch (err) {
+  console.error("Update status error:", err);
+}
     }
 
     // Attach crucial functions to the global window object to ensure click handlers can reach them
@@ -1148,6 +1163,7 @@
           status
           )
         await simpanKeSupabase(
+          
           "Kasir",
           `${nama} x${item.qty}`,
           status
