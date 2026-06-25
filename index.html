@@ -555,6 +555,7 @@
           }
         );
 
+        console.log("HTTP Status:", response.status);
         const result = await response.text();
         console.log("Supabase:", result);
 
@@ -1140,10 +1141,16 @@
         totalSesi += item.harga * item.qty;
         cupSesi += item.qty;
 
+        const status = "Selesai";
+        console.log("KIRIM KE SUPABASE:",
+          "Kasir",
+          `${nama} x${item.qty}`,
+          status
+          )
         await simpanKeSupabase(
           "Kasir",
           `${nama} x${item.qty}`,
-          "Selesai"
+          status
         );
       }
 
