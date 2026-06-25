@@ -864,15 +864,13 @@
           gap: 0.3rem;
         `;
         
-        const dbCompleted = order.produk && order.produk.startsWith("[SELESAI]");
-        const isCompleted = dbCompleted || completedOrders.has(order.id);
-        
+      const dbCompleted = order.status === "Selesai";
+      const isCompleted = dbCompleted || completedOrders.has(order.id);
         const cleanProduct = (order.produk || '')
           .replace("[SELESAI] ", "")
           .replace(/'/g, "\\'");
         
-        const displayProductText = (order.produk || '').replace("[SELESAI] ", "");
-
+      const displayProductText = order.produk || '';
         const btnText = isCompleted ? "Selesai" : "Selesaikan";
         const btnDisabled = isCompleted ? "disabled" : "";
         const btnStyle = isCompleted 
