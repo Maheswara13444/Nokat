@@ -859,6 +859,7 @@
           flex-direction: column;
           gap: 0.3rem;
         `;
+        const cleanProduct = (order.produk || '').replace(/'/g, "\\'");
         card.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed var(--text-main); padding-bottom: 4px; margin-bottom: 4px;">
             <strong style="font-family: var(--font-header); font-size: 0.95rem; color: var(--green-accent);">${order.user || 'Customer'}</strong>
@@ -868,14 +869,53 @@
             ${order.produk || '-'}
           </div>
           <div style="display: flex; justify-content: flex-end; margin-top: 0.3rem;">
-            <button onclick="selesaikanPesanan(${order.id})" class="bill-shortcut-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; background: var(--green-accent);">Selesaikan</button>
+            <button onclick="selesaikanPesanan(event, ${order.id}, '${cleanProduct}')" class="bill-shortcut-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; background: var(--green-accent);">Selesaikan</button>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    async function selesaikanPesanan(orderId) {
+    async function selesaikanPesanan(event, orderId, produkText) {
+      const btn = event.currentTarget || event.target;
+      if (!btn) return;
+
+      btn.innerText = "Selesai";
+      btn.disabled = true;
+      btn.style.background = "#6c757d";
+      btn.style.borderColor = "#2B2D42";
+      btn.style.boxShadow = "none";
+      btn.style.transform = "none";
+      btn.style.cursor = "not-allowed";
+
+      let harga = 0;
+      if (produkText) {
+        if (produkText.includes("Lemon Mint Twist")) {
+          harga = 25000;
+        } else if (produkText.includes("Pure Green Glow")) {
+          harga = 28000;
+        } else if (produkText.includes("Berry Splash")) {
+          harga = 30000;
+        }
+      }
+
+      if (harga > 0) {
+        totalPendapatanSesi += harga;
+        totalJusTerjualSesi += 1;
+
+        const sp = document.getElementById('stat-pendapatan');
+        const st = document.getElementById('stat-terjual');
+
+        if (sp) {
+          sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+        }
+        if (st) {
+          st.innerText = totalJusTerjualSesi + ' Cup';
+        }
+      }
+
+      alert("Pesanan sudah diantar!");
+
       try {
         await fetch(`${SUPABASE_URL}/rest/v1/id?id=eq.${orderId}`, {
           method: "DELETE",
@@ -884,11 +924,18 @@
             "Authorization": `Bearer ${SUPABASE_KEY}`
           }
         });
-        tampilkanPesananCustomer();
       } catch (err) {
         console.error("Delete error:", err);
       }
     }
+
+    // Attach crucial functions to the global window object to ensure click handlers can reach them
+    window.selesaikanPesanan = selesaikanPesanan;
+    window.bukaCheckoutModal = bukaCheckoutModal;
+    window.tutupCheckoutModal = tutupCheckoutModal;
+    window.setPayMethod = setPayMethod;
+    window.kirimPesananLangsung = kirimPesananLangsung;
+    window.tampilkanPesananCustomer = tampilkanPesananCustomer;
 
     function mulaiPollingPesanan() {
       if (intervalSupabase) clearInterval(intervalSupabase);
