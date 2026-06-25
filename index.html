@@ -535,6 +535,7 @@
     const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH";
 
     async function simpanKeSupabase(user, produk,status) {
+       console.log("DIPANGGIL:", user, produk, status);
       try {
         const response = await fetch(
           `${SUPABASE_URL}/rest/v1/id`,
@@ -1141,7 +1142,8 @@
 
         await simpanKeSupabase(
           "Kasir",
-          `${nama} x${item.qty}`
+          `${nama} x${item.qty}`,
+          "Selesai"
         );
       }
 
