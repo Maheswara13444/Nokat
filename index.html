@@ -903,24 +903,53 @@
       btn.style.transform   = "none";
       btn.style.cursor      = "not-allowed";
 
-      let harga = 0;
+      // --- Deteksi nama menu & qty dari produkText (contoh: "Berry Splash x1 (QRIS)") ---
+      let namaMenu = null;
+      let harga    = 0;
+      let qty      = 1;
+
+      const menuMap = {
+        "Lemon Mint Twist": 25000,
+        "Pure Green Glow":  28000,
+        "Berry Splash":     30000
+      };
+
       if (produkText) {
-        if (produkText.includes("Lemon Mint Twist"))  harga = 25000;
-        else if (produkText.includes("Pure Green Glow")) harga = 28000;
-        else if (produkText.includes("Berry Splash"))    harga = 30000;
+        for (const [nama, h] of Object.entries(menuMap)) {
+          if (produkText.includes(nama)) {
+            namaMenu = nama;
+            harga    = h;
+            // Coba ambil qty dari pola "xN"
+            const qtyMatch = produkText.match(/x(\d+)/i);
+            if (qtyMatch) qty = parseInt(qtyMatch[1], 10);
+            break;
+          }
+        }
       }
 
+      // --- Masukkan ke keranjang POS secara otomatis ---
+      if (namaMenu && harga > 0) {
+        if (keranjangBelanja[namaMenu]) {
+          keranjangBelanja[namaMenu].qty += qty;
+        } else {
+          keranjangBelanja[namaMenu] = { harga, qty };
+        }
+        updateTampilanStruk(); // Refresh tampilan bill POS langsung
+      }
+
+      alert("Pesanan sudah diantar! Item ditambahkan ke Bill POS.");
+
+      // --- Update statistik sesi ---
       if (harga > 0) {
-        totalPendapatanSesi += harga;
-        totalJusTerjualSesi += 1;
+        totalPendapatanSesi += harga * qty;
+        totalJusTerjualSesi += qty;
         const sp = document.getElementById('stat-pendapatan');
         const st = document.getElementById('stat-terjual');
         if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
         if (st) st.innerText = totalJusTerjualSesi + ' Cup';
       }
 
-      alert("Pesanan sudah diantar!");
-
+      // --- Update status Supabase ---
       try {
         const response = await fetch(
           `${SUPABASE_URL}/rest/v1/id?id=eq.${orderId}`,
