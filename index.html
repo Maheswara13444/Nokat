@@ -883,25 +883,38 @@
           </div>
           <div style="font-size: 0.85rem; font-weight: bold; color: var(--text-main);">${displayProductText || '-'}</div>
           <div style="display: flex; justify-content: flex-end; margin-top: 0.3rem;">
-            <button onclick="selesaikanPesanan(event, ${order.id}, '${cleanProduct}')" ${btnDisabled} class="bill-shortcut-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; ${btnStyle}">${btnText}</button>
+            <button class="bill-shortcut-btn selesai-btn" ${btnDisabled}
+              data-order-id="${order.id}"
+              data-produk="${(order.produk || '').replace(/"/g, '&quot;')}"
+              style="padding: 0.2rem 0.5rem; font-size: 0.75rem; ${btnStyle}">${btnText}</button>
           </div>
         `;
         container.appendChild(card);
+
+        // Pasang event listener langsung ke elemen button — bukan lewat onclick string
+        if (!isCompleted) {
+          const btn = card.querySelector('.selesai-btn');
+          btn.addEventListener('click', function() {
+            selesaikanPesanan(order.id, order.produk || '');
+          });
+        }
       });
     }
 
-    async function selesaikanPesanan(event, orderId, produkText) {
-      const btn = event.currentTarget || event.target;
-      if (!btn) return;
+    async function selesaikanPesanan(orderId, produkText) {
+      // Cari tombol berdasarkan data-order-id
+      const btn = document.querySelector(`.selesai-btn[data-order-id="${orderId}"]`);
 
       completedOrders.add(orderId);
-      btn.innerText     = "Selesai";
-      btn.disabled      = true;
-      btn.style.background  = "#6c757d";
-      btn.style.borderColor = "#2B2D42";
-      btn.style.boxShadow   = "none";
-      btn.style.transform   = "none";
-      btn.style.cursor      = "not-allowed";
+      if (btn) {
+        btn.innerText         = "Selesai";
+        btn.disabled          = true;
+        btn.style.background  = "#6c757d";
+        btn.style.borderColor = "#2B2D42";
+        btn.style.boxShadow   = "none";
+        btn.style.transform   = "none";
+        btn.style.cursor      = "not-allowed";
+      }
 
       // --- Deteksi nama menu & qty dari produkText (contoh: "Berry Splash x1 (QRIS)") ---
       let namaMenu = null;
