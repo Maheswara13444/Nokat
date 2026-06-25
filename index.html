@@ -480,7 +480,36 @@
 
 
   <script>
-   
+    const SUPABASE_URL = "https://ayyndglgelrveglikssy.supabase.co";
+    const SUPABASE_KEY = "PASTE_PUBLISHABLE_KEY_KAMU";
+
+    async function simpanKeSupabase(user, produk) {
+      try {
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/id`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_KEY,
+              "Authorization": `Bearer ${SUPABASE_KEY}`,
+              "Prefer": "return=representation"
+            },
+            body: JSON.stringify({
+              user: user,
+              produk: produk
+            })
+          }
+        );
+
+        const result = await response.text();
+        console.log("Supabase:", result);
+
+      } catch (err) {
+        console.error("Supabase Error:", err);
+      }
+    }
+
     const HASH_PASSWORD_OPERATOR =
       '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
 
@@ -811,30 +840,53 @@
       totalText.innerText = 'Rp ' + total.toLocaleString('id-ID');
     }
 
-    function prosesTransaksi() {
+    async function prosesTransaksi() {
       const daftar = Object.keys(keranjangBelanja);
-      if (daftar.length === 0) { alert("Belum ada menu yang dipilih!"); return; }
 
-      let totalSesi = 0, cupSesi = 0;
-      daftar.forEach(nama => {
+      if (daftar.length === 0) {
+        alert("Belum ada menu yang dipilih!");
+        return;
+      }
+
+      let totalSesi = 0;
+      let cupSesi = 0;
+
+      for (const nama of daftar) {
         const item = keranjangBelanja[nama];
+
         databaseStok[nama].stok -= item.qty;
+
         totalSesi += item.harga * item.qty;
-        cupSesi   += item.qty;
-      });
+        cupSesi += item.qty;
+
+        await simpanKeSupabase(
+          "Kasir",
+          `${nama} x${item.qty}`
+        );
+      }
 
       totalPendapatanSesi += totalSesi;
       totalJusTerjualSesi += cupSesi;
 
       const sp = document.getElementById('stat-pendapatan');
       const st = document.getElementById('stat-terjual');
-      if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
-      if (st) st.innerText = totalJusTerjualSesi + ' Cup';
+
+      if (sp) {
+        sp.innerText =
+          'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+      }
+
+      if (st) {
+        st.innerText =
+          totalJusTerjualSesi + ' Cup';
+      }
 
       keranjangBelanja = {};
+
       updateTampilanStruk();
       renderTabelStok();
-      alert("Transaksi Sukses! Catatan pendapatan diperbarui.");
+
+      alert("Transaksi Sukses! Data tersimpan ke Supabase.");
     }
 
     function kosongkanKeranjang() {
