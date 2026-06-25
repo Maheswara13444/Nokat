@@ -1195,7 +1195,23 @@
     }
 
     function kosongkanKeranjang() {
+      // Kembalikan tombol "Di Keranjang" ke "Selesaikan" agar bisa dipilih ulang
+      for (const namaMenu of Object.keys(pendingOrderIds)) {
+        for (const info of pendingOrderIds[namaMenu]) {
+          const btn = document.querySelector(`.selesai-btn[data-order-id="${info.orderId}"]`);
+          if (btn) {
+            btn.innerText         = "Selesaikan";
+            btn.disabled          = false;
+            btn.style.background  = "var(--green-accent)";
+            btn.style.color       = "white";
+            btn.style.borderColor = "#2B2D42";
+            btn.style.boxShadow   = "2px 2px 0px var(--text-main)";
+            btn.style.cursor      = "pointer";
+          }
+        }
+      }
       keranjangBelanja = {};
+      pendingOrderIds  = {};
       updateTampilanStruk();
     }
 
