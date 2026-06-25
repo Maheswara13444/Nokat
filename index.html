@@ -157,51 +157,23 @@
       to   { transform: scale(1);   opacity: 1; }
     }
 
-    .login-icon {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
+    .login-icon { font-size: 3rem; margin-bottom: 0.5rem; }
 
-    .login-box h2 {
-      font-family: var(--font-header);
-      font-size: 1.6rem;
-      margin-bottom: 0.4rem;
-    }
+    .login-box h2 { font-family: var(--font-header); font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .login-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
 
-    .login-box p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .login-input-wrap {
-      position: relative;
-      margin-bottom: 1.2rem;
-    }
+    .login-input-wrap { position: relative; margin-bottom: 1.2rem; }
 
     #kasir-password-input {
-      width: 100%;
-      padding: 0.8rem 3rem 0.8rem 1rem;
-      border: 3px solid var(--text-main);
-      border-radius: 16px;
-      font-family: var(--font-header);
-      font-size: 1.1rem;
-      letter-spacing: 0.3rem;
-      text-align: center;
-      background: var(--primary-yellow-light);
-      outline: none;
+      width: 100%; padding: 0.8rem 3rem 0.8rem 1rem;
+      border: 3px solid var(--text-main); border-radius: 16px;
+      font-family: var(--font-header); font-size: 1.1rem;
+      letter-spacing: 0.3rem; text-align: center;
+      background: var(--primary-yellow-light); outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
-    #kasir-password-input:focus {
-      border-color: var(--green-accent);
-      box-shadow: 0 0 0 3px var(--green-accent-light);
-    }
-
-    #kasir-password-input.input-error {
-      border-color: #e63946;
-      animation: shake 0.4s ease;
-    }
+    #kasir-password-input:focus { border-color: var(--green-accent); box-shadow: 0 0 0 3px var(--green-accent-light); }
+    #kasir-password-input.input-error { border-color: #e63946; animation: shake 0.4s ease; }
 
     @keyframes shake {
       0%,100% { transform: translateX(0); }
@@ -211,71 +183,28 @@
       80%      { transform: translateX(6px); }
     }
 
-    .toggle-pw-btn {
-      position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--text-muted);
-    }
+    .toggle-pw-btn { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--text-muted); }
 
-    .login-error-msg {
-      color: #e63946;
-      font-size: 0.85rem;
-      margin-bottom: 0.8rem;
-      min-height: 1.2rem;
-      font-family: var(--font-header);
-    }
+    .login-error-msg { color: #e63946; font-size: 0.85rem; margin-bottom: 0.8rem; min-height: 1.2rem; font-family: var(--font-header); }
 
-    /* Indikator kekuatan percobaan */
-    .attempt-bar {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    .attempt-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      border: 2px solid var(--text-main);
-      background: var(--primary-yellow-light);
-      transition: background 0.3s;
-    }
-
+    .attempt-bar { display: flex; gap: 6px; justify-content: center; margin-bottom: 1rem; }
+    .attempt-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--text-main); background: var(--primary-yellow-light); transition: background 0.3s; }
     .attempt-dot.used { background: #e63946; }
 
     .login-submit-btn {
-      width: 100%;
-      background: var(--green-accent);
-      color: white;
-      border: 3px solid var(--text-main);
-      padding: 0.9rem;
-      border-radius: 16px;
-      font-family: var(--font-header);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: var(--fun-shadow-small);
-      transition: transform 0.1s, box-shadow 0.1s;
-      margin-bottom: 0.8rem;
+      width: 100%; background: var(--green-accent); color: white;
+      border: 3px solid var(--text-main); padding: 0.9rem; border-radius: 16px;
+      font-family: var(--font-header); font-size: 1rem; font-weight: 600;
+      cursor: pointer; box-shadow: var(--fun-shadow-small);
+      transition: transform 0.1s, box-shadow 0.1s; margin-bottom: 0.8rem;
     }
-
     .login-submit-btn:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: var(--fun-shadow); }
     .login-submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none; }
 
-    .login-cancel-btn {
-      background: none; border: none; color: var(--text-muted);
-      font-family: var(--font-body); font-size: 0.85rem;
-      cursor: pointer; text-decoration: underline;
-    }
+    .login-cancel-btn { background: none; border: none; color: var(--text-muted); font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; text-decoration: underline; }
 
-    /* Countdown lockout */
-    #lockout-msg {
-      color: #e63946;
-      font-family: var(--font-header);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
+    #lockout-msg { color: #e63946; font-family: var(--font-header); font-size: 0.9rem; margin-top: 0.5rem; }
 
-    /* ====== PANEL KASIR ====== */
     .admin-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
     .admin-stat-card { background: var(--bg-main); border: 3px solid var(--text-main); border-radius: 24px; padding: 1.5rem; box-shadow: var(--fun-shadow-small); text-align: center; }
     .admin-stat-value { font-family: var(--font-header); font-size: 2.2rem; font-weight: 700; color: var(--green-accent); }
@@ -303,129 +232,6 @@
     footer { background: var(--bg-main); border-top: 3px solid var(--text-main); padding: 2rem; margin-top: 4rem; }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
 
-    /* Print Modal / Invoice */
-    .print-modal {
-      position: fixed; inset: 0; z-index: 9998;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-    }
-
-    .print-invoice-box {
-      background: white;
-      border: 4px solid var(--text-main);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: var(--fun-shadow-loop);
-      width: 90%;
-      max-width: 400px;
-      max-height: 90vh;
-      overflow-y: auto;
-      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .invoice-header {
-      text-align: center;
-      border-bottom: 3px solid var(--text-main);
-      padding-bottom: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .invoice-header h2 {
-      font-family: var(--font-header);
-      font-size: 1.8rem;
-      color: var(--text-main);
-      margin-bottom: 0.3rem;
-    }
-
-    .invoice-header p {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .invoice-items {
-      margin-bottom: 1rem;
-    }
-
-    .invoice-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.6rem 0;
-      border-bottom: 1px dashed var(--primary-yellow);
-      font-size: 0.9rem;
-    }
-
-    .invoice-item-left {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .invoice-item-name {
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .invoice-item-qty {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .invoice-item-price {
-      font-weight: 600;
-      color: var(--green-accent);
-    }
-
-    .invoice-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-      border-top: 3px solid var(--text-main);
-      border-bottom: 3px solid var(--text-main);
-      font-family: var(--font-header);
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .invoice-buttons {
-      display: flex;
-      gap: 0.8rem;
-      justify-content: center;
-    }
-
-    .invoice-btn {
-      flex: 1;
-      padding: 0.8rem 1rem;
-      border: 3px solid var(--text-main);
-      border-radius: 12px;
-      font-family: var(--font-header);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .invoice-btn-print {
-      background: var(--green-accent);
-      color: white;
-    }
-
-    .invoice-btn-print:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: var(--fun-shadow-small);
-    }
-
-    .invoice-btn-close {
-      background: var(--primary-yellow);
-      color: var(--text-main);
-    }
-
-    .invoice-btn-close:hover {
-      background: var(--primary-yellow-hover);
-      transform: translate(-2px, -2px);
-      box-shadow: var(--fun-shadow-small);
-    }
-
     @media (max-width: 1024px) {
       header { top: 0.5rem; width: 94%; left: 3%; }
       .home-layout { grid-template-columns: 1fr !important; text-align: center; }
@@ -434,7 +240,6 @@
       .admin-summary-grid { grid-template-columns: 1fr; gap: 1rem; }
     }
 
-    /* Modal Checkout & Payment Methods styles */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 9999;
       display: flex; align-items: center; justify-content: center;
@@ -443,22 +248,32 @@
     .pay-method-btn {
       background: var(--bg-main); border: 2px solid var(--text-main);
       padding: 0.5rem; border-radius: 12px; font-family: var(--font-header);
-      font-weight: 600; cursor: pointer; text-align: center;
-      transition: all 0.2s;
+      font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s;
     }
     .pay-method-btn:hover { background: var(--primary-yellow-light); }
     .pay-method-btn.active { background: var(--primary-yellow); border-color: var(--text-main); box-shadow: 2px 2px 0px var(--text-main); }
 
-    @media print {
-      body { background: white; }
-      .bg-glow-container { display: none; }
-      header { display: none; }
-      footer { display: none; }
-      main { padding-top: 0; }
-      .print-modal { position: static; background: transparent; backdrop-filter: none; }
-      .print-invoice-box { border: none; box-shadow: none; max-height: none; animation: none; width: 100%; max-width: 100%; }
-      .invoice-buttons { display: none; }
+    /* ===== STRUK MODAL ===== */
+    #struk-modal .struk-paper {
+      background: #fff;
+      border: 3px solid var(--text-main);
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: var(--fun-shadow-loop);
+      font-family: var(--font-body);
+      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
+    .struk-header { text-align: center; border-bottom: 2px dashed var(--text-main); padding-bottom: 1rem; margin-bottom: 1rem; }
+    .struk-header h2 { font-family: var(--font-header); font-size: 1.8rem; }
+    .struk-header p { color: var(--text-muted); font-size: 0.85rem; }
+    .struk-row { display: flex; justify-content: space-between; padding: 0.4rem 0; font-size: 0.95rem; border-bottom: 1px dashed #eee; }
+    .struk-row:last-child { border-bottom: none; }
+    .struk-total-row { display: flex; justify-content: space-between; font-family: var(--font-header); font-size: 1.2rem; font-weight: 700; padding-top: 0.8rem; border-top: 2px dashed var(--text-main); margin-top: 0.8rem; }
+    .struk-btn-row { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
+    .struk-print-btn { flex: 1; background: var(--green-accent); color: white; border: 3px solid var(--text-main); padding: 0.7rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; box-shadow: var(--fun-shadow-small); }
+    .struk-close-btn { flex: 1; background: var(--primary-yellow); color: var(--text-main); border: 3px solid var(--text-main); padding: 0.7rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; box-shadow: var(--fun-shadow-small); }
   </style>
 </head>
 <body>
@@ -591,7 +406,7 @@
     </div>
   </footer>
 
-  <!-- Modal Checkout Langsung -->
+  <!-- Modal Checkout -->
   <div id="checkout-modal" style="display:none;" class="modal-overlay">
     <div class="login-box" style="max-width: 450px;">
       <h2 id="checkout-title" style="margin-bottom: 0.2rem;">Pesan Menu</h2>
@@ -624,34 +439,53 @@
     </div>
   </div>
 
-  <!-- Modal Print Invoice -->
-  <div id="print-modal" style="display:none;" class="print-modal">
-    <div class="print-invoice-box">
-      <div class="invoice-header">
+  <!-- ===== MODAL STRUK ===== -->
+  <div id="struk-modal" style="display:none;" class="modal-overlay">
+    <div class="struk-paper">
+      <div class="struk-header">
         <h2>NOKAT</h2>
         <p>Juice Bar Pop-Art</p>
+        <p id="struk-datetime" style="margin-top: 0.3rem; font-size: 0.8rem;"></p>
       </div>
-      <div class="invoice-items" id="invoice-items-container">
-        <!-- Items akan diisi via JavaScript -->
+
+      <div style="margin-bottom: 0.5rem;">
+        <div class="struk-row">
+          <span style="color: var(--text-muted);">Pelanggan</span>
+          <span id="struk-nama" style="font-weight: 700;"></span>
+        </div>
+        <div class="struk-row">
+          <span style="color: var(--text-muted);">Pembayaran</span>
+          <span id="struk-metode" style="font-weight: 700;"></span>
+        </div>
+        <div class="struk-row">
+          <span style="color: var(--text-muted);">No. Order</span>
+          <span id="struk-orderid" style="font-weight: 700;"></span>
+        </div>
       </div>
-      <div class="invoice-total">
+
+      <div id="struk-items" style="margin: 0.8rem 0;"></div>
+
+      <div class="struk-total-row">
         <span>TOTAL:</span>
-        <span id="invoice-total-amount">Rp 0</span>
+        <span id="struk-total" style="color: var(--green-accent);">Rp 0</span>
       </div>
-      <div class="invoice-buttons">
-        <button class="invoice-btn invoice-btn-print" onclick="printInvoice()">🖨️ Cetak</button>
-        <button class="invoice-btn invoice-btn-close" onclick="tutupPrintModal()">Tutup</button>
+
+      <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">Terima kasih sudah memesan! 🍃</p>
+
+      <div class="struk-btn-row">
+        <button class="struk-print-btn" onclick="window.print()">🖨 Cetak</button>
+        <button class="struk-close-btn" onclick="tutupStrukModal()">Tutup</button>
       </div>
     </div>
   </div>
-  
+
+  <!-- Login Overlay -->
   <div id="login-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Login Kasir">
     <div class="login-box">
       <div class="login-icon">🔐</div>
       <h2>Akses Operator</h2>
       <p>Masukkan kata sandi kasir untuk melanjutkan</p>
 
-      <!-- Indikator sisa percobaan (3 titik = 3 kesempatan) -->
       <div class="attempt-bar" id="attempt-dots">
         <div class="attempt-dot" id="dot-1"></div>
         <div class="attempt-dot" id="dot-2"></div>
@@ -685,8 +519,11 @@
     const SUPABASE_URL = "https://ayyndglgelrveglikssy.supabase.co";
     const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH";
 
-    async function simpanKeSupabase(user, produk,status) {
-       console.log("DIPANGGIL:", user, produk, status);
+    /* ============================================================
+       FIX #1: simpanKeSupabase — sekarang selalu kirim status
+    ============================================================ */
+    async function simpanKeSupabase(user, produk, status = "Menunggu") {
+      console.log("DIPANGGIL:", user, produk, status);
       try {
         const response = await fetch(
           `${SUPABASE_URL}/rest/v1/id`,
@@ -698,39 +535,29 @@
               "Authorization": `Bearer ${SUPABASE_KEY}`,
               "Prefer": "return=representation"
             },
-            body: JSON.stringify({
-              user: user,
-              produk: produk,
-              status: status
-            })
+            body: JSON.stringify({ user, produk, status })
           }
         );
-
-        console.log("HTTP Status:", response.status);
-        const result = await response.text();
-        console.log("Supabase:", result);
-
+        const result = await response.json();
+        console.log("Supabase insert result:", result);
+        // Kembalikan record yang baru dibuat (array dengan 1 item)
+        return Array.isArray(result) ? result[0] : null;
       } catch (err) {
         console.error("Supabase Error:", err);
+        return null;
       }
     }
 
     const HASH_PASSWORD_OPERATOR =
       '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
 
-    /* Konfigurasi keamanan */
-    const MAKS_PERCOBAAN   = 3;    // Jumlah percobaan sebelum dikunci
-    const DURASI_LOCKOUT_S = 30;   // Detik dikunci setelah gagal 3x
+    const MAKS_PERCOBAAN   = 3;
+    const DURASI_LOCKOUT_S = 30;
 
-    /* State percobaan (hanya di memori, reset saat reload) */
     let jumlahCobaSalah  = 0;
     let sedangDikunci    = false;
     let timerLockout     = null;
 
-    /* ======================================================
-       FUNGSI HASH — Web Crypto API bawaan browser
-       Tidak butuh library eksternal.
-    ====================================================== */
     async function sha256(teks) {
       const encoder = new TextEncoder();
       const data    = encoder.encode(teks);
@@ -739,9 +566,6 @@
       return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    /* ======================================================
-       VERIFIKASI PASSWORD — Dibandingkan dengan hash, bukan plaintext
-    ====================================================== */
     async function verifikasiPassword() {
       if (sedangDikunci) return;
 
@@ -755,32 +579,25 @@
         return;
       }
 
-      /* Hash input pengguna lalu bandingkan — password asli TIDAK pernah dibandingkan langsung */
       const hashInput = await sha256(nilaiInput);
 
       if (hashInput === HASH_PASSWORD_OPERATOR) {
-        /* ✅ BERHASIL */
         jumlahCobaSalah = 0;
         resetDots();
         errorEl.textContent = '';
         tutupLoginOverlay();
         bukaKasirSetelahLogin();
-
       } else {
-        /* ❌ GAGAL */
         jumlahCobaSalah++;
         inputEl.value = '';
 
-        /* Animasi getar pada input */
         inputEl.classList.add('input-error');
         setTimeout(() => inputEl.classList.remove('input-error'), 500);
 
-        /* Tandai titik percobaan */
         const dotEl = document.getElementById(`dot-${jumlahCobaSalah}`);
         if (dotEl) dotEl.classList.add('used');
 
         if (jumlahCobaSalah >= MAKS_PERCOBAAN) {
-          /* Kunci akses sementara */
           aktifkanLockout(submitEl, inputEl, errorEl);
         } else {
           const sisa = MAKS_PERCOBAAN - jumlahCobaSalah;
@@ -789,9 +606,6 @@
       }
     }
 
-    /* ======================================================
-       LOCKOUT — Blokir sementara setelah terlalu banyak gagal
-    ====================================================== */
     function aktifkanLockout(submitEl, inputEl, errorEl) {
       sedangDikunci = true;
       submitEl.disabled = true;
@@ -800,13 +614,11 @@
 
       let sisaDetik = DURASI_LOCKOUT_S;
       const lockoutEl = document.getElementById('lockout-msg');
-
       lockoutEl.textContent = `Akses dikunci! Coba lagi dalam ${sisaDetik} detik.`;
 
       timerLockout = setInterval(() => {
         sisaDetik--;
         lockoutEl.textContent = `Akses dikunci! Coba lagi dalam ${sisaDetik} detik.`;
-
         if (sisaDetik <= 0) {
           clearInterval(timerLockout);
           sedangDikunci         = false;
@@ -836,7 +648,6 @@
       inp.type = inp.type === 'password' ? 'text' : 'password';
     }
 
-  
     function bukaLoginOverlay() {
       document.getElementById('login-overlay').style.display = 'flex';
       setTimeout(() => document.getElementById('kasir-password-input').focus(), 100);
@@ -847,15 +658,15 @@
       document.getElementById('kasir-password-input').value  = '';
       document.getElementById('login-error-msg').textContent = '';
       if (timerLockout) { clearInterval(timerLockout); }
-      sedangDikunci   = false;
-      submitEl_ref()  && (submitEl_ref().disabled = false);
+      sedangDikunci = false;
+      const s = submitEl_ref();
+      if (s) s.disabled = false;
     }
 
     function submitEl_ref() {
       return document.getElementById('login-submit-btn');
     }
 
- 
     const databaseStok = {
       "Lemon Mint Twist": { stok: 25, harga: 25000 },
       "Pure Green Glow":  { stok: 8,  harga: 28000 },
@@ -911,19 +722,18 @@
       if (!dariKasirLangsung) alert(`Berhasil memasukkan 1 ${nama} ke keranjang!`);
     }
 
-   
-    let intervalSupabase = null;
+    let intervalSupabase  = null;
     let selectedPayMethod = "QRIS";
-    let checkoutItem = "";
-    let checkoutHarga = 0;
+    let checkoutItem      = "";
+    let checkoutHarga     = 0;
     const completedOrders = new Set();
 
     function bukaCheckoutModal(nama, harga) {
-      checkoutItem = nama;
+      checkoutItem  = nama;
       checkoutHarga = harga;
-      document.getElementById('checkout-title').innerText = `Pesan ${nama}`;
+      document.getElementById('checkout-title').innerText    = `Pesan ${nama}`;
       document.getElementById('checkout-subtitle').innerText = `Total: Rp ${harga.toLocaleString('id-ID')}`;
-      document.getElementById('checkout-name-input').value = "";
+      document.getElementById('checkout-name-input').value   = "";
       setPayMethod('QRIS');
       document.getElementById('checkout-modal').style.display = 'flex';
     }
@@ -936,15 +746,14 @@
       selectedPayMethod = method;
       document.querySelectorAll('.pay-method-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById(`pay-btn-${method}`).classList.add('active');
-      
       const qrisContainer = document.getElementById('qris-display-container');
-      if (method === 'QRIS') {
-        qrisContainer.style.display = 'flex';
-      } else {
-        qrisContainer.style.display = 'none';
-      }
+      qrisContainer.style.display = method === 'QRIS' ? 'flex' : 'none';
     }
 
+    /* ============================================================
+       FIX #2: kirimPesananLangsung — simpan status "Menunggu",
+       ambil ID yang dikembalikan Supabase, lalu tampilkan struk.
+    ============================================================ */
     async function kirimPesananLangsung() {
       const nama = document.getElementById('checkout-name-input').value.trim();
       if (!nama) {
@@ -958,16 +767,65 @@
       }
 
       databaseStok[checkoutItem].stok -= 1;
-      
-      await simpanKeSupabase(nama, `${checkoutItem} x1 (${selectedPayMethod})`);
+
+      // Kirim ke Supabase dengan status "Menunggu" dan tangkap hasil (termasuk id)
+      const record = await simpanKeSupabase(
+        nama,
+        `${checkoutItem} x1 (${selectedPayMethod})`,
+        "Menunggu"
+      );
 
       tutupCheckoutModal();
-      alert(`Pembayaran Berhasil! Pesanan ${checkoutItem} telah dikirim ke Kasir.`);
 
-      if (document.getElementById('kasir-section') && document.getElementById('kasir-section').style.display !== 'none') {
+      // Tampilkan struk dengan data lengkap
+      bukaStrukModal({
+        nama:    nama,
+        produk:  checkoutItem,
+        harga:   checkoutHarga,
+        metode:  selectedPayMethod,
+        orderId: record ? record.id : "—"
+      });
+
+      // Refresh panel kasir jika sedang terbuka
+      if (document.getElementById('kasir-section') &&
+          document.getElementById('kasir-section').style.display !== 'none') {
         renderTabelStok();
         tampilkanPesananCustomer();
       }
+    }
+
+    /* ============================================================
+       FIX #3: bukaStrukModal — isi semua field struk dengan benar
+    ============================================================ */
+    function bukaStrukModal({ nama, produk, harga, metode, orderId }) {
+      // Tanggal & waktu
+      const now = new Date();
+      document.getElementById('struk-datetime').innerText =
+        now.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' }) +
+        ' · ' +
+        now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+
+      // Info pelanggan
+      document.getElementById('struk-nama').innerText    = nama;
+      document.getElementById('struk-metode').innerText  = metode;
+      document.getElementById('struk-orderid').innerText = '#' + orderId;
+
+      // Item pesanan
+      document.getElementById('struk-items').innerHTML = `
+        <div class="struk-row">
+          <span>${produk} x1</span>
+          <span>Rp ${harga.toLocaleString('id-ID')}</span>
+        </div>
+      `;
+
+      // Total
+      document.getElementById('struk-total').innerText = 'Rp ' + harga.toLocaleString('id-ID');
+
+      document.getElementById('struk-modal').style.display = 'flex';
+    }
+
+    function tutupStrukModal() {
+      document.getElementById('struk-modal').style.display = 'none';
     }
 
     async function ambilPesananDariSupabase() {
@@ -975,15 +833,13 @@
         const response = await fetch(
           `${SUPABASE_URL}/rest/v1/id?select=*&order=id.desc&limit=10`,
           {
-            method: "GET",
             headers: {
               "apikey": SUPABASE_KEY,
               "Authorization": `Bearer ${SUPABASE_KEY}`
             }
           }
         );
-        const data = await response.json();
-        return data;
+        return await response.json();
       } catch (err) {
         console.error("Fetch Supabase Error:", err);
         return [];
@@ -1005,27 +861,19 @@
       data.forEach(order => {
         const card = document.createElement('div');
         card.style.cssText = `
-          background: var(--bg-soft);
-          border: 2px solid var(--text-main);
-          border-radius: 12px;
-          padding: 0.8rem;
-          box-shadow: 3px 3px 0px var(--text-main);
-          display: flex;
-          flex-direction: column;
-          gap: 0.3rem;
+          background: var(--bg-soft); border: 2px solid var(--text-main);
+          border-radius: 12px; padding: 0.8rem; box-shadow: 3px 3px 0px var(--text-main);
+          display: flex; flex-direction: column; gap: 0.3rem;
         `;
-        
-      const dbCompleted = order.status === "Selesai";
-      const isCompleted = dbCompleted || completedOrders.has(order.id);
-        const cleanProduct = (order.produk || '')
-          .replace("[SELESAI] ", "")
-          .replace(/'/g, "\\'");
-        
-      const displayProductText = order.produk || '';
-        const btnText = isCompleted ? "Selesai" : "Selesaikan";
+
+        const dbCompleted = order.status === "Selesai";
+        const isCompleted = dbCompleted || completedOrders.has(order.id);
+        const cleanProduct = (order.produk || '').replace(/'/g, "\\'");
+        const displayProductText = order.produk || '';
+        const btnText     = isCompleted ? "Selesai" : "Selesaikan";
         const btnDisabled = isCompleted ? "disabled" : "";
-        const btnStyle = isCompleted 
-          ? "background: #6c757d; border-color: #2B2D42; box-shadow: none; transform: none; cursor: not-allowed;" 
+        const btnStyle    = isCompleted
+          ? "background: #6c757d; border-color: #2B2D42; box-shadow: none; transform: none; cursor: not-allowed;"
           : "background: var(--green-accent);";
 
         card.innerHTML = `
@@ -1033,9 +881,7 @@
             <strong style="font-family: var(--font-header); font-size: 0.95rem; color: var(--green-accent);">${order.user || 'Customer'}</strong>
             <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: bold;">ID: #${order.id}</span>
           </div>
-          <div style="font-size: 0.85rem; font-weight: bold; color: var(--text-main);">
-            ${displayProductText || '-'}
-          </div>
+          <div style="font-size: 0.85rem; font-weight: bold; color: var(--text-main);">${displayProductText || '-'}</div>
           <div style="display: flex; justify-content: flex-end; margin-top: 0.3rem;">
             <button onclick="selesaikanPesanan(event, ${order.id}, '${cleanProduct}')" ${btnDisabled} class="bill-shortcut-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; ${btnStyle}">${btnText}</button>
           </div>
@@ -1044,163 +890,38 @@
       });
     }
 
-    // ===== PARSE DAN TAMBAH KE KERANJANG =====
-    function parseProdukDanTambahKeKeranjang(produkString) {
-      console.log("=== PARSING PRODUK ===");
-      console.log("Input:", produkString);
-      
-      if (!produkString) {
-        console.log("❌ Produk string kosong!");
-        return false;
-      }
-      
-      // Hapus metode pembayaran jika ada: "(Tunai)", "(QRIS)", "(Transfer)"
-      let cleanProduk = produkString.replace(/ \([^)]+\)$/i, '').trim();
-      console.log("Clean produk:", cleanProduk);
-      
-      // Extract nama dan qty dengan regex lebih fleksibel
-      // Format: "Nama Produk x2" atau "Nama Produk"
-      const match = cleanProduk.match(/^(.+?)\s+x(\d+)$/) || cleanProduk.match(/^(.+)$/);
-      
-      if (!match) {
-        console.log("❌ Parsing gagal!");
-        return false;
-      }
-      
-      let namaJus = match[1].trim();
-      let qty = 1;
-      
-      if (match[2]) {
-        qty = parseInt(match[2], 10);
-      }
-      
-      console.log("Nama:", namaJus);
-      console.log("Qty:", qty);
-      console.log("Database keys:", Object.keys(databaseStok));
-      
-      // Cek apakah produk ada di database
-      if (!databaseStok[namaJus]) {
-        console.log(`❌ "${namaJus}" TIDAK ditemukan di database!`);
-        console.log("Produk yang tersedia:", Object.keys(databaseStok).join(", "));
-        alert(`⚠️ Produk "${namaJus}" tidak terdaftar di menu.\n\nProduk yang tersedia:\n- ${Object.keys(databaseStok).join('\n- ')}`);
-        return false;
-      }
-      
-      const harga = databaseStok[namaJus].harga;
-      console.log("✅ Produk ditemukan! Harga:", harga);
-      
-      // Tambah ke keranjang
-      for (let i = 0; i < qty; i++) {
-        if (keranjangBelanja[namaJus]) {
-          keranjangBelanja[namaJus].qty += 1;
-        } else {
-          keranjangBelanja[namaJus] = { harga, qty: 1 };
-        }
-      }
-      
-      console.log("✅ Berhasil ditambah ke keranjang!");
-      console.log("Keranjang sekarang:", keranjangBelanja);
-      return true;
-    }
-
-    // ===== BUKA MODAL PRINT INVOICE =====
-    function bukaPrintModal() {
-      const container = document.getElementById('invoice-items-container');
-      const totalEl = document.getElementById('invoice-total-amount');
-      
-      if (!container || !totalEl) return;
-      
-      container.innerHTML = '';
-      let total = 0;
-      
-      for (let nama in keranjangBelanja) {
-        const item = keranjangBelanja[nama];
-        const sub = item.harga * item.qty;
-        total += sub;
-        
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'invoice-item';
-        itemDiv.innerHTML = `
-          <div class="invoice-item-left">
-            <span class="invoice-item-name">${nama}</span>
-            <span class="invoice-item-qty">${item.qty} x Rp ${item.harga.toLocaleString('id-ID')}</span>
-          </div>
-          <span class="invoice-item-price">Rp ${sub.toLocaleString('id-ID')}</span>
-        `;
-        container.appendChild(itemDiv);
-      }
-      
-      totalEl.textContent = 'Rp ' + total.toLocaleString('id-ID');
-      document.getElementById('print-modal').style.display = 'flex';
-    }
-
-    function tutupPrintModal() {
-      document.getElementById('print-modal').style.display = 'none';
-    }
-
-    function printInvoice() {
-      window.print();
-    }
-
     async function selesaikanPesanan(event, orderId, produkText) {
-      console.log("=== SELESAIKAN PESANAN ===");
-      console.log("ORDER ID:", orderId);
-      console.log("PRODUK:", produkText);
-      
       const btn = event.currentTarget || event.target;
       if (!btn) return;
 
       completedOrders.add(orderId);
-
-      btn.innerText = "Selesai";
-      btn.disabled = true;
-      btn.style.background = "#6c757d";
+      btn.innerText     = "Selesai";
+      btn.disabled      = true;
+      btn.style.background  = "#6c757d";
       btn.style.borderColor = "#2B2D42";
-      btn.style.boxShadow = "none";
-      btn.style.transform = "none";
-      btn.style.cursor = "not-allowed";
+      btn.style.boxShadow   = "none";
+      btn.style.transform   = "none";
+      btn.style.cursor      = "not-allowed";
 
-      // Parse dan tambah ke keranjang
-      const berhasilParsing = parseProdukDanTambahKeKeranjang(produkText);
-      
-      if (berhasilParsing) {
-        updateTampilanStruk();
-
-        let harga = 0;
-        if (produkText) {
-          if (produkText.includes("Lemon Mint Twist")) {
-            harga = 25000;
-          } else if (produkText.includes("Pure Green Glow")) {
-            harga = 28000;
-          } else if (produkText.includes("Berry Splash")) {
-            harga = 30000;
-          }
-        }
-
-        if (harga > 0) {
-          totalPendapatanSesi += harga;
-          totalJusTerjualSesi += 1;
-
-          const sp = document.getElementById('stat-pendapatan');
-          const st = document.getElementById('stat-terjual');
-
-          if (sp) {
-            sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
-          }
-          if (st) {
-            st.innerText = totalJusTerjualSesi + ' Cup';
-          }
-        }
-
-        alert("✅ Pesanan sudah diantar! Ditambahkan ke Bill.");
-      } else {
-        alert("⚠️ Pesanan tidak bisa diproses. Cek console untuk detail.");
+      let harga = 0;
+      if (produkText) {
+        if (produkText.includes("Lemon Mint Twist"))  harga = 25000;
+        else if (produkText.includes("Pure Green Glow")) harga = 28000;
+        else if (produkText.includes("Berry Splash"))    harga = 30000;
       }
 
-      // Update status di Supabase
-      try {
-        console.log("UPDATE STATUS ORDER:", orderId);
+      if (harga > 0) {
+        totalPendapatanSesi += harga;
+        totalJusTerjualSesi += 1;
+        const sp = document.getElementById('stat-pendapatan');
+        const st = document.getElementById('stat-terjual');
+        if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+        if (st) st.innerText = totalJusTerjualSesi + ' Cup';
+      }
 
+      alert("Pesanan sudah diantar!");
+
+      try {
         const response = await fetch(
           `${SUPABASE_URL}/rest/v1/id?id=eq.${orderId}`,
           {
@@ -1211,39 +932,22 @@
               "Authorization": `Bearer ${SUPABASE_KEY}`,
               "Prefer": "return=representation"
             },
-            body: JSON.stringify({
-              status: "Selesai"
-            })
+            body: JSON.stringify({ status: "Selesai" })
           }
         );
-
         console.log("PATCH STATUS:", response.status);
-        const result = await response.text();
-        console.log("PATCH RESULT:", result);
-
       } catch (err) {
         console.error("Update status error:", err);
       }
-
-      // Buka modal print jika parsing berhasil
-      if (berhasilParsing) {
-        setTimeout(() => {
-          bukaPrintModal();
-        }, 500);
-      }
     }
 
-    // Attach crucial functions to the global window object
-    window.selesaikanPesanan = selesaikanPesanan;
-    window.bukaCheckoutModal = bukaCheckoutModal;
-    window.tutupCheckoutModal = tutupCheckoutModal;
-    window.setPayMethod = setPayMethod;
+    window.selesaikanPesanan    = selesaikanPesanan;
+    window.bukaCheckoutModal    = bukaCheckoutModal;
+    window.tutupCheckoutModal   = tutupCheckoutModal;
+    window.setPayMethod         = setPayMethod;
     window.kirimPesananLangsung = kirimPesananLangsung;
     window.tampilkanPesananCustomer = tampilkanPesananCustomer;
-    window.bukaPrintModal = bukaPrintModal;
-    window.tutupPrintModal = tutupPrintModal;
-    window.printInvoice = printInvoice;
-    window.tambahProdukBaru = tambahProdukBaru;
+    window.tutupStrukModal      = tutupStrukModal;
 
     function mulaiPollingPesanan() {
       if (intervalSupabase) clearInterval(intervalSupabase);
@@ -1307,7 +1011,6 @@
           <div class="admin-table-wrapper">
             <div style="background: var(--primary-yellow); padding: 0.8rem 1.2rem; border-bottom: 3px solid var(--text-main); display: flex; justify-content: space-between; align-items: center;">
               <h3 style="font-family: var(--font-header); font-size: 1.1rem; margin: 0;">Logistik &amp; Stok</h3>
-              <button onclick="tambahProdukBaru()" class="action-toggle-btn" style="padding: 0.2rem 0.6rem; font-size: 0.8rem; background: var(--green-accent); color: white; border-color: var(--text-main);">➕ Produk</button>
             </div>
             <table class="admin-table">
               <thead>
@@ -1345,7 +1048,7 @@
             </div>
             <div style="margin-top:1rem; display:flex; gap:0.5rem;">
               <button class="submit-btn" style="padding:0.8rem; background:var(--text-main); font-size: 0.85rem;" onclick="kosongkanKeranjang()">Batal</button>
-              <button class="submit-btn" style="padding:0.8rem; font-size: 0.85rem;" onclick="bukaPrintModal()">Cetak &amp; Bayar</button>
+              <button class="submit-btn" style="padding:0.8rem; font-size: 0.85rem;" onclick="prosesTransaksi()">Bayar (POS)</button>
             </div>
           </div>
 
@@ -1408,34 +1111,21 @@
 
     async function prosesTransaksi() {
       const daftar = Object.keys(keranjangBelanja);
-
       if (daftar.length === 0) {
         alert("Belum ada menu yang dipilih!");
         return;
       }
 
       let totalSesi = 0;
-      let cupSesi = 0;
+      let cupSesi   = 0;
 
       for (const nama of daftar) {
         const item = keranjangBelanja[nama];
-
         databaseStok[nama].stok -= item.qty;
-
         totalSesi += item.harga * item.qty;
-        cupSesi += item.qty;
+        cupSesi   += item.qty;
 
-        const status = "Selesai";
-        console.log("KIRIM KE SUPABASE:",
-          "Kasir",
-          `${nama} x${item.qty}`,
-          status
-          )
-        await simpanKeSupabase(
-          "Kasir",
-          `${nama} x${item.qty}`,
-          status
-        );
+        await simpanKeSupabase("Kasir", `${nama} x${item.qty}`, "Selesai");
       }
 
       totalPendapatanSesi += totalSesi;
@@ -1443,19 +1133,10 @@
 
       const sp = document.getElementById('stat-pendapatan');
       const st = document.getElementById('stat-terjual');
-
-      if (sp) {
-        sp.innerText =
-          'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
-      }
-
-      if (st) {
-        st.innerText =
-          totalJusTerjualSesi + ' Cup';
-      }
+      if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+      if (st) st.innerText = totalJusTerjualSesi + ' Cup';
 
       keranjangBelanja = {};
-
       updateTampilanStruk();
       renderTabelStok();
 
@@ -1472,32 +1153,6 @@
       renderTabelStok();
     }
 
-    // ===== TAMBAH PRODUK BARU =====
-    function tambahProdukBaru() {
-      const nama = prompt("Nama produk baru:");
-      if (!nama) return;
-      
-      const harga = prompt("Harga (Rp):");
-      if (!harga) return;
-      
-      const stok = prompt("Stok awal:");
-      if (!stok) return;
-      
-      const hargaNumerik = parseInt(harga.replace(/\D/g, ''), 10);
-      const stokNumerik = parseInt(stok, 10);
-      
-      if (isNaN(hargaNumerik) || isNaN(stokNumerik)) {
-        alert("Harga atau stok tidak valid!");
-        return;
-      }
-      
-      databaseStok[nama] = { harga: hargaNumerik, stok: stokNumerik };
-      console.log("✅ Produk baru ditambahkan:", nama, hargaNumerik, stokNumerik);
-      renderTabelStok();
-      alert(`✅ Produk "${nama}" berhasil ditambahkan!`);
-    }
-
-   
     document.addEventListener('keydown', function(e) {
       if (e.ctrlKey && e.altKey && (e.key === 'k' || e.key === 'K')) {
         e.preventDefault();
@@ -1505,9 +1160,12 @@
       }
     });
 
-    /* Tutup overlay jika klik di luar kotak login */
     document.getElementById('login-overlay').addEventListener('click', function(e) {
       if (e.target === this) tutupLoginOverlay();
+    });
+
+    document.getElementById('struk-modal').addEventListener('click', function(e) {
+      if (e.target === this) tutupStrukModal();
     });
   </script>
 
