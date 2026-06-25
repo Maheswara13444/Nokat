@@ -727,6 +727,7 @@
     let checkoutItem      = "";
     let checkoutHarga     = 0;
     const completedOrders = new Set();
+    let pendingOrderIds = {}; // orderId -> { namaUser, namaMenu, qty }
 
     function bukaCheckoutModal(nama, harga) {
       checkoutItem  = nama;
@@ -895,31 +896,15 @@
         if (!isCompleted) {
           const btn = card.querySelector('.selesai-btn');
           btn.addEventListener('click', function() {
-            selesaikanPesanan(order.id, order.produk || '');
+            selesaikanPesanan(order.id, order.produk || '', order.user || 'Customer');
           });
         }
       });
     }
 
-    async function selesaikanPesanan(orderId, produkText) {
-      // Cari tombol berdasarkan data-order-id
+    // Selesaikan = masukkan ke keranjang kasir, BELUM update Supabase
+    function selesaikanPesanan(orderId, produkText, namaUser) {
       const btn = document.querySelector(`.selesai-btn[data-order-id="${orderId}"]`);
-
-      completedOrders.add(orderId);
-      if (btn) {
-        btn.innerText         = "Selesai";
-        btn.disabled          = true;
-        btn.style.background  = "#6c757d";
-        btn.style.borderColor = "#2B2D42";
-        btn.style.boxShadow   = "none";
-        btn.style.transform   = "none";
-        btn.style.cursor      = "not-allowed";
-      }
-
-      // --- Deteksi nama menu & qty dari produkText (contoh: "Berry Splash x1 (QRIS)") ---
-      let namaMenu = null;
-      let harga    = 0;
-      let qty      = 1;
 
       const menuMap = {
         "Lemon Mint Twist": 25000,
@@ -927,12 +912,15 @@
         "Berry Splash":     30000
       };
 
+      let namaMenu = null;
+      let harga    = 0;
+      let qty      = 1;
+
       if (produkText) {
         for (const [nama, h] of Object.entries(menuMap)) {
           if (produkText.includes(nama)) {
             namaMenu = nama;
             harga    = h;
-            // Coba ambil qty dari pola "xN"
             const qtyMatch = produkText.match(/x(\d+)/i);
             if (qtyMatch) qty = parseInt(qtyMatch[1], 10);
             break;
@@ -940,47 +928,63 @@
         }
       }
 
-      // --- Masukkan ke keranjang POS secara otomatis ---
-      if (namaMenu && harga > 0) {
-        if (keranjangBelanja[namaMenu]) {
-          keranjangBelanja[namaMenu].qty += qty;
-        } else {
-          keranjangBelanja[namaMenu] = { harga, qty };
-        }
-        updateTampilanStruk(); // Refresh tampilan bill POS langsung
+      if (!namaMenu) {
+        alert("Menu tidak dikenali di sistem.");
+        return;
       }
 
-      alert("Pesanan sudah diantar! Item ditambahkan ke Bill POS.");
-
-      // --- Update statistik sesi ---
-      if (harga > 0) {
-        totalPendapatanSesi += harga * qty;
-        totalJusTerjualSesi += qty;
-        const sp = document.getElementById('stat-pendapatan');
-        const st = document.getElementById('stat-terjual');
-        if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
-        if (st) st.innerText = totalJusTerjualSesi + ' Cup';
+      // Masukkan ke keranjang POS
+      if (keranjangBelanja[namaMenu]) {
+        keranjangBelanja[namaMenu].qty += qty;
+      } else {
+        keranjangBelanja[namaMenu] = { harga, qty };
       }
 
-      // --- Update status Supabase ---
-      try {
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/id?id=eq.${orderId}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              "apikey": SUPABASE_KEY,
-              "Authorization": `Bearer ${SUPABASE_KEY}`,
-              "Prefer": "return=representation"
-            },
-            body: JSON.stringify({ status: "Selesai" })
+      // Simpan orderId & info pelanggan untuk di-update ke Supabase saat Bayar
+      if (!pendingOrderIds[namaMenu]) pendingOrderIds[namaMenu] = [];
+      pendingOrderIds[namaMenu].push({ orderId, namaUser, qty });
+
+      // Update tampilan bill POS
+      updateTampilanStruk();
+
+      // Ubah tombol jadi kuning "Di Keranjang"
+      if (btn) {
+        btn.innerText         = "Di Keranjang";
+        btn.disabled          = true;
+        btn.style.background  = "#FFD23F";
+        btn.style.color       = "#2B2D42";
+        btn.style.borderColor = "#2B2D42";
+        btn.style.boxShadow   = "none";
+        btn.style.cursor      = "not-allowed";
+      }
+    }
+
+    // Update Supabase ke Selesai untuk semua order yang ada di keranjang
+    async function updateStatusSelesaiSupabase() {
+      for (const namaMenu of Object.keys(pendingOrderIds)) {
+        for (const info of pendingOrderIds[namaMenu]) {
+          try {
+            await fetch(
+              `${SUPABASE_URL}/rest/v1/id?id=eq.${info.orderId}`,
+              {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                  "apikey": SUPABASE_KEY,
+                  "Authorization": `Bearer ${SUPABASE_KEY}`,
+                  "Prefer": "return=representation"
+                },
+                body: JSON.stringify({ status: "Selesai" })
+              }
+            );
+            completedOrders.add(info.orderId);
+            console.log("Supabase updated order", info.orderId, "-> Selesai");
+          } catch (err) {
+            console.error("Gagal update order", info.orderId, err);
           }
-        );
-        console.log("PATCH STATUS:", response.status);
-      } catch (err) {
-        console.error("Update status error:", err);
+        }
       }
+      pendingOrderIds = {}; // reset setelah bayar
     }
 
     window.selesaikanPesanan    = selesaikanPesanan;
@@ -1163,13 +1167,17 @@
 
       for (const nama of daftar) {
         const item = keranjangBelanja[nama];
-        databaseStok[nama].stok -= item.qty;
+        // Kurangi stok
+        if (databaseStok[nama]) databaseStok[nama].stok -= item.qty;
         totalSesi += item.harga * item.qty;
         cupSesi   += item.qty;
-
-        await simpanKeSupabase("Kasir", `${nama} x${item.qty}`, "Selesai");
       }
 
+      // Update status pesanan pelanggan di Supabase -> Selesai
+      // (tidak membuat record baru, hanya PATCH yang sudah ada)
+      await updateStatusSelesaiSupabase();
+
+      // Update statistik sesi
       totalPendapatanSesi += totalSesi;
       totalJusTerjualSesi += cupSesi;
 
@@ -1181,8 +1189,9 @@
       keranjangBelanja = {};
       updateTampilanStruk();
       renderTabelStok();
+      tampilkanPesananCustomer(); // Refresh live orders agar status tampil Selesai
 
-      alert("Transaksi Sukses! Data tersimpan ke Supabase.");
+      alert("Pembayaran Sukses! Status pesanan pelanggan diperbarui ke Selesai.");
     }
 
     function kosongkanKeranjang() {
