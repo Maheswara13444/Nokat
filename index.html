@@ -762,6 +762,7 @@
     let selectedPayMethod = "QRIS";
     let checkoutItem = "";
     let checkoutHarga = 0;
+    const completedOrders = new Set();
 
     function bukaCheckoutModal(nama, harga) {
       checkoutItem = nama;
@@ -860,6 +861,14 @@
           gap: 0.3rem;
         `;
         const cleanProduct = (order.produk || '').replace(/'/g, "\\'");
+        
+        const isCompleted = completedOrders.has(order.id);
+        const btnText = isCompleted ? "Selesai" : "Selesaikan";
+        const btnDisabled = isCompleted ? "disabled" : "";
+        const btnStyle = isCompleted 
+          ? "background: #6c757d; border-color: #2B2D42; box-shadow: none; transform: none; cursor: not-allowed;" 
+          : "background: var(--green-accent);";
+
         card.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed var(--text-main); padding-bottom: 4px; margin-bottom: 4px;">
             <strong style="font-family: var(--font-header); font-size: 0.95rem; color: var(--green-accent);">${order.user || 'Customer'}</strong>
@@ -869,7 +878,7 @@
             ${order.produk || '-'}
           </div>
           <div style="display: flex; justify-content: flex-end; margin-top: 0.3rem;">
-            <button onclick="selesaikanPesanan(event, ${order.id}, '${cleanProduct}')" class="bill-shortcut-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; background: var(--green-accent);">Selesaikan</button>
+            <button onclick="selesaikanPesanan(event, ${order.id}, '${cleanProduct}')" ${btnDisabled} class="bill-shortcut-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem; ${btnStyle}">${btnText}</button>
           </div>
         `;
         container.appendChild(card);
@@ -879,6 +888,8 @@
     async function selesaikanPesanan(event, orderId, produkText) {
       const btn = event.currentTarget || event.target;
       if (!btn) return;
+
+      completedOrders.add(orderId);
 
       btn.innerText = "Selesai";
       btn.disabled = true;
