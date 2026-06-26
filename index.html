@@ -627,9 +627,24 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const SUPABASE_URL = "https://ayyndglgelrveglikssy.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH";
+  console.log("Script.js loaded successfully.");
+
+  // =====================================================================
+  // KONFIGURASI SUPABASE
+  // PENTING: ganti SUPABASE_KEY di bawah ini dengan Publishable Key kamu
+  // (Project Settings > API Keys > Publishable and secret API keys > Publishable key)
+  // JANGAN pakai Secret Key di sini karena kode ini berjalan di browser (client-side)
+  // =====================================================================
+  const SUPABASE_URL = "https://ayyndglgelrveglikssy.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH"; // contoh: sb_publishable_xxxxxxxxxxxxxxxx
+
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+  console.log("Supabase client :", supabase);
 
     // ===== PASSWORD & SECURITY =====
     let HASH_PASSWORD_OPERATOR = localStorage.getItem('kasir_password_hash') ||
@@ -685,23 +700,30 @@
       }
     }
 
+    async function testSupabase() {
+      const { data, error } = await supabase
+          .from("produk")
+          .select("*");
+
+      console.log("DATA:", data);
+      console.log("ERROR:", error);
+    }
+
+    testSupabase();
+
+    // Pesanan customer disimpan di tabel "id" (lihat ambilPesananDariSupabase di bawah)
     async function simpanKeSupabase(user, produk, status = "Menunggu") {
       try {
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/id`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "apikey": SUPABASE_KEY,
-              "Authorization": `Bearer ${SUPABASE_KEY}`,
-              "Prefer": "return=representation"
-            },
-            body: JSON.stringify({ user, produk, status })
-          }
-        );
-        const result = await response.json();
-        return Array.isArray(result) ? result[0] : null;
+        const { data, error } = await supabase
+          .from("id")
+          .insert({ user, produk, status })
+          .select();
+
+        if (error) {
+          console.error("Supabase Error:", error);
+          return null;
+        }
+        return Array.isArray(data) ? data[0] : null;
       } catch (err) {
         console.error("Supabase Error:", err);
         return null;
@@ -859,24 +881,34 @@
       tutupChangePasswordModal();
     }
 
-    // ===== DATABASE STOK (disimpan ke localStorage juga) =====
-    function loadDatabaseStok() {
-      const saved = localStorage.getItem('nokat_database_stok');
-      if (saved) {
-        return JSON.parse(saved);
-      }
-      return {
-        "Lemon Mint Twist": { stok: 25, harga: 25000 },
-        "Pure Green Glow":  { stok: 8,  harga: 28000 },
-        "Berry Splash":     { stok: 15, harga: 30000 }
-      };
-    }
+    let databaseStok = {};
 
-    function saveDatabaseStok(db) {
-      localStorage.setItem('nokat_database_stok', JSON.stringify(db));
-    }
+    async function loadDatabaseStok() {
 
-    let databaseStok = loadDatabaseStok();
+        const { data, error } = await supabase
+            .from("produk")
+            .select("*")
+            .order("id");
+
+        if (error) {
+            console.error("Gagal mengambil produk:", error);
+            return;
+        }
+
+        databaseStok = {};
+
+        data.forEach(item => {
+
+            databaseStok[item.menu_produk] = {
+                id: item.id,
+                harga: item.price,
+                stok: item.stock,
+                user_id: item.user_id
+            };
+
+        });
+
+    }
     let keranjangBelanja       = {};
     let totalPendapatanSesi    = 0;
     let totalJusTerjualSesi    = 0;
@@ -977,8 +1009,23 @@
         return;
       }
 
-      databaseStok[checkoutItem].stok -= 1;
-      saveDatabaseStok(databaseStok);
+      // Kurangi stok produk di Supabase (UPDATE, bukan INSERT produk baru)
+      const stokBaru = databaseStok[checkoutItem].stok - 1;
+
+      const { error: stokError } = await supabase
+        .from("produk")
+        .update({ stock: stokBaru })
+        .eq("id", databaseStok[checkoutItem].id);
+
+      if (stokError) {
+        console.error("Gagal update stok:", stokError);
+        alert("Gagal memperbarui stok.");
+        return;
+      }
+
+      await loadDatabaseStok();
+      renderMenuManagement();
+      renderTabelStok();
 
       const mejaInfo = selectedOrderType === 'dine-in' ? `Meja ${selectedTableNumber}` : 'Take Away';
       const record = await simpanKeSupabase(
@@ -1107,62 +1154,103 @@
       }
 
       if (!editingProduct) {
-        // Tambah produk baru
+        // INSERT produk baru
         if (databaseStok[nama]) {
           errorMsg.textContent = 'Produk dengan nama ini sudah ada!';
           return;
         }
-        databaseStok[nama] = { harga, stok };
+
+        const { error } = await supabase
+          .from("produk")
+          .insert({
+            menu_produk: nama,
+            price: harga,
+            stock: stok,
+            user_id: 1
+          });
+
+        if (error) {
+          errorMsg.textContent = 'Gagal menambahkan produk.';
+          console.error(error);
+          return;
+        }
+
         alert(`✅ Produk "${nama}" berhasil ditambahkan!`);
       } else {
-        // Edit produk
+        // UPDATE produk yang sudah ada (sebelumnya kode lama salah pakai .insert())
         if (nama !== editingProduct && databaseStok[nama]) {
           errorMsg.textContent = 'Produk dengan nama baru ini sudah ada!';
           return;
         }
-        
-        if (nama !== editingProduct) {
-          databaseStok[nama] = databaseStok[editingProduct];
-          delete databaseStok[editingProduct];
+
+        const idProduk = databaseStok[editingProduct].id;
+
+        const { error } = await supabase
+          .from("produk")
+          .update({
+            menu_produk: nama,
+            price: harga,
+            stock: stok
+          })
+          .eq("id", idProduk);
+
+        if (error) {
+          errorMsg.textContent = 'Gagal mengupdate produk.';
+          console.error(error);
+          return;
         }
-        
-        databaseStok[nama] = { harga, stok };
+
         alert(`✅ Produk "${nama}" berhasil diupdate!`);
       }
 
-      saveDatabaseStok(databaseStok);
+      await loadDatabaseStok();
       tutupFormProduk();
       renderMenuManagement();
       renderTabelStok();
     }
 
-    function hapusProduk(nama) {
-      if (confirm(`⚠️ Hapus produk "${nama}"?\n\nAksi ini tidak bisa dibatalkan!`)) {
-        delete databaseStok[nama];
-        saveDatabaseStok(databaseStok);
-        alert(`✅ Produk "${nama}" berhasil dihapus!`);
-        renderMenuManagement();
-        renderTabelStok();
-      }
+   async function hapusProduk(nama){
+
+    if(!confirm(`Hapus ${nama}?`)) return;
+
+    const item = databaseStok[nama];
+
+    const { error } = await supabase
+        .from("produk")
+        .delete()
+        .eq("id", item.id);
+
+    if(error){
+        console.error(error);
+        return;
     }
 
+    await loadDatabaseStok();
+
+    renderMenuManagement();
+    renderTabelStok();
+
+}
+
+    // Pesanan customer disimpan & dibaca dari tabel "id" (sebelumnya kode lama
+    // salah mengambil dari tabel "users", yang seharusnya hanya untuk akun login)
     async function ambilPesananDariSupabase() {
-      try {
-        const response = await fetch(
-          `${SUPABASE_URL}/rest/v1/id?select=*&order=id.desc&limit=10`,
-          {
-            headers: {
-              "apikey": SUPABASE_KEY,
-              "Authorization": `Bearer ${SUPABASE_KEY}`
-            }
-          }
-        );
-        return await response.json();
-      } catch (err) {
-        console.error("Fetch Supabase Error:", err);
+
+    const { data, error } = await supabase
+        .from("id")
+        .select("*");
+
+    if (error) {
+        console.error(error);
         return [];
-      }
     }
+
+    return data;
+
+}
+          
+       
+    
 
     async function tampilkanPesananCustomer() {
       const container = document.getElementById('live-orders-container');
@@ -1273,19 +1361,10 @@
       for (const namaMenu of Object.keys(pendingOrderIds)) {
         for (const info of pendingOrderIds[namaMenu]) {
           try {
-            await fetch(
-              `${SUPABASE_URL}/rest/v1/id?id=eq.${info.orderId}`,
-              {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                  "apikey": SUPABASE_KEY,
-                  "Authorization": `Bearer ${SUPABASE_KEY}`,
-                  "Prefer": "return=representation"
-                },
-                body: JSON.stringify({ status: "Selesai" })
-              }
-            );
+            await supabase
+              .from("id")
+              .update({ status: "Selesai" })
+              .eq("id", info.orderId);
             completedOrders.add(info.orderId);
           } catch (err) {
             console.error("Gagal update order", info.orderId, err);
@@ -1497,7 +1576,6 @@
       if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
       if (st) st.innerText = totalJusTerjualSesi + ' Cup';
 
-      saveDatabaseStok(databaseStok);
       keranjangBelanja = {};
       updateTampilanStruk();
       renderTabelStok();
@@ -1526,11 +1604,32 @@
       updateTampilanStruk();
     }
 
-    function restokItem(nama) {
-      databaseStok[nama].stok += 10;
-      saveDatabaseStok(databaseStok);
-      renderTabelStok();
+    async function restokItem(nama) {
+
+    const item = databaseStok[nama];
+
+    const stokBaru = item.stok + 10;
+
+    const { error } = await supabase
+        .from("produk")
+        .update({
+            stock: stokBaru
+        })
+        .eq("id", item.id);
+
+    if (error) {
+        console.error("Gagal restok:", error);
+        alert("Gagal menambah stok.");
+        return;
     }
+
+    // Ambil ulang data terbaru dari Supabase
+    await loadDatabaseStok();
+
+    // Refresh tampilan
+    renderTabelStok();
+
+}
 
     document.addEventListener('keydown', function(e) {
       if (e.ctrlKey && e.altKey && (e.key === 'k' || e.key === 'K')) {
@@ -1558,6 +1657,9 @@
     document.getElementById('product-form-modal').addEventListener('click', function(e) {
       if (e.target === this) tutupFormProduk();
     });
+
+    // Muat data stok produk dari Supabase saat halaman pertama kali dibuka
+    loadDatabaseStok();
   </script>
 
 </body>
