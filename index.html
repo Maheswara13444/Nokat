@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Fresh & Fun Juice Bar</title>
-  
+  <title>Fresh & Fun Juice Bar - Nokat</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&display=swap');
-
     :root {
       --primary-yellow: #FFD23F;
       --primary-yellow-light: #FFF9E6;
@@ -17,7 +15,6 @@
       --green-accent-light: #EBF7E6;
       --bg-main: #FFFFFF;
       --bg-soft: #FFFDF9;
-      --card-bg: #FFFFFF;
       --text-main: #2B2D42;
       --text-muted: #6C757D;
       --font-header: 'Fredoka', sans-serif;
@@ -27,213 +24,86 @@
       --fun-shadow-small: 4px 4px 0px #2B2D42;
       --transition-speed: 0.25s;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: var(--font-body);
-      background-color: var(--primary-yellow-light);
-      color: var(--text-main);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .bg-glow-container {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: -2; background-color: var(--primary-yellow-light);
-      background-image: radial-gradient(var(--primary-yellow) 1.5px, transparent 1.5px);
-      background-size: 30px 30px; opacity: 0.4;
-    }
-
-    header {
-      position: fixed; top: 1.5rem; left: 5%; width: 90%;
-      padding: 0.8rem 2rem; display: flex;
-      justify-content: space-between; align-items: center;
-      z-index: 100; background: var(--bg-main);
-      border: 3px solid var(--text-main); border-radius: 40px;
-      box-shadow: var(--fun-shadow);
-    }
-
-    .logo-text { font-family: var(--font-header); font-weight: 700; font-size: 1.5rem; color: var(--text-main); text-transform: uppercase; }
-    .logo-text span { color: var(--green-accent); background: var(--primary-yellow); padding: 0.2rem 0.6rem; border-radius: 12px; border: 2px solid var(--text-main); }
-
+    body { font-family: var(--font-body); background-color: var(--primary-yellow-light); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+    .bg-glow-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background-color: var(--primary-yellow-light); background-image: radial-gradient(var(--primary-yellow) 1.5px, transparent 1.5px); background-size: 30px 30px; opacity: 0.4; }
+    header { position: fixed; top: 1.5rem; left: 5%; width: 90%; padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: var(--bg-main); border: 3px solid var(--text-main); border-radius: 40px; box-shadow: var(--fun-shadow); }
     .nav-tabs { display: flex; gap: 0.5rem; }
-
-    .nav-tab {
-      padding: 0.6rem 1.2rem; font-family: var(--font-header); font-size: 0.9rem;
-      font-weight: 600; color: var(--text-main); background: transparent;
-      border: 2px solid transparent; border-radius: 20px; cursor: pointer;
-      transition: all var(--transition-speed) ease;
-    }
+    .nav-tab { padding: 0.6rem 1.2rem; font-family: var(--font-header); font-size: 0.9rem; font-weight: 600; color: var(--text-main); background: transparent; border: 2px solid transparent; border-radius: 20px; cursor: pointer; transition: all var(--transition-speed) ease; }
     .nav-tab:hover { background: var(--primary-yellow-light); border-color: var(--text-main); }
-    .nav-tab.active { color: var(--text-main); background: var(--primary-yellow); border: 2px solid var(--text-main); box-shadow: var(--fun-shadow-small); transform: translate(-2px, -2px); }
-
+    .nav-tab.active { background: var(--primary-yellow); border: 2px solid var(--text-main); box-shadow: var(--fun-shadow-small); transform: translate(-2px, -2px); }
     main { padding-top: 8.5rem; min-height: 100vh; }
-
     .section-container { width: 90%; max-width: 1100px; margin: 0 auto 4rem auto; }
-
     .home-layout { display: grid; grid-template-columns: 1fr 1.4fr; gap: 3.5rem; align-items: center; }
-
-    .home-card-left {
-      background: var(--bg-main); border: 3px solid var(--text-main);
-      border-radius: 35px; padding: 2rem; display: flex; flex-direction: column;
-      align-items: center; text-align: center; box-shadow: var(--fun-shadow-loop);
-      transform: rotate(-1.5deg); transition: transform var(--transition-speed);
-    }
+    .home-card-left { background: var(--bg-main); border: 3px solid var(--text-main); border-radius: 35px; padding: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: var(--fun-shadow-loop); transform: rotate(-1.5deg); transition: transform var(--transition-speed); }
     .home-card-left:hover { transform: rotate(0deg) scale(1.02); }
-
     .profile-frame { width: 100%; aspect-ratio: 1; border-radius: 25px; border: 3px solid var(--text-main); overflow: hidden; margin-bottom: 1.5rem; }
     .profile-img { width: 100%; height: 100%; object-fit: cover; }
-
-    .profile-badge {
-      background: var(--green-accent); color: white; padding: 0.5rem 1.5rem;
-      border-radius: 20px; border: 3px solid var(--text-main); font-family: var(--font-header);
-      font-weight: 600; font-size: 0.9rem; margin-top: -1.5rem; box-shadow: var(--fun-shadow-small);
-    }
-
-    .home-subtitle, .section-subtitle {
-      font-family: var(--font-header); font-size: 1rem; font-weight: 600;
-      text-transform: uppercase; color: var(--green-accent); background: var(--green-accent-light);
-      padding: 0.3rem 0.8rem; border-radius: 10px; width: fit-content; margin-bottom: 0.8rem;
-    }
-
-    .home-title { font-family: var(--font-header); font-size: 4rem; font-weight: 700; color: var(--text-main); line-height: 1.1; margin-bottom: 1.5rem; }
+    .profile-badge { background: var(--green-accent); color: white; padding: 0.5rem 1.5rem; border-radius: 20px; border: 3px solid var(--text-main); font-family: var(--font-header); font-weight: 600; font-size: 0.9rem; margin-top: -1.5rem; box-shadow: var(--fun-shadow-small); }
+    .home-subtitle, .section-subtitle { font-family: var(--font-header); font-size: 1rem; font-weight: 600; text-transform: uppercase; color: var(--green-accent); background: var(--green-accent-light); padding: 0.3rem 0.8rem; border-radius: 10px; width: fit-content; margin-bottom: 0.8rem; }
+    .home-title { font-family: var(--font-header); font-size: 4rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; }
     .home-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; }
-
-    .menu-option-btn {
-      background: var(--primary-yellow); border: 3px solid var(--text-main);
-      font-family: var(--font-header); font-size: 1.1rem; font-weight: 600;
-      color: var(--text-main); padding: 0.8rem 2rem; border-radius: 25px;
-      cursor: pointer; box-shadow: var(--fun-shadow-small); transition: transform 0.1s, box-shadow 0.1s;
-    }
+    .menu-option-btn { background: var(--primary-yellow); border: 3px solid var(--text-main); font-family: var(--font-header); font-size: 1.1rem; font-weight: 600; color: var(--text-main); padding: 0.8rem 2rem; border-radius: 25px; cursor: pointer; box-shadow: var(--fun-shadow-small); transition: transform 0.1s, box-shadow 0.1s; }
     .menu-option-btn:hover { background: var(--primary-yellow-hover); transform: translate(-2px, -2px); box-shadow: var(--fun-shadow); }
-
     .section-title-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 3rem; }
-    .section-title { font-family: var(--font-header); font-size: 2.8rem; color: var(--text-main); }
-
+    .section-title { font-family: var(--font-header); font-size: 2.8rem; }
     .menu-filters { display: flex; justify-content: center; margin-bottom: 2.5rem; }
     .filter-btn { background: var(--bg-main); border: 3px solid var(--text-main); color: var(--text-main); padding: 0.6rem 1.5rem; border-radius: 20px; font-family: var(--font-header); font-weight: 600; box-shadow: var(--fun-shadow-small); }
-
     .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 2.5rem; }
-
     .menu-card { background: var(--bg-main); border: 3px solid var(--text-main); border-radius: 30px; overflow: hidden; box-shadow: var(--fun-shadow); transition: transform var(--transition-speed), box-shadow var(--transition-speed); }
     .menu-card:hover { transform: translate(-4px, -4px); box-shadow: var(--fun-shadow-loop); }
-
     .menu-card-img-wrapper { position: relative; border-bottom: 3px solid var(--text-main); aspect-ratio: 4/3; overflow: hidden; }
     .menu-card-img { width: 100%; height: 100%; object-fit: cover; }
     .menu-card-badge { position: absolute; top: 1rem; right: 1rem; background: var(--primary-yellow); color: var(--text-main); border: 2px solid var(--text-main); padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.8rem; font-family: var(--font-header); font-weight: 600; }
-
     .menu-card-content { padding: 1.5rem; }
     .menu-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-    .menu-card-title { font-family: var(--font-header); font-size: 1.3rem; color: var(--text-main); }
+    .menu-card-title { font-family: var(--font-header); font-size: 1.3rem; }
     .menu-card-price { font-family: var(--font-header); font-size: 1.25rem; color: var(--green-accent); }
     .menu-card-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; }
     .menu-card-footer { display: flex; justify-content: space-between; align-items: center; }
     .menu-rating { font-size: 0.85rem; font-weight: 700; }
-
     .order-btn { background: var(--primary-yellow); border: 2px solid var(--text-main); color: var(--text-main); padding: 0.5rem 1.2rem; border-radius: 15px; font-family: var(--font-header); font-weight: 600; cursor: pointer; box-shadow: 2px 2px 0px var(--text-main); }
     .order-btn:hover { background: var(--primary-yellow-hover); }
-
-    #login-overlay {
-      position: fixed; inset: 0; z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
-    }
-
-    .login-box {
-      background: var(--bg-main);
-      border: 3px solid var(--text-main);
-      border-radius: 32px;
-      padding: 2.5rem 3rem;
-      box-shadow: var(--fun-shadow-loop);
-      text-align: center;
-      max-width: 380px;
-      width: 90%;
-      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    @keyframes popIn {
-      from { transform: scale(0.7); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
-
+    .login-box { background: var(--bg-main); border: 3px solid var(--text-main); border-radius: 32px; padding: 2.5rem 3rem; box-shadow: var(--fun-shadow-loop); text-align: center; max-width: 380px; width: 90%; animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes popIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     .login-icon { font-size: 3rem; margin-bottom: 0.5rem; }
-
     .login-box h2 { font-family: var(--font-header); font-size: 1.6rem; margin-bottom: 0.4rem; }
     .login-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
-
     .login-input-wrap { position: relative; margin-bottom: 1.2rem; }
-
-    #kasir-password-input {
-      width: 100%; padding: 0.8rem 3rem 0.8rem 1rem;
-      border: 3px solid var(--text-main); border-radius: 16px;
-      font-family: var(--font-header); font-size: 1.1rem;
-      letter-spacing: 0.3rem; text-align: center;
-      background: var(--primary-yellow-light); outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
+    #kasir-password-input { width: 100%; padding: 0.8rem 3rem 0.8rem 1rem; border: 3px solid var(--text-main); border-radius: 16px; font-family: var(--font-header); font-size: 1.1rem; letter-spacing: 0.3rem; text-align: center; background: var(--primary-yellow-light); outline: none; }
     #kasir-password-input:focus { border-color: var(--green-accent); box-shadow: 0 0 0 3px var(--green-accent-light); }
     #kasir-password-input.input-error { border-color: #e63946; animation: shake 0.4s ease; }
-
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      20%      { transform: translateX(-8px); }
-      40%      { transform: translateX(8px); }
-      60%      { transform: translateX(-6px); }
-      80%      { transform: translateX(6px); }
-    }
-
+    @keyframes shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(6px); } }
     .toggle-pw-btn { position: absolute; right: 0.8rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--text-muted); }
-
     .login-error-msg { color: #e63946; font-size: 0.85rem; margin-bottom: 0.8rem; min-height: 1.2rem; font-family: var(--font-header); }
-
     .attempt-bar { display: flex; gap: 6px; justify-content: center; margin-bottom: 1rem; }
     .attempt-dot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--text-main); background: var(--primary-yellow-light); transition: background 0.3s; }
     .attempt-dot.used { background: #e63946; }
-
-    .login-submit-btn {
-      width: 100%; background: var(--green-accent); color: white;
-      border: 3px solid var(--text-main); padding: 0.9rem; border-radius: 16px;
-      font-family: var(--font-header); font-size: 1rem; font-weight: 600;
-      cursor: pointer; box-shadow: var(--fun-shadow-small);
-      transition: transform 0.1s, box-shadow 0.1s; margin-bottom: 0.8rem;
-    }
+    .login-submit-btn { width: 100%; background: var(--green-accent); color: white; border: 3px solid var(--text-main); padding: 0.9rem; border-radius: 16px; font-family: var(--font-header); font-size: 1rem; font-weight: 600; cursor: pointer; box-shadow: var(--fun-shadow-small); transition: transform 0.1s, box-shadow 0.1s; margin-bottom: 0.8rem; }
     .login-submit-btn:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: var(--fun-shadow); }
     .login-submit-btn:disabled { background: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none; }
-
     .login-cancel-btn { background: none; border: none; color: var(--text-muted); font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; text-decoration: underline; }
-
     #lockout-msg { color: #e63946; font-family: var(--font-header); font-size: 0.9rem; margin-top: 0.5rem; }
-
     .admin-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
     .admin-stat-card { background: var(--bg-main); border: 3px solid var(--text-main); border-radius: 24px; padding: 1.5rem; box-shadow: var(--fun-shadow-small); text-align: center; }
     .admin-stat-value { font-family: var(--font-header); font-size: 2.2rem; font-weight: 700; color: var(--green-accent); }
     .admin-stat-label { font-size: 0.9rem; color: var(--text-muted); }
-
     .receipt-box { border: 3px dashed var(--text-main); background: var(--bg-soft); border-radius: 24px; padding: 1.5rem; box-shadow: var(--fun-shadow-small); }
     .receipt-total { display: flex; justify-content: space-between; font-family: var(--font-header); font-size: 1.2rem; font-weight: 700; padding: 1rem 0 0 0; }
-
     .submit-btn { width: 100%; background: var(--green-accent); color: white; border: 3px solid var(--text-main); padding: 1rem; border-radius: 16px; font-family: var(--font-header); font-weight: 600; font-size: 1rem; cursor: pointer; box-shadow: var(--fun-shadow-small); }
-
     .admin-table-wrapper { border: 3px solid var(--text-main); border-radius: 24px; background: var(--bg-main); overflow: hidden; box-shadow: var(--fun-shadow-small); }
     .admin-table { width: 100%; border-collapse: collapse; }
-    .admin-table th { font-family: var(--font-header); background: var(--primary-yellow); color: var(--text-main); border-bottom: 3px solid var(--text-main); padding: 1rem; text-align: left; font-size: 0.9rem; }
+    .admin-table th { font-family: var(--font-header); background: var(--primary-yellow); border-bottom: 3px solid var(--text-main); padding: 1rem; text-align: left; font-size: 0.9rem; }
     .admin-table td { padding: 0.8rem 1rem; border-bottom: 2px solid var(--primary-yellow-light); font-size: 0.9rem; }
-
     .action-toggle-btn { background: var(--bg-main); border: 2px solid var(--text-main); padding: 0.3rem 0.6rem; border-radius: 12px; font-family: var(--font-header); cursor: pointer; font-weight: 600; font-size: 0.75rem; }
     .action-toggle-btn:hover { background: var(--primary-yellow-light); }
-
     .bill-shortcut-btn { background: var(--green-accent); color: white; border: 2px solid var(--text-main); padding: 0.4rem 1rem; border-radius: 12px; font-family: var(--font-header); cursor: pointer; font-weight: 600; box-shadow: 2px 2px 0px var(--text-main); font-size: 0.85rem; }
     .bill-shortcut-btn:hover { background: #2d8c00; }
-
     .kasir-exit-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; }
     .kasir-exit-btn { background: var(--text-main); color: white; border: 2px solid var(--text-main); padding: 0.5rem 1.2rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; }
-
     .kasir-settings-btn { background: var(--primary-yellow); color: var(--text-main); border: 2px solid var(--text-main); padding: 0.5rem 1.2rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; }
-
     footer { background: var(--bg-main); border-top: 3px solid var(--text-main); padding: 2rem; margin-top: 4rem; }
     .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
-
     @media (max-width: 1024px) {
       header { top: 0.5rem; width: 94%; left: 3%; }
       .home-layout { grid-template-columns: 1fr !important; text-align: center; }
@@ -241,223 +111,145 @@
       .home-title { font-size: 3rem; }
       .admin-summary-grid { grid-template-columns: 1fr; gap: 1rem; }
     }
-
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 9999;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
-    }
-    .pay-method-btn {
-      background: var(--bg-main); border: 2px solid var(--text-main);
-      padding: 0.5rem; border-radius: 12px; font-family: var(--font-header);
-      font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s;
-      font-size: 0.85rem;
-    }
+    .modal-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); }
+    .pay-method-btn { background: var(--bg-main); border: 2px solid var(--text-main); padding: 0.5rem; border-radius: 12px; font-family: var(--font-header); font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; font-size: 0.85rem; }
     .pay-method-btn:hover { background: var(--primary-yellow-light); }
     .pay-method-btn.active { background: var(--primary-yellow); border-color: var(--text-main); box-shadow: 2px 2px 0px var(--text-main); }
-
-    .table-number-btn {
-      width: 40px; height: 40px; border-radius: 8px; border: 2px solid var(--text-main);
-      background: var(--bg-main); font-weight: 700; cursor: pointer; font-size: 0.8rem;
-      font-family: var(--font-header); transition: all 0.2s;
-    }
-    .table-number-btn:hover { background: var(--primary-yellow-light); }
-    .table-number-btn.active { background: var(--green-accent); color: white; border-color: var(--text-main); }
-    .table-number-btn:disabled { background: #ddd; cursor: not-allowed; }
-
-    /* ===== STRUK MODAL ===== */
-    #struk-modal .struk-paper {
-      background: #fff;
-      border: 3px solid var(--text-main);
-      border-radius: 24px;
-      padding: 2rem;
-      max-width: 360px;
-      width: 90%;
-      box-shadow: var(--fun-shadow-loop);
-      font-family: var(--font-body);
-      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+    /* Dine In / Take Away */
+    .order-type-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.8rem 0.5rem; border: 3px solid var(--text-main); border-radius: 16px; font-family: var(--font-header); font-weight: 600; font-size: 0.95rem; cursor: pointer; background: var(--bg-main); transition: all 0.2s; box-shadow: var(--fun-shadow-small); }
+    .order-type-btn:hover { background: var(--primary-yellow-light); transform: translate(-1px,-1px); }
+    .order-type-btn.active { background: var(--primary-yellow); box-shadow: var(--fun-shadow); transform: translate(-2px,-2px); }
+    .order-type-btn .type-icon { font-size: 1.5rem; }
+    .table-number-btn { padding: 0.5rem; border: 2px solid var(--text-main); border-radius: 10px; background: var(--bg-main); font-family: var(--font-header); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.15s; text-align: center; }
+    .table-number-btn:hover { background: var(--green-accent-light); }
+    .table-number-btn.active { background: var(--green-accent); color: white; }
+    /* Struk */
+    .struk-paper { background: #fff; border: 3px solid var(--text-main); border-radius: 24px; padding: 2rem; max-width: 360px; width: 90%; box-shadow: var(--fun-shadow-loop); font-family: var(--font-body); animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
     .struk-header { text-align: center; border-bottom: 2px dashed var(--text-main); padding-bottom: 1rem; margin-bottom: 1rem; }
     .struk-header h2 { font-family: var(--font-header); font-size: 1.8rem; }
     .struk-header p { color: var(--text-muted); font-size: 0.85rem; }
     .struk-row { display: flex; justify-content: space-between; padding: 0.4rem 0; font-size: 0.95rem; border-bottom: 1px dashed #eee; }
-    .struk-row:last-child { border-bottom: none; }
     .struk-total-row { display: flex; justify-content: space-between; font-family: var(--font-header); font-size: 1.2rem; font-weight: 700; padding-top: 0.8rem; border-top: 2px dashed var(--text-main); margin-top: 0.8rem; }
     .struk-btn-row { display: flex; gap: 0.8rem; margin-top: 1.2rem; }
-    .struk-print-btn { flex: 1; background: var(--green-accent); color: white; border: 3px solid var(--text-main); padding: 0.7rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; box-shadow: var(--fun-shadow-small); }
-    .struk-close-btn { flex: 1; background: var(--primary-yellow); color: var(--text-main); border: 3px solid var(--text-main); padding: 0.7rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; box-shadow: var(--fun-shadow-small); }
-
-    /* Form inputs */
-    .form-input {
-      width: 100%; padding: 0.6rem; border: 2px solid var(--text-main); border-radius: 12px;
-      font-family: var(--font-body); font-size: 0.95rem; outline: none;
-    }
+    .struk-print-btn { flex: 1; background: var(--green-accent); color: white; border: 3px solid var(--text-main); padding: 0.7rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; }
+    .struk-close-btn { flex: 1; background: var(--primary-yellow); color: var(--text-main); border: 3px solid var(--text-main); padding: 0.7rem; border-radius: 14px; font-family: var(--font-header); font-weight: 600; cursor: pointer; }
+    /* Form */
+    .form-input { width: 100%; padding: 0.6rem; border: 2px solid var(--text-main); border-radius: 12px; font-family: var(--font-body); font-size: 0.95rem; outline: none; }
     .form-input:focus { border-color: var(--green-accent); background: var(--primary-yellow-light); }
-
     .small-modal { max-width: 360px !important; }
   </style>
 </head>
 <body>
-
   <div class="bg-glow-container"></div>
 
   <header>
-    <a href="#" class="logo-container" style="text-decoration: none;">
-      <img src="/Nokat_logo_fix.png" alt="Nokat Logo" style="height: 2.5rem; display: block;">
+    <a href="#" style="text-decoration:none;">
+      <img src="/Nokat_logo_fix.png" alt="Nokat" style="height:2.5rem;display:block;" onerror="this.style.display='none'">
     </a>
     <nav class="nav-tabs">
       <button id="btn-tab-home"  class="nav-tab active" onclick="switchTab('home')">Beranda</button>
-      <button id="btn-tab-menu"  class="nav-tab" onclick="switchTab('menu')">Menu Sehat</button>
-      <button id="btn-tab-about" class="nav-tab" onclick="switchTab('about')">About us</button>
+      <button id="btn-tab-menu"  class="nav-tab"        onclick="switchTab('menu')">Menu Sehat</button>
+      <button id="btn-tab-about" class="nav-tab"        onclick="switchTab('about')">About Us</button>
     </nav>
   </header>
 
   <main>
-
+    <!-- HOME -->
     <section id="home-section" class="section-container home-layout">
       <div class="home-card-left">
         <div class="profile-frame">
-          <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=500&q=80" alt="Juice Bar Master" class="profile-img">
+          <img src="https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=500&q=80" class="profile-img" alt="Juice">
         </div>
         <span class="profile-badge">PILIHAN TERBAIK</span>
       </div>
       <div class="home-text-right">
         <span class="home-subtitle">100% Organik & Segar</span>
         <h2 class="home-title">Energi Murni Untuk Harimu!</h2>
-        <p class="home-desc">Kami meracik buah-buahan segar pilihan tanpa pemanis buatan untuk mendukung gaya hidup aktif dan ceria Anda setiap hari. Rasakan kesegaran asli di setiap tegukan!</p>
+        <p class="home-desc">Kami meracik buah-buahan segar pilihan tanpa pemanis buatan untuk mendukung gaya hidup aktif dan ceria Anda setiap hari.</p>
         <button class="menu-option-btn" onclick="switchTab('menu')">Lihat Menu Jus</button>
       </div>
     </section>
 
-    <section id="menu-section" class="section-container" style="display: none;">
+    <!-- MENU -->
+    <section id="menu-section" class="section-container" style="display:none;">
       <div class="section-title-wrapper">
         <span class="section-subtitle">Varian Rasa</span>
         <h2 class="section-title">Menu Favorit</h2>
       </div>
-      <div class="menu-filters">
-        <button class="filter-btn">Semua Kategori Jus</button>
-      </div>
-      <div class="menu-grid">
-        <div class="menu-card">
-          <div class="menu-card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" alt="Lemon Mint Twist" class="menu-card-img">
-            <span class="menu-card-badge">Terlaris</span>
-          </div>
-          <div class="menu-card-content">
-            <div class="menu-card-header">
-              <h3 class="menu-card-title">Lemon Mint Twist</h3>
-              <span class="menu-card-price">Rp 25.000</span>
-            </div>
-            <p class="menu-card-desc">Kombinasi lemon lokal segar dengan sensasi daun mint yang mendinginkan hari panasmu.</p>
-            <div class="menu-card-footer">
-              <span class="menu-rating">Rating: 4.9</span>
-              <button class="order-btn" onclick="bukaCheckoutModal('Lemon Mint Twist', 25000)">Pesan &amp; Bayar</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1622484211148-716598e04042?auto=format&fit=crop&w=500&q=80" alt="Pure Green Glow" class="menu-card-img">
-            <span class="menu-card-badge">Paling Sehat</span>
-          </div>
-          <div class="menu-card-content">
-            <div class="menu-card-header">
-              <h3 class="menu-card-title">Pure Green Glow</h3>
-              <span class="menu-card-price">Rp 28.000</span>
-            </div>
-            <p class="menu-card-desc">Ekstrak seledri stik, apel hijau, dan timun hidroponik untuk hidrasi dan detoksifikasi maksimal.</p>
-            <div class="menu-card-footer">
-              <span class="menu-rating">Rating: 4.8</span>
-              <button class="order-btn" onclick="bukaCheckoutModal('Pure Green Glow', 28000)">Pesan &amp; Bayar</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=500&q=80" alt="Berry Splash" class="menu-card-img">
-            <span class="menu-card-badge">Antioksidan</span>
-          </div>
-          <div class="menu-card-content">
-            <div class="menu-card-header">
-              <h3 class="menu-card-title">Berry Splash</h3>
-              <span class="menu-card-price">Rp 30.000</span>
-            </div>
-            <p class="menu-card-desc">Campuran buah stroberi, superfood beri hitam, dan yogurt rendah lemak yang kaya vitamin C.</p>
-            <div class="menu-card-footer">
-              <span class="menu-rating">Rating: 5.0</span>
-              <button class="order-btn" onclick="bukaCheckoutModal('Berry Splash', 30000)">Pesan &amp; Bayar</button>
-            </div>
-          </div>
-        </div>
+      <div id="menu-grid-dynamic" class="menu-grid">
+        <p style="color:var(--text-muted);text-align:center;">Memuat menu...</p>
       </div>
     </section>
 
-    <section id="about-section" class="section-container" style="display: none;">
+    <!-- ABOUT -->
+    <section id="about-section" class="section-container" style="display:none;">
       <div class="section-title-wrapper">
         <span class="section-subtitle">Tentang Kami</span>
         <h2 class="section-title">About Nokat</h2>
       </div>
-      <div class="home-layout" style="grid-template-columns: 1.2fr 1.8fr; gap: 3rem; align-items: start;">
-        <div class="home-card-left" style="transform: rotate(1.5deg);">
+      <div class="home-layout" style="grid-template-columns:1.2fr 1.8fr;gap:3rem;align-items:start;">
+        <div class="home-card-left" style="transform:rotate(1.5deg);">
           <div class="profile-frame">
-            <img src="assets/about_bg.png" alt="About Nokat" class="profile-img" onerror="this.src='https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=500&q=80'">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=500&q=80" class="profile-img" alt="Cafe">
           </div>
           <span class="profile-badge">SEJAK 2026</span>
         </div>
         <div class="home-text-right">
           <span class="home-subtitle">Kisah & Visi Kami</span>
-          <h3 style="font-family: var(--font-header); font-size: 1.8rem; margin-bottom: 1rem; color: var(--text-main);">Menyajikan Kesegaran Terbaik</h3>
-          <p class="home-desc" style="margin-bottom: 1.5rem;">Nokat Cafe berkomitmen untuk menghadirkan produk berkualitas tinggi yang diolah dari bahan alami pilihan. Kami percaya bahwa gaya hidup sehat dimulai dari apa yang kita konsumsi setiap hari.</p>
-          <p class="home-desc" style="margin-bottom: 2rem;">Dengan konsep modern pop-art dan atmosfer yang nyaman, kami ingin menjadi tempat terbaik bagi Anda untuk bersantai, bekerja, dan menikmati sajian segar murni berenergi.</p>
+          <h3 style="font-family:var(--font-header);font-size:1.8rem;margin-bottom:1rem;">Menyajikan Kesegaran Terbaik</h3>
+          <p class="home-desc" style="margin-bottom:1.5rem;">Nokat Cafe berkomitmen menghadirkan produk berkualitas tinggi dari bahan alami pilihan.</p>
+          <p class="home-desc">Dengan konsep modern pop-art dan atmosfer nyaman, kami ingin jadi tempat terbaik untuk bersantai dan menikmati sajian segar.</p>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
-    <div class="section-container footer-bottom" style="margin-bottom: 0;">
-      <p>&copy; 2026 JuiceBAR Company. Dibuat dengan Energi Buah Segar.</p>
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <span style="color: var(--text-muted); font-size: 0.85rem;">Status Sistem: Terhubung</span>
-      
-      </div>
+    <div class="section-container footer-bottom" style="margin-bottom:0;">
+      <p>&copy; 2026 Nokat Juice Bar. Dibuat dengan Energi Buah Segar.</p>
+      <button onclick="bukaLoginOverlay()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-family:var(--font-body);font-size:0.85rem;text-decoration:underline;">Login Admin</button>
     </div>
   </footer>
 
-  <!-- ===== MODAL CHECKOUT ===== -->
+  <!-- MODAL CHECKOUT -->
   <div id="checkout-modal" style="display:none;" class="modal-overlay">
-    <div class="login-box" style="max-width: 500px; max-height: 90vh; overflow-y: auto;">
-      <h2 id="checkout-title" style="margin-bottom: 0.2rem;">Pesan Menu</h2>
-      <p id="checkout-subtitle" style="margin-bottom: 1.5rem; color: var(--green-accent); font-weight: bold;"></p>
-      
-      <div style="text-align: left; margin-bottom: 1.2rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.4rem;">Nama Pemesan</label>
+    <div class="login-box" style="max-width:500px;max-height:90vh;overflow-y:auto;">
+      <h2 id="checkout-title" style="margin-bottom:0.2rem;">Pesan Menu</h2>
+      <p id="checkout-subtitle" style="margin-bottom:1.2rem;color:var(--green-accent);font-weight:bold;"></p>
+
+      <div style="text-align:left;margin-bottom:1.2rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.4rem;">Nama Pemesan</label>
         <input type="text" id="checkout-name-input" placeholder="Masukkan nama Anda" class="form-input">
       </div>
 
-      <div style="text-align: left; margin-bottom: 1.5rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.4rem;">Tipe Pesanan</label>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
-          <button id="order-type-dine" class="pay-method-btn active" onclick="setOrderType('dine-in')">🪑 Dine In</button>
-          <button id="order-type-takeaway" class="pay-method-btn" onclick="setOrderType('take-away')">📦 Take Away</button>
+      <!-- DINE IN / TAKE AWAY -->
+      <div style="text-align:left;margin-bottom:1.2rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.6rem;">Tipe Pesanan</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+          <button id="type-btn-dinein" class="order-type-btn active" onclick="setOrderType('dine-in')">
+            <span class="type-icon">🪑</span><span>Dine In</span>
+          </button>
+          <button id="type-btn-takeaway" class="order-type-btn" onclick="setOrderType('take-away')">
+            <span class="type-icon">🥤</span><span>Take Away</span>
+          </button>
         </div>
       </div>
 
-      <div id="table-select-container" style="text-align: left; margin-bottom: 1.5rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.4rem;">Pilih Meja</label>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.3rem; max-height: 100px; overflow-y: auto;" id="table-buttons-container">
-        </div>
+      <!-- PILIH MEJA -->
+      <div id="table-select-container" style="text-align:left;margin-bottom:1.2rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.4rem;">
+          Pilih Meja <span id="meja-terpilih-label" style="color:var(--green-accent);font-size:0.85rem;"></span>
+        </label>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:0.4rem;" id="table-buttons-container"></div>
       </div>
 
-      <div style="text-align: left; margin-bottom: 1.5rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.4rem;">Metode Pembayaran</label>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
-          <button id="pay-btn-QRIS" class="pay-method-btn active" onclick="setPayMethod('QRIS')">QRIS</button>
-          <button id="pay-btn-Transfer" class="pay-method-btn" onclick="setPayMethod('Transfer')">Transfer</button>
-          <button id="pay-btn-Tunai" class="pay-method-btn" onclick="setPayMethod('Tunai')">Tunai</button>
+      <!-- METODE BAYAR -->
+      <div style="text-align:left;margin-bottom:1.5rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.4rem;">Metode Pembayaran</label>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;">
+          <button id="pay-btn-QRIS"     class="pay-method-btn active" onclick="setPayMethod('QRIS')">QRIS</button>
+          <button id="pay-btn-Transfer" class="pay-method-btn"        onclick="setPayMethod('Transfer')">Transfer</button>
+          <button id="pay-btn-Tunai"    class="pay-method-btn"        onclick="setPayMethod('Tunai')">Tunai</button>
         </div>
       </div>
 
@@ -466,43 +258,24 @@
     </div>
   </div>
 
-  <!-- ===== MODAL STRUK ===== -->
+  <!-- MODAL STRUK -->
   <div id="struk-modal" style="display:none;" class="modal-overlay">
     <div class="struk-paper">
       <div class="struk-header">
         <h2>NOKAT</h2>
         <p>Juice Bar Pop-Art</p>
-        <p id="struk-datetime" style="margin-top: 0.3rem; font-size: 0.8rem;"></p>
+        <p id="struk-datetime" style="margin-top:0.3rem;font-size:0.8rem;"></p>
       </div>
-
-      <div style="margin-bottom: 0.5rem;">
-        <div class="struk-row">
-          <span style="color: var(--text-muted);">Pelanggan</span>
-          <span id="struk-nama" style="font-weight: 700;"></span>
-        </div>
-        <div class="struk-row">
-          <span style="color: var(--text-muted);">Tipe</span>
-          <span id="struk-tipe" style="font-weight: 700;"></span>
-        </div>
-        <div class="struk-row">
-          <span style="color: var(--text-muted);">Meja / No</span>
-          <span id="struk-meja" style="font-weight: 700;"></span>
-        </div>
-        <div class="struk-row">
-          <span style="color: var(--text-muted);">Pembayaran</span>
-          <span id="struk-metode" style="font-weight: 700;"></span>
-        </div>
+      <div style="margin-bottom:0.5rem;">
+        <div class="struk-row"><span style="color:var(--text-muted);">Pelanggan</span><span id="struk-nama" style="font-weight:700;"></span></div>
+        <div class="struk-row"><span style="color:var(--text-muted);">Tipe</span><span id="struk-tipe" style="font-weight:700;"></span></div>
+        <div id="struk-meja-row" class="struk-row"><span style="color:var(--text-muted);">Meja</span><span id="struk-meja" style="font-weight:700;color:var(--green-accent);"></span></div>
+        <div class="struk-row"><span style="color:var(--text-muted);">Pembayaran</span><span id="struk-metode" style="font-weight:700;"></span></div>
+        <div class="struk-row"><span style="color:var(--text-muted);">No. Order</span><span id="struk-orderid" style="font-weight:700;"></span></div>
       </div>
-
-      <div id="struk-items" style="margin: 0.8rem 0;"></div>
-
-      <div class="struk-total-row">
-        <span>TOTAL:</span>
-        <span id="struk-total" style="color: var(--green-accent);">Rp 0</span>
-      </div>
-
-      <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:1rem;">Terima kasih sudah memesan! 🍃</p>
-
+      <div id="struk-items" style="margin:0.8rem 0;"></div>
+      <div class="struk-total-row"><span>TOTAL:</span><span id="struk-total" style="color:var(--green-accent);">Rp 0</span></div>
+      <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:1rem;">Terima kasih sudah memesan! 🍃</p>
       <div class="struk-btn-row">
         <button class="struk-print-btn" onclick="window.print()">🖨 Cetak</button>
         <button class="struk-close-btn" onclick="tutupStrukModal()">Tutup</button>
@@ -510,1157 +283,806 @@
     </div>
   </div>
 
-  <!-- ===== MODAL GANTI PASSWORD ===== -->
+  <!-- MODAL GANTI PASSWORD -->
   <div id="change-password-modal" style="display:none;" class="modal-overlay">
     <div class="login-box small-modal">
-      <h2 style="margin-bottom: 1rem;">🔐 Ganti Password</h2>
-      
-      <div style="text-align: left; margin-bottom: 1rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.3rem;">Password Lama</label>
-        <input type="password" id="old-password-input" placeholder="Masukkan password lama" class="form-input">
+      <h2 style="margin-bottom:1rem;">🔐 Ganti Password</h2>
+      <div style="text-align:left;margin-bottom:1rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.3rem;">Password Lama</label>
+        <input type="password" id="old-password-input" placeholder="Password lama" class="form-input">
       </div>
-
-      <div style="text-align: left; margin-bottom: 1rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.3rem;">Password Baru</label>
-        <input type="password" id="new-password-input" placeholder="Masukkan password baru" class="form-input">
+      <div style="text-align:left;margin-bottom:1rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.3rem;">Password Baru</label>
+        <input type="password" id="new-password-input" placeholder="Password baru (min 6 karakter)" class="form-input">
       </div>
-
-      <div style="text-align: left; margin-bottom: 1.5rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.3rem;">Konfirmasi Password Baru</label>
-        <input type="password" id="confirm-password-input" placeholder="Konfirmasi password baru" class="form-input">
+      <div style="text-align:left;margin-bottom:1.5rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.3rem;">Konfirmasi Password Baru</label>
+        <input type="password" id="confirm-password-input" placeholder="Ulangi password baru" class="form-input">
       </div>
-
       <div id="password-error-msg" class="login-error-msg"></div>
-
       <button class="login-submit-btn" onclick="prosesGantiPassword()">Ganti Password</button>
       <button class="login-cancel-btn" onclick="tutupChangePasswordModal()">Batal</button>
     </div>
   </div>
 
-  <!-- ===== MODAL MENU MANAGEMENT ===== -->
+  <!-- MODAL KELOLA MENU -->
   <div id="menu-management-modal" style="display:none;" class="modal-overlay">
-    <div class="login-box" style="max-width: 600px; max-height: 85vh; overflow-y: auto;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h2 style="margin: 0;">📦 Kelola Menu</h2>
-        <button onclick="tutupMenuManagementModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer;">✕</button>
+    <div class="login-box" style="max-width:600px;max-height:85vh;overflow-y:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <h2 style="margin:0;">📦 Kelola Menu</h2>
+        <button onclick="tutupMenuManagementModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">✕</button>
       </div>
-
-      <div style="margin-bottom: 1.5rem;">
-        <button class="menu-option-btn" style="width: 100%;" onclick="bukaFormTambahProduk()">➕ Tambah Produk Baru</button>
+      <div style="margin-bottom:1.5rem;">
+        <button class="menu-option-btn" style="width:100%;" onclick="bukaFormTambahProduk()">➕ Tambah Produk Baru</button>
       </div>
-
       <div class="admin-table-wrapper">
         <table class="admin-table">
-          <thead>
-            <tr>
-              <th style="width: 40%;">Produk</th>
-              <th style="width: 20%;">Harga</th>
-              <th style="width: 15%;">Stok</th>
-              <th style="width: 25%; text-align: center;">Aksi</th>
-            </tr>
-          </thead>
+          <thead><tr><th style="width:40%;">Produk</th><th style="width:20%;">Harga</th><th style="width:15%;">Stok</th><th style="width:25%;text-align:center;">Aksi</th></tr></thead>
           <tbody id="menu-management-body"></tbody>
         </table>
       </div>
-
-      <button class="login-cancel-btn" style="width: 100%; margin-top: 1rem;" onclick="tutupMenuManagementModal()">Tutup</button>
+      <button class="login-cancel-btn" style="width:100%;margin-top:1rem;" onclick="tutupMenuManagementModal()">Tutup</button>
     </div>
   </div>
 
-  <!-- ===== MODAL FORM TAMBAH/EDIT PRODUK ===== -->
+  <!-- MODAL FORM TAMBAH/EDIT PRODUK -->
   <div id="product-form-modal" style="display:none;" class="modal-overlay">
     <div class="login-box small-modal">
-      <h2 id="form-title" style="margin-bottom: 1rem;">Tambah Produk</h2>
-      
-      <div style="text-align: left; margin-bottom: 1rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.3rem;">Nama Produk</label>
+      <h2 id="form-title" style="margin-bottom:1rem;">Tambah Produk</h2>
+      <div style="text-align:left;margin-bottom:1rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.3rem;">Nama Produk</label>
         <input type="text" id="form-nama" placeholder="Contoh: Jeruk Segar" class="form-input">
       </div>
-
-      <div style="text-align: left; margin-bottom: 1rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.3rem;">Harga (Rp)</label>
+      <div style="text-align:left;margin-bottom:1rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.3rem;">Harga (Rp)</label>
         <input type="number" id="form-harga" placeholder="25000" class="form-input">
       </div>
-
-      <div style="text-align: left; margin-bottom: 1.5rem;">
-        <label style="font-family: var(--font-header); font-size: 0.9rem; display: block; margin-bottom: 0.3rem;">Stok</label>
+      <div style="text-align:left;margin-bottom:1.5rem;">
+        <label style="font-family:var(--font-header);font-size:0.9rem;display:block;margin-bottom:0.3rem;">Stok</label>
         <input type="number" id="form-stok" placeholder="20" class="form-input">
       </div>
-
       <div id="form-error-msg" class="login-error-msg"></div>
-
       <button class="login-submit-btn" id="form-submit-btn" onclick="submitFormProduk()">Simpan</button>
       <button class="login-cancel-btn" onclick="tutupFormProduk()">Batal</button>
     </div>
   </div>
 
-  <!-- ===== LOGIN OVERLAY ===== -->
-  <div id="login-overlay" style="display:none;" role="dialog" aria-modal="true" aria-label="Login Kasir">
+  <!-- LOGIN OVERLAY -->
+  <div id="login-overlay" style="display:none;" role="dialog" aria-modal="true">
     <div class="login-box">
       <div class="login-icon">🔐</div>
       <h2>Akses Operator</h2>
       <p>Masukkan kata sandi kasir untuk melanjutkan</p>
-
       <div class="attempt-bar" id="attempt-dots">
         <div class="attempt-dot" id="dot-1"></div>
         <div class="attempt-dot" id="dot-2"></div>
         <div class="attempt-dot" id="dot-3"></div>
       </div>
-
       <div class="login-input-wrap">
-        <input
-          type="password"
-          id="kasir-password-input"
-          placeholder="••••••"
-          maxlength="30"
-          autocomplete="off"
-          onkeydown="if(event.key==='Enter') verifikasiPassword()"
-        >
-        <button class="toggle-pw-btn" onclick="toggleShowPassword()" title="Tampilkan/Sembunyikan">👁</button>
+        <input type="password" id="kasir-password-input" placeholder="••••••" maxlength="30" autocomplete="off"
+          onkeydown="if(event.key==='Enter') verifikasiPassword()">
+        <button class="toggle-pw-btn" onclick="toggleShowPassword()">👁</button>
       </div>
-
       <div class="login-error-msg" id="login-error-msg"></div>
       <div id="lockout-msg"></div>
-
       <button class="login-submit-btn" id="login-submit-btn" onclick="verifikasiPassword()">Masuk ke Panel Kasir</button>
       <button class="login-cancel-btn" onclick="tutupLoginOverlay()">Batal</button>
     </div>
   </div>
 
+  <!-- FIX #1: Hanya load Supabase SDK SEKALI via CDN, tidak ada const supabase lagi -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-  console.log("Script.js loaded successfully.");
-
   // =====================================================================
-  // KONFIGURASI SUPABASE
-  // PENTING: ganti SUPABASE_KEY di bawah ini dengan Publishable Key kamu
-  // (Project Settings > API Keys > Publishable and secret API keys > Publishable key)
-  // JANGAN pakai Secret Key di sini karena kode ini berjalan di browser (client-side)
+  // FIX #1: Gunakan window.supabase.createClient, BUKAN "const supabase"
+  // karena CDN sudah mendeklarasikan "supabase" di window scope
+  // Menggunakan "const supabase" akan konflik → SyntaxError: already declared
   // =====================================================================
   const SUPABASE_URL = "https://ayyndglgelrveglikssy.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH"; // contoh: sb_publishable_xxxxxxxxxxxxxxxx
+  const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH";
 
-  const supabase = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-);
-  console.log("Supabase client :", supabase);
+  // FIX: pakai nama berbeda supaya tidak bentrok dengan window.supabase dari CDN
+  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  console.log("Supabase client ready:", sbClient);
 
-    // ===== PASSWORD & SECURITY =====
-    let HASH_PASSWORD_OPERATOR = localStorage.getItem('kasir_password_hash') ||
-      '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+  // =====================================================================
+  // FIX #2: Semua fungsi dideklarasikan SEBELUM HTML onclick memanggilnya.
+  // Kunci: fungsi switchTab, bukaCheckoutModal, dll. didaftarkan ke window
+  // sehingga tombol HTML bisa memanggilnya kapanpun.
+  // =====================================================================
 
-    const MAKS_PERCOBAAN   = 3;
-    const DURASI_LOCKOUT_S = 30;
-    let jumlahCobaSalah  = 0;
-    let sedangDikunci    = false;
-    let timerLockout     = null;
+  // ── PASSWORD & SECURITY ──
+  let HASH_PASSWORD_OPERATOR = localStorage.getItem('kasir_password_hash') ||
+    '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+  const MAKS_PERCOBAAN   = 3;
+  const DURASI_LOCKOUT_S = 30;
+  let jumlahCobaSalah = 0;
+  let sedangDikunci   = false;
+  let timerLockout    = null;
 
-    // ===== DINE IN / TAKE AWAY =====
-    let selectedOrderType = 'dine-in';
-    let selectedTableNumber = null;
-    const TOTAL_MEJA = 20;
+  // ── STATE DINE IN / TAKE AWAY ──
+  let selectedOrderType   = 'dine-in';
+  let selectedTableNumber = null;
+  const TOTAL_MEJA        = 20;
 
-    async function sha256(teks) {
-      const encoder = new TextEncoder();
-      const data    = encoder.encode(teks);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray  = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  // ── STATE KASIR ──
+  let databaseStok        = {};
+  let keranjangBelanja    = {};
+  let pendingOrderIds     = {};
+  let completedOrders     = new Set();
+  let totalPendapatanSesi = 0;
+  let totalJusTerjualSesi = 0;
+  let kasirSectionDibuat  = false;
+  let intervalSupabase    = null;
+  let selectedPayMethod   = "QRIS";
+  let checkoutItem        = "";
+  let checkoutHarga       = 0;
+  let editingProduct      = null;
+
+  // ── HELPERS ──
+  async function sha256(teks) {
+    const enc  = new TextEncoder();
+    const buf  = await crypto.subtle.digest('SHA-256', enc.encode(teks));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  // ── SUPABASE HELPERS ──
+  async function loadDatabaseStok() {
+    const { data, error } = await sbClient.from("produk").select("*").order("id");
+    if (error) { console.error("Gagal load produk:", error); return; }
+    databaseStok = {};
+    data.forEach(item => {
+      databaseStok[item.menu_produk] = { id: item.id, harga: item.price, stok: item.stock };
+    });
+    // Render menu grid di halaman menu
+    renderMenuGrid();
+  }
+
+  async function simpanKeSupabase(user, produk, status = "Menunggu") {
+    const { data, error } = await sbClient.from("id").insert({ user, produk, status }).select();
+    if (error) { console.error("Insert error:", error); return null; }
+    return Array.isArray(data) ? data[0] : null;
+  }
+
+  async function ambilPesananDariSupabase() {
+    const { data, error } = await sbClient.from("id").select("*").order("id", { ascending: false }).limit(30);
+    if (error) { console.error("Fetch orders error:", error); return []; }
+    return data;
+  }
+
+  // ── RENDER MENU GRID DARI DATABASE ──
+  function renderMenuGrid() {
+    const grid = document.getElementById('menu-grid-dynamic');
+    if (!grid) return;
+    if (Object.keys(databaseStok).length === 0) {
+      grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;">Belum ada menu tersedia.</p>';
+      return;
     }
-
-    function setOrderType(type) {
-      selectedOrderType = type;
-      document.getElementById('order-type-dine').classList.remove('active');
-      document.getElementById('order-type-takeaway').classList.remove('active');
-      
-      if (type === 'dine-in') {
-        document.getElementById('order-type-dine').classList.add('active');
-        document.getElementById('table-select-container').style.display = 'block';
-      } else {
-        document.getElementById('order-type-takeaway').classList.add('active');
-        document.getElementById('table-select-container').style.display = 'none';
-        selectedTableNumber = null;
-      }
-    }
-
-    function generateTableButtons() {
-      const container = document.getElementById('table-buttons-container');
-      container.innerHTML = '';
-      for (let i = 1; i <= TOTAL_MEJA; i++) {
-        const btn = document.createElement('button');
-        btn.className = 'table-number-btn';
-        btn.innerText = i;
-        btn.onclick = function() {
-          document.querySelectorAll('.table-number-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          selectedTableNumber = i;
-        };
-        container.appendChild(btn);
-      }
-    }
-
-    async function testSupabase() {
-      const { data, error } = await supabase
-          .from("produk")
-          .select("*");
-
-      console.log("DATA:", data);
-      console.log("ERROR:", error);
-    }
-
-    testSupabase();
-
-    // Pesanan customer disimpan di tabel "id" (lihat ambilPesananDariSupabase di bawah)
-    async function simpanKeSupabase(user, produk, status = "Menunggu") {
-      try {
-        const { data, error } = await supabase
-          .from("id")
-          .insert({ user, produk, status })
-          .select();
-
-        if (error) {
-          console.error("Supabase Error:", error);
-          return null;
-        }
-        return Array.isArray(data) ? data[0] : null;
-      } catch (err) {
-        console.error("Supabase Error:", err);
-        return null;
-      }
-    }
-
-    async function verifikasiPassword() {
-      if (sedangDikunci) return;
-
-      const inputEl  = document.getElementById('kasir-password-input');
-      const errorEl  = document.getElementById('login-error-msg');
-      const submitEl = document.getElementById('login-submit-btn');
-      const nilaiInput = inputEl.value;
-
-      if (!nilaiInput.trim()) {
-        tampilkanError('Kata sandi tidak boleh kosong!');
-        return;
-      }
-
-      const hashInput = await sha256(nilaiInput);
-
-      if (hashInput === HASH_PASSWORD_OPERATOR) {
-        jumlahCobaSalah = 0;
-        resetDots();
-        errorEl.textContent = '';
-        tutupLoginOverlay();
-        bukaKasirSetelahLogin();
-      } else {
-        jumlahCobaSalah++;
-        inputEl.value = '';
-
-        inputEl.classList.add('input-error');
-        setTimeout(() => inputEl.classList.remove('input-error'), 500);
-
-        const dotEl = document.getElementById(`dot-${jumlahCobaSalah}`);
-        if (dotEl) dotEl.classList.add('used');
-
-        if (jumlahCobaSalah >= MAKS_PERCOBAAN) {
-          aktifkanLockout(submitEl, inputEl, errorEl);
-        } else {
-          const sisa = MAKS_PERCOBAAN - jumlahCobaSalah;
-          tampilkanError(`Kata sandi salah! Sisa ${sisa} percobaan.`);
-        }
-      }
-    }
-
-    function aktifkanLockout(submitEl, inputEl, errorEl) {
-      sedangDikunci = true;
-      submitEl.disabled = true;
-      inputEl.disabled  = true;
-      errorEl.textContent = '';
-
-      let sisaDetik = DURASI_LOCKOUT_S;
-      const lockoutEl = document.getElementById('lockout-msg');
-      lockoutEl.textContent = `Akses dikunci! Coba lagi dalam ${sisaDetik} detik.`;
-
-      timerLockout = setInterval(() => {
-        sisaDetik--;
-        lockoutEl.textContent = `Akses dikunci! Coba lagi dalam ${sisaDetik} detik.`;
-        if (sisaDetik <= 0) {
-          clearInterval(timerLockout);
-          sedangDikunci         = false;
-          jumlahCobaSalah       = 0;
-          submitEl.disabled     = false;
-          inputEl.disabled      = false;
-          lockoutEl.textContent = '';
-          errorEl.textContent   = '';
-          resetDots();
-        }
-      }, 1000);
-    }
-
-    function tampilkanError(pesan) {
-      document.getElementById('login-error-msg').textContent = pesan;
-    }
-
-    function resetDots() {
-      for (let i = 1; i <= MAKS_PERCOBAAN; i++) {
-        const d = document.getElementById(`dot-${i}`);
-        if (d) d.classList.remove('used');
-      }
-    }
-
-    function toggleShowPassword() {
-      const inp = document.getElementById('kasir-password-input');
-      inp.type = inp.type === 'password' ? 'text' : 'password';
-    }
-
-    function bukaLoginOverlay() {
-      document.getElementById('login-overlay').style.display = 'flex';
-      setTimeout(() => document.getElementById('kasir-password-input').focus(), 100);
-    }
-
-    function tutupLoginOverlay() {
-      document.getElementById('login-overlay').style.display = 'none';
-      document.getElementById('kasir-password-input').value  = '';
-      document.getElementById('login-error-msg').textContent = '';
-      if (timerLockout) { clearInterval(timerLockout); }
-      sedangDikunci = false;
-    }
-
-    function submitEl_ref() {
-      return document.getElementById('login-submit-btn');
-    }
-
-    // ===== GANTI PASSWORD =====
-    function bukaChangePasswordModal() {
-      document.getElementById('change-password-modal').style.display = 'flex';
-      document.getElementById('password-error-msg').textContent = '';
-      document.getElementById('old-password-input').value = '';
-      document.getElementById('new-password-input').value = '';
-      document.getElementById('confirm-password-input').value = '';
-    }
-
-    function tutupChangePasswordModal() {
-      document.getElementById('change-password-modal').style.display = 'none';
-    }
-
-    async function prosesGantiPassword() {
-      const oldPassword = document.getElementById('old-password-input').value;
-      const newPassword = document.getElementById('new-password-input').value;
-      const confirmPassword = document.getElementById('confirm-password-input').value;
-      const errorMsg = document.getElementById('password-error-msg');
-
-      errorMsg.textContent = '';
-
-      if (!oldPassword || !newPassword || !confirmPassword) {
-        errorMsg.textContent = 'Semua field harus diisi!';
-        return;
-      }
-
-      if (newPassword.length < 6) {
-        errorMsg.textContent = 'Password baru minimal 6 karakter!';
-        return;
-      }
-
-      if (newPassword !== confirmPassword) {
-        errorMsg.textContent = 'Konfirmasi password tidak cocok!';
-        return;
-      }
-
-      // Verify old password
-      const oldHash = await sha256(oldPassword);
-      if (oldHash !== HASH_PASSWORD_OPERATOR) {
-        errorMsg.textContent = 'Password lama salah!';
-        return;
-      }
-
-      // Hash & save new password
-      const newHash = await sha256(newPassword);
-      HASH_PASSWORD_OPERATOR = newHash;
-      localStorage.setItem('kasir_password_hash', newHash);
-
-      alert('✅ Password berhasil diubah!');
-      tutupChangePasswordModal();
-    }
-
-    let databaseStok = {};
-
-    async function loadDatabaseStok() {
-
-        const { data, error } = await supabase
-            .from("produk")
-            .select("*")
-            .order("id");
-
-        if (error) {
-            console.error("Gagal mengambil produk:", error);
-            return;
-        }
-
-        databaseStok = {};
-
-        data.forEach(item => {
-
-            databaseStok[item.menu_produk] = {
-                id: item.id,
-                harga: item.price,
-                stok: item.stock,
-                user_id: item.user_id
-            };
-
-        });
-
-    }
-    let keranjangBelanja       = {};
-    let totalPendapatanSesi    = 0;
-    let totalJusTerjualSesi    = 0;
-    let kasirSectionDibuat     = false;
-
-    function switchTab(tabName) {
-      ['home-section','menu-section','about-section'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-      });
-      const kasirEl = document.getElementById('kasir-section');
-      if (kasirEl) kasirEl.style.display = 'none';
-
-      ['btn-tab-home','btn-tab-menu','btn-tab-about'].forEach(id =>
-        document.getElementById(id).classList.remove('active')
-      );
-
-      if (tabName === 'home') {
-        document.getElementById('home-section').style.display = 'grid';
-        document.getElementById('btn-tab-home').classList.add('active');
-      } else if (tabName === 'menu') {
-        document.getElementById('menu-section').style.display = 'block';
-        document.getElementById('btn-tab-menu').classList.add('active');
-      } else if (tabName === 'about') {
-        document.getElementById('about-section').style.display = 'block';
-        document.getElementById('btn-tab-about').classList.add('active');
-      } else if (tabName === 'kasir' && kasirEl) {
-        kasirEl.style.display = 'block';
-      }
-    }
-
-    function tambahKeKeranjang(nama, harga, dariKasirLangsung) {
-      if (databaseStok[nama].stok <= 0) {
-        alert("Maaf, ketersediaan bahan menu ini sedang habis!");
-        return;
-      }
-      if (keranjangBelanja[nama]) {
-        if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) {
-          alert("Batas maksimal pesanan sesuai sisa stok!");
-          return;
-        }
-        keranjangBelanja[nama].qty += 1;
-      } else {
-        keranjangBelanja[nama] = { harga, qty: 1 };
-      }
-      updateTampilanStruk();
-      if (!dariKasirLangsung) alert(`Berhasil memasukkan 1 ${nama} ke keranjang!`);
-    }
-
-    let intervalSupabase  = null;
-    let selectedPayMethod = "QRIS";
-    let checkoutItem      = "";
-    let checkoutHarga     = 0;
-    const completedOrders = new Set();
-    let pendingOrderIds = {};
-
-    function bukaCheckoutModal(nama, harga) {
-      checkoutItem  = nama;
-      checkoutHarga = harga;
-      selectedOrderType = 'dine-in';
-      selectedTableNumber = null;
-      
-      document.getElementById('checkout-title').innerText    = `Pesan ${nama}`;
-      document.getElementById('checkout-subtitle').innerText = `Total: Rp ${harga.toLocaleString('id-ID')}`;
-      document.getElementById('checkout-name-input').value   = "";
-      
-      setOrderType('dine-in');
-      generateTableButtons();
-      setPayMethod('QRIS');
-      
-      document.getElementById('checkout-modal').style.display = 'flex';
-    }
-
-    function tutupCheckoutModal() {
-      document.getElementById('checkout-modal').style.display = 'none';
-    }
-
-    function setPayMethod(method) {
-      selectedPayMethod = method;
-      document.querySelectorAll('#checkout-modal .pay-method-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(`pay-btn-${method}`).classList.add('active');
-    }
-
-    async function kirimPesananLangsung() {
-      const nama = document.getElementById('checkout-name-input').value.trim();
-      if (!nama) {
-        alert("Harap masukkan nama Anda!");
-        return;
-      }
-
-      if (selectedOrderType === 'dine-in' && !selectedTableNumber) {
-        alert("Harap pilih nomor meja untuk Dine In!");
-        return;
-      }
-
-      if (databaseStok[checkoutItem].stok <= 0) {
-        alert("Maaf, stok menu ini sedang habis!");
-        return;
-      }
-
-      // Kurangi stok produk di Supabase (UPDATE, bukan INSERT produk baru)
-      const stokBaru = databaseStok[checkoutItem].stok - 1;
-
-      const { error: stokError } = await supabase
-        .from("produk")
-        .update({ stock: stokBaru })
-        .eq("id", databaseStok[checkoutItem].id);
-
-      if (stokError) {
-        console.error("Gagal update stok:", stokError);
-        alert("Gagal memperbarui stok.");
-        return;
-      }
-
-      await loadDatabaseStok();
-      renderMenuManagement();
-      renderTabelStok();
-
-      const mejaInfo = selectedOrderType === 'dine-in' ? `Meja ${selectedTableNumber}` : 'Take Away';
-      const record = await simpanKeSupabase(
-        nama,
-        `${checkoutItem} x1 (${selectedPayMethod})`,
-        "Menunggu"
-      );
-
-      tutupCheckoutModal();
-
-      bukaStrukModal({
-        nama:    nama,
-        produk:  checkoutItem,
-        harga:   checkoutHarga,
-        metode:  selectedPayMethod,
-        tipe:    selectedOrderType === 'dine-in' ? 'Dine In' : 'Take Away',
-        meja:    mejaInfo,
-        orderId: record ? record.id : "—"
-      });
-    }
-
-    function bukaStrukModal({ nama, produk, harga, metode, tipe, meja, orderId }) {
-      const now = new Date();
-      document.getElementById('struk-datetime').innerText =
-        now.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' }) +
-        ' · ' +
-        now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
-
-      document.getElementById('struk-nama').innerText    = nama;
-      document.getElementById('struk-tipe').innerText    = tipe;
-      document.getElementById('struk-meja').innerText    = meja;
-      document.getElementById('struk-metode').innerText  = metode;
-
-      document.getElementById('struk-items').innerHTML = `
-        <div class="struk-row">
-          <span>${produk} x1</span>
-          <span>Rp ${harga.toLocaleString('id-ID')}</span>
-        </div>
-      `;
-
-      document.getElementById('struk-total').innerText = 'Rp ' + harga.toLocaleString('id-ID');
-      document.getElementById('struk-modal').style.display = 'flex';
-    }
-
-    function tutupStrukModal() {
-      document.getElementById('struk-modal').style.display = 'none';
-    }
-
-    // ===== MENU MANAGEMENT =====
-    let editingProduct = null;
-
-    function bukaMenuManagementModal() {
-      renderMenuManagement();
-      document.getElementById('menu-management-modal').style.display = 'flex';
-    }
-
-    function tutupMenuManagementModal() {
-      document.getElementById('menu-management-modal').style.display = 'none';
-    }
-
-    function renderMenuManagement() {
-      const tbody = document.getElementById('menu-management-body');
-      tbody.innerHTML = '';
-      
-      for (let nama in databaseStok) {
-        const item = databaseStok[nama];
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td><strong>${nama}</strong></td>
-          <td>Rp ${item.harga.toLocaleString('id-ID')}</td>
-          <td>${item.stok}</td>
-          <td style="text-align: center; display: flex; gap: 0.3rem; justify-content: center;">
-            <button class="action-toggle-btn" onclick="bukaFormEditProduk('${nama}')">✏️ Edit</button>
-            <button class="action-toggle-btn" style="background: #ffebee;" onclick="hapusProduk('${nama}')">🗑️ Hapus</button>
-          </td>
-        `;
-        tbody.appendChild(row);
-      }
-    }
-
-    function bukaFormTambahProduk() {
-      editingProduct = null;
-      document.getElementById('form-title').innerText = '➕ Tambah Produk Baru';
-      document.getElementById('form-nama').value = '';
-      document.getElementById('form-harga').value = '';
-      document.getElementById('form-stok').value = '';
-      document.getElementById('form-error-msg').textContent = '';
-      document.getElementById('form-submit-btn').innerText = 'Tambah Produk';
-      document.getElementById('product-form-modal').style.display = 'flex';
-    }
-
-    function bukaFormEditProduk(nama) {
-      editingProduct = nama;
+    const badges = ["Terlaris","Paling Sehat","Antioksidan","Favorit","New!"];
+    const imgs = [
+      "https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1622484211148-716598e04042?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=500&q=80",
+      "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=500&q=80"
+    ];
+    const keys = Object.keys(databaseStok);
+    grid.innerHTML = keys.map((nama, i) => {
       const item = databaseStok[nama];
-      
-      document.getElementById('form-title').innerText = `✏️ Edit ${nama}`;
-      document.getElementById('form-nama').value = nama;
-      document.getElementById('form-harga').value = item.harga;
-      document.getElementById('form-stok').value = item.stok;
-      document.getElementById('form-error-msg').textContent = '';
-      document.getElementById('form-submit-btn').innerText = 'Update Produk';
-      document.getElementById('product-form-modal').style.display = 'flex';
+      const img  = imgs[i % imgs.length];
+      const badge= badges[i % badges.length];
+      return `
+        <div class="menu-card">
+          <div class="menu-card-img-wrapper">
+            <img src="${img}" alt="${nama}" class="menu-card-img">
+            <span class="menu-card-badge">${badge}</span>
+          </div>
+          <div class="menu-card-content">
+            <div class="menu-card-header">
+              <h3 class="menu-card-title">${nama}</h3>
+              <span class="menu-card-price">Rp ${item.harga.toLocaleString('id-ID')}</span>
+            </div>
+            <p class="menu-card-desc">Tersedia ${item.stok} cup.</p>
+            <div class="menu-card-footer">
+              <span class="menu-rating">⭐ 4.9</span>
+              <button class="order-btn" onclick="bukaCheckoutModal('${nama}', ${item.harga})">Pesan &amp; Bayar</button>
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── NAVIGASI TAB ──
+  function switchTab(tabName) {
+    ['home-section','menu-section','about-section'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+    const kasirEl = document.getElementById('kasir-section');
+    if (kasirEl) kasirEl.style.display = 'none';
+    ['btn-tab-home','btn-tab-menu','btn-tab-about'].forEach(id =>
+      document.getElementById(id).classList.remove('active')
+    );
+    if (tabName === 'home') {
+      document.getElementById('home-section').style.display = 'grid';
+      document.getElementById('btn-tab-home').classList.add('active');
+    } else if (tabName === 'menu') {
+      document.getElementById('menu-section').style.display = 'block';
+      document.getElementById('btn-tab-menu').classList.add('active');
+    } else if (tabName === 'about') {
+      document.getElementById('about-section').style.display = 'block';
+      document.getElementById('btn-tab-about').classList.add('active');
+    } else if (tabName === 'kasir' && kasirEl) {
+      kasirEl.style.display = 'block';
+    }
+  }
+
+  // ── CHECKOUT: DINE IN / TAKE AWAY ──
+  function setOrderType(type) {
+    selectedOrderType = type;
+    document.getElementById('type-btn-dinein').classList.toggle('active', type === 'dine-in');
+    document.getElementById('type-btn-takeaway').classList.toggle('active', type === 'take-away');
+    const mejaSection = document.getElementById('table-select-container');
+    if (type === 'dine-in') {
+      mejaSection.style.display = 'block';
+      generateTableButtons();
+    } else {
+      mejaSection.style.display = 'none';
+      selectedTableNumber = null;
+    }
+  }
+
+  function generateTableButtons() {
+    const container = document.getElementById('table-buttons-container');
+    container.innerHTML = '';
+    for (let i = 1; i <= TOTAL_MEJA; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'table-number-btn';
+      btn.innerText = i;
+      btn.onclick = function() {
+        document.querySelectorAll('.table-number-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedTableNumber = i;
+        document.getElementById('meja-terpilih-label').innerText = `— Meja ${i} terpilih ✓`;
+      };
+      container.appendChild(btn);
+    }
+  }
+
+  function bukaCheckoutModal(nama, harga) {
+    checkoutItem  = nama;
+    checkoutHarga = harga;
+    selectedOrderType   = 'dine-in';
+    selectedTableNumber = null;
+    document.getElementById('checkout-title').innerText    = `Pesan ${nama}`;
+    document.getElementById('checkout-subtitle').innerText = `Total: Rp ${harga.toLocaleString('id-ID')}`;
+    document.getElementById('checkout-name-input').value   = '';
+    document.getElementById('meja-terpilih-label').innerText = '';
+    setOrderType('dine-in');
+    setPayMethod('QRIS');
+    document.getElementById('checkout-modal').style.display = 'flex';
+  }
+
+  function tutupCheckoutModal() {
+    document.getElementById('checkout-modal').style.display = 'none';
+  }
+
+  function setPayMethod(method) {
+    selectedPayMethod = method;
+    document.querySelectorAll('#checkout-modal .pay-method-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`pay-btn-${method}`).classList.add('active');
+  }
+
+  async function kirimPesananLangsung() {
+    const nama = document.getElementById('checkout-name-input').value.trim();
+    if (!nama) { alert("Harap masukkan nama Anda!"); return; }
+    if (selectedOrderType === 'dine-in' && !selectedTableNumber) {
+      alert("Harap pilih nomor meja untuk Dine In!"); return;
+    }
+    if (!databaseStok[checkoutItem] || databaseStok[checkoutItem].stok <= 0) {
+      alert("Maaf, stok menu ini sedang habis!"); return;
     }
 
-    function tutupFormProduk() {
-      document.getElementById('product-form-modal').style.display = 'none';
-      editingProduct = null;
-    }
-
-    async function submitFormProduk() {
-      const nama = document.getElementById('form-nama').value.trim();
-      const harga = parseInt(document.getElementById('form-harga').value, 10);
-      const stok = parseInt(document.getElementById('form-stok').value, 10);
-      const errorMsg = document.getElementById('form-error-msg');
-
-      errorMsg.textContent = '';
-
-      if (!nama || isNaN(harga) || isNaN(stok)) {
-        errorMsg.textContent = 'Semua field harus diisi dengan benar!';
-        return;
-      }
-
-      if (harga < 0 || stok < 0) {
-        errorMsg.textContent = 'Harga dan stok tidak boleh negatif!';
-        return;
-      }
-
-      if (!editingProduct) {
-        // INSERT produk baru
-        if (databaseStok[nama]) {
-          errorMsg.textContent = 'Produk dengan nama ini sudah ada!';
-          return;
-        }
-
-        const { error } = await supabase
-          .from("produk")
-          .insert({
-            menu_produk: nama,
-            price: harga,
-            stock: stok,
-            user_id: 1
-          });
-
-        if (error) {
-          errorMsg.textContent = 'Gagal menambahkan produk.';
-          console.error(error);
-          return;
-        }
-
-        alert(`✅ Produk "${nama}" berhasil ditambahkan!`);
-      } else {
-        // UPDATE produk yang sudah ada (sebelumnya kode lama salah pakai .insert())
-        if (nama !== editingProduct && databaseStok[nama]) {
-          errorMsg.textContent = 'Produk dengan nama baru ini sudah ada!';
-          return;
-        }
-
-        const idProduk = databaseStok[editingProduct].id;
-
-        const { error } = await supabase
-          .from("produk")
-          .update({
-            menu_produk: nama,
-            price: harga,
-            stock: stok
-          })
-          .eq("id", idProduk);
-
-        if (error) {
-          errorMsg.textContent = 'Gagal mengupdate produk.';
-          console.error(error);
-          return;
-        }
-
-        alert(`✅ Produk "${nama}" berhasil diupdate!`);
-      }
-
-      await loadDatabaseStok();
-      tutupFormProduk();
-      renderMenuManagement();
-      renderTabelStok();
-    }
-
-   async function hapusProduk(nama){
-
-    if(!confirm(`Hapus ${nama}?`)) return;
-
-    const item = databaseStok[nama];
-
-    const { error } = await supabase
-        .from("produk")
-        .delete()
-        .eq("id", item.id);
-
-    if(error){
-        console.error(error);
-        return;
-    }
+    // Update stok di Supabase
+    const stokBaru = databaseStok[checkoutItem].stok - 1;
+    const { error: stokError } = await sbClient.from("produk")
+      .update({ stock: stokBaru })
+      .eq("id", databaseStok[checkoutItem].id);
+    if (stokError) { alert("Gagal update stok."); return; }
 
     await loadDatabaseStok();
+    renderTabelStok();
 
+    const mejaInfo = selectedOrderType === 'dine-in' ? `Meja ${selectedTableNumber}` : 'Take Away';
+    const tipeLabel = selectedOrderType === 'dine-in' ? 'Dine In' : 'Take Away';
+    const produkInfo = `${checkoutItem} x1 (${selectedPayMethod}) [${mejaInfo}]`;
+
+    const record = await simpanKeSupabase(nama, produkInfo, "Menunggu");
+
+    tutupCheckoutModal();
+
+    bukaStrukModal({
+      nama:    nama,
+      produk:  checkoutItem,
+      harga:   checkoutHarga,
+      metode:  selectedPayMethod,
+      tipe:    tipeLabel,
+      meja:    selectedOrderType === 'dine-in' ? selectedTableNumber : null,
+      orderId: record ? record.id : '—'
+    });
+
+    if (document.getElementById('kasir-section') &&
+        document.getElementById('kasir-section').style.display !== 'none') {
+      tampilkanPesananCustomer();
+    }
+  }
+
+  // ── STRUK ──
+  function bukaStrukModal({ nama, produk, harga, metode, tipe, meja, orderId }) {
+    const now = new Date();
+    document.getElementById('struk-datetime').innerText =
+      now.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' }) +
+      ' · ' + now.toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+    document.getElementById('struk-nama').innerText    = nama;
+    document.getElementById('struk-tipe').innerText    = tipe;
+    document.getElementById('struk-metode').innerText  = metode;
+    document.getElementById('struk-orderid').innerText = '#' + orderId;
+    const mejaRow = document.getElementById('struk-meja-row');
+    if (meja) {
+      mejaRow.style.display = 'flex';
+      document.getElementById('struk-meja').innerText = 'Meja ' + meja;
+    } else {
+      mejaRow.style.display = 'none';
+    }
+    document.getElementById('struk-items').innerHTML = `
+      <div class="struk-row"><span>${produk} x1</span><span>Rp ${harga.toLocaleString('id-ID')}</span></div>`;
+    document.getElementById('struk-total').innerText = 'Rp ' + harga.toLocaleString('id-ID');
+    document.getElementById('struk-modal').style.display = 'flex';
+  }
+
+  function tutupStrukModal() {
+    document.getElementById('struk-modal').style.display = 'none';
+  }
+
+  // ── LOGIN ──
+  function bukaLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'flex';
+    setTimeout(() => document.getElementById('kasir-password-input').focus(), 100);
+  }
+  function tutupLoginOverlay() {
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('kasir-password-input').value  = '';
+    document.getElementById('login-error-msg').textContent = '';
+    if (timerLockout) clearInterval(timerLockout);
+    sedangDikunci = false;
+    const s = document.getElementById('login-submit-btn');
+    if (s) s.disabled = false;
+  }
+  function tampilkanError(pesan) { document.getElementById('login-error-msg').textContent = pesan; }
+  function resetDots() {
+    for (let i = 1; i <= MAKS_PERCOBAAN; i++) {
+      const d = document.getElementById(`dot-${i}`);
+      if (d) d.classList.remove('used');
+    }
+  }
+  function toggleShowPassword() {
+    const inp = document.getElementById('kasir-password-input');
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+  }
+  async function verifikasiPassword() {
+    if (sedangDikunci) return;
+    const inputEl  = document.getElementById('kasir-password-input');
+    const errorEl  = document.getElementById('login-error-msg');
+    const submitEl = document.getElementById('login-submit-btn');
+    const val = inputEl.value;
+    if (!val.trim()) { tampilkanError('Kata sandi tidak boleh kosong!'); return; }
+    const hashInput = await sha256(val);
+    if (hashInput === HASH_PASSWORD_OPERATOR) {
+      jumlahCobaSalah = 0; resetDots(); errorEl.textContent = '';
+      tutupLoginOverlay(); bukaKasirSetelahLogin();
+    } else {
+      jumlahCobaSalah++;
+      inputEl.value = '';
+      inputEl.classList.add('input-error');
+      setTimeout(() => inputEl.classList.remove('input-error'), 500);
+      const dot = document.getElementById(`dot-${jumlahCobaSalah}`);
+      if (dot) dot.classList.add('used');
+      if (jumlahCobaSalah >= MAKS_PERCOBAAN) {
+        sedangDikunci = true; submitEl.disabled = true; inputEl.disabled = true;
+        let sisa = DURASI_LOCKOUT_S;
+        const lockEl = document.getElementById('lockout-msg');
+        lockEl.textContent = `Dikunci ${sisa} detik.`;
+        timerLockout = setInterval(() => {
+          sisa--;
+          lockEl.textContent = `Dikunci ${sisa} detik.`;
+          if (sisa <= 0) {
+            clearInterval(timerLockout);
+            sedangDikunci = false; jumlahCobaSalah = 0;
+            submitEl.disabled = false; inputEl.disabled = false;
+            lockEl.textContent = ''; errorEl.textContent = '';
+            resetDots();
+          }
+        }, 1000);
+      } else {
+        tampilkanError(`Kata sandi salah! Sisa ${MAKS_PERCOBAAN - jumlahCobaSalah} percobaan.`);
+      }
+    }
+  }
+
+  // ── GANTI PASSWORD ──
+  function bukaChangePasswordModal() {
+    document.getElementById('change-password-modal').style.display = 'flex';
+    document.getElementById('password-error-msg').textContent = '';
+    ['old-password-input','new-password-input','confirm-password-input'].forEach(id =>
+      document.getElementById(id).value = ''
+    );
+  }
+  function tutupChangePasswordModal() { document.getElementById('change-password-modal').style.display = 'none'; }
+  async function prosesGantiPassword() {
+    const oldPw  = document.getElementById('old-password-input').value;
+    const newPw  = document.getElementById('new-password-input').value;
+    const conPw  = document.getElementById('confirm-password-input').value;
+    const errEl  = document.getElementById('password-error-msg');
+    errEl.textContent = '';
+    if (!oldPw || !newPw || !conPw) { errEl.textContent = 'Semua field harus diisi!'; return; }
+    if (newPw.length < 6) { errEl.textContent = 'Password baru minimal 6 karakter!'; return; }
+    if (newPw !== conPw) { errEl.textContent = 'Konfirmasi tidak cocok!'; return; }
+    if (await sha256(oldPw) !== HASH_PASSWORD_OPERATOR) { errEl.textContent = 'Password lama salah!'; return; }
+    HASH_PASSWORD_OPERATOR = await sha256(newPw);
+    localStorage.setItem('kasir_password_hash', HASH_PASSWORD_OPERATOR);
+    alert('✅ Password berhasil diubah!');
+    tutupChangePasswordModal();
+  }
+
+  // ── KELOLA MENU ──
+  function bukaMenuManagementModal() { renderMenuManagement(); document.getElementById('menu-management-modal').style.display = 'flex'; }
+  function tutupMenuManagementModal() { document.getElementById('menu-management-modal').style.display = 'none'; }
+  function renderMenuManagement() {
+    const tbody = document.getElementById('menu-management-body');
+    tbody.innerHTML = '';
+    for (let nama in databaseStok) {
+      const item = databaseStok[nama];
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><strong>${nama}</strong></td>
+        <td>Rp ${item.harga.toLocaleString('id-ID')}</td>
+        <td>${item.stok}</td>
+        <td style="text-align:center;display:flex;gap:0.3rem;justify-content:center;">
+          <button class="action-toggle-btn" onclick="bukaFormEditProduk('${nama}')">✏️ Edit</button>
+          <button class="action-toggle-btn" style="background:#ffebee;" onclick="hapusProduk('${nama}')">🗑️ Hapus</button>
+        </td>`;
+      tbody.appendChild(row);
+    }
+  }
+  function bukaFormTambahProduk() {
+    editingProduct = null;
+    document.getElementById('form-title').innerText = '➕ Tambah Produk Baru';
+    ['form-nama','form-harga','form-stok'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('form-error-msg').textContent = '';
+    document.getElementById('form-submit-btn').innerText = 'Tambah Produk';
+    document.getElementById('product-form-modal').style.display = 'flex';
+  }
+  function bukaFormEditProduk(nama) {
+    editingProduct = nama;
+    const item = databaseStok[nama];
+    document.getElementById('form-title').innerText = `✏️ Edit ${nama}`;
+    document.getElementById('form-nama').value  = nama;
+    document.getElementById('form-harga').value = item.harga;
+    document.getElementById('form-stok').value  = item.stok;
+    document.getElementById('form-error-msg').textContent = '';
+    document.getElementById('form-submit-btn').innerText = 'Update Produk';
+    document.getElementById('product-form-modal').style.display = 'flex';
+  }
+  function tutupFormProduk() { document.getElementById('product-form-modal').style.display = 'none'; editingProduct = null; }
+  async function submitFormProduk() {
+    const nama  = document.getElementById('form-nama').value.trim();
+    const harga = parseInt(document.getElementById('form-harga').value, 10);
+    const stok  = parseInt(document.getElementById('form-stok').value, 10);
+    const errEl = document.getElementById('form-error-msg');
+    errEl.textContent = '';
+    if (!nama || isNaN(harga) || isNaN(stok)) { errEl.textContent = 'Semua field harus diisi!'; return; }
+    if (harga < 0 || stok < 0) { errEl.textContent = 'Harga dan stok tidak boleh negatif!'; return; }
+    if (!editingProduct) {
+      if (databaseStok[nama]) { errEl.textContent = 'Produk sudah ada!'; return; }
+      const { error } = await sbClient.from("produk").insert({ menu_produk: nama, price: harga, stock: stok, user_id: 1 });
+      if (error) { errEl.textContent = 'Gagal menambahkan produk.'; return; }
+      alert(`✅ Produk "${nama}" ditambahkan!`);
+    } else {
+      if (nama !== editingProduct && databaseStok[nama]) { errEl.textContent = 'Nama produk sudah ada!'; return; }
+      const { error } = await sbClient.from("produk").update({ menu_produk: nama, price: harga, stock: stok })
+        .eq("id", databaseStok[editingProduct].id);
+      if (error) { errEl.textContent = 'Gagal update produk.'; return; }
+      alert(`✅ Produk "${nama}" diupdate!`);
+    }
+    await loadDatabaseStok();
+    tutupFormProduk();
     renderMenuManagement();
     renderTabelStok();
-
-}
-
-    // Pesanan customer disimpan & dibaca dari tabel "id" (sebelumnya kode lama
-    // salah mengambil dari tabel "users", yang seharusnya hanya untuk akun login)
-    async function ambilPesananDariSupabase() {
-
-    const { data, error } = await supabase
-        .from("id")
-        .select("*");
-
-    if (error) {
-        console.error(error);
-        return [];
-    }
-
-    return data;
-
-}
-          
-       
-    
-
-    async function tampilkanPesananCustomer() {
-      const container = document.getElementById('live-orders-container');
-      if (!container) return;
-
-      const data = await ambilPesananDariSupabase();
-      
-      if (!data || data.length === 0) {
-        container.innerHTML = '<p style="color: var(--text-muted); text-align: center; font-style: italic; font-size: 0.9rem;">Tidak ada antrean pesanan.</p>';
-        return;
-      }
-
-      container.innerHTML = '';
-      data.forEach(order => {
-        const card = document.createElement('div');
-        card.style.cssText = `
-          background: var(--bg-soft); border: 2px solid var(--text-main);
-          border-radius: 12px; padding: 0.8rem; box-shadow: 3px 3px 0px var(--text-main);
-          display: flex; flex-direction: column; gap: 0.3rem;
-        `;
-
-        const dbCompleted = order.status === "Selesai";
-        const isCompleted = dbCompleted || completedOrders.has(order.id);
-        const cleanProduct = (order.produk || '').replace(/'/g, "\\'");
-        const displayProductText = order.produk || '';
-        const btnText     = isCompleted ? "Selesai" : "Selesaikan";
-        const btnDisabled = isCompleted ? "disabled" : "";
-        const btnStyle    = isCompleted
-          ? "background: #6c757d; border-color: #2B2D42; box-shadow: none; transform: none; cursor: not-allowed;"
-          : "background: var(--green-accent);";
-
-        card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed var(--text-main); padding-bottom: 4px; margin-bottom: 4px;">
-            <strong style="font-family: var(--font-header); font-size: 0.95rem; color: var(--green-accent);">${order.user || 'Customer'}</strong>
-            <span style="font-size: 0.7rem; color: var(--text-muted); font-weight: bold;">ID: #${order.id}</span>
-          </div>
-          <div style="font-size: 0.85rem; font-weight: bold; color: var(--text-main);">${displayProductText || '-'}</div>
-          <div style="display: flex; justify-content: flex-end; margin-top: 0.3rem;">
-            <button class="bill-shortcut-btn selesai-btn" ${btnDisabled}
-              data-order-id="${order.id}"
-              data-produk="${(order.produk || '').replace(/"/g, '&quot;')}"
-              style="padding: 0.2rem 0.5rem; font-size: 0.75rem; ${btnStyle}">${btnText}</button>
-          </div>
-        `;
-        container.appendChild(card);
-
-        if (!isCompleted) {
-          const btn = card.querySelector('.selesai-btn');
-          btn.addEventListener('click', function() {
-            selesaikanPesanan(order.id, order.produk || '', order.user || 'Customer');
-          });
-        }
-      });
-    }
-
-    function selesaikanPesanan(orderId, produkText, namaUser) {
-      const btn = document.querySelector(`.selesai-btn[data-order-id="${orderId}"]`);
-
-      const menuMap = {};
-      for (let nama in databaseStok) {
-        menuMap[nama] = databaseStok[nama].harga;
-      }
-
-      let namaMenu = null;
-      let harga    = 0;
-      let qty      = 1;
-
-      if (produkText) {
-        for (const [nama, h] of Object.entries(menuMap)) {
-          if (produkText.includes(nama)) {
-            namaMenu = nama;
-            harga    = h;
-            const qtyMatch = produkText.match(/x(\d+)/i);
-            if (qtyMatch) qty = parseInt(qtyMatch[1], 10);
-            break;
-          }
-        }
-      }
-
-      if (!namaMenu) {
-        alert("Menu tidak dikenali di sistem.");
-        return;
-      }
-
-      if (keranjangBelanja[namaMenu]) {
-        keranjangBelanja[namaMenu].qty += qty;
-      } else {
-        keranjangBelanja[namaMenu] = { harga, qty };
-      }
-
-      if (!pendingOrderIds[namaMenu]) pendingOrderIds[namaMenu] = [];
-      pendingOrderIds[namaMenu].push({ orderId, namaUser, qty });
-
-      updateTampilanStruk();
-
-      if (btn) {
-        btn.innerText         = "Di Keranjang";
-        btn.disabled          = true;
-        btn.style.background  = "#FFD23F";
-        btn.style.color       = "#2B2D42";
-        btn.style.borderColor = "#2B2D42";
-        btn.style.boxShadow   = "none";
-        btn.style.cursor      = "not-allowed";
-      }
-    }
-
-    async function updateStatusSelesaiSupabase() {
-      for (const namaMenu of Object.keys(pendingOrderIds)) {
-        for (const info of pendingOrderIds[namaMenu]) {
-          try {
-            await supabase
-              .from("id")
-              .update({ status: "Selesai" })
-              .eq("id", info.orderId);
-            completedOrders.add(info.orderId);
-          } catch (err) {
-            console.error("Gagal update order", info.orderId, err);
-          }
-        }
-      }
-      pendingOrderIds = {};
-    }
-
-    window.selesaikanPesanan    = selesaikanPesanan;
-    window.bukaCheckoutModal    = bukaCheckoutModal;
-    window.tutupCheckoutModal   = tutupCheckoutModal;
-    window.setPayMethod         = setPayMethod;
-    window.setOrderType         = setOrderType;
-    window.kirimPesananLangsung = kirimPesananLangsung;
-    window.tampilkanPesananCustomer = tampilkanPesananCustomer;
-    window.tutupStrukModal      = tutupStrukModal;
-    window.bukaMenuManagementModal = bukaMenuManagementModal;
-    window.tutupMenuManagementModal = tutupMenuManagementModal;
-    window.bukaChangePasswordModal = bukaChangePasswordModal;
-    window.tutupChangePasswordModal = tutupChangePasswordModal;
-
-    function mulaiPollingPesanan() {
-      if (intervalSupabase) clearInterval(intervalSupabase);
-      tampilkanPesananCustomer();
-      intervalSupabase = setInterval(tampilkanPesananCustomer, 5000);
-    }
-
-    function hentikanPollingPesanan() {
-      if (intervalSupabase) clearInterval(intervalSupabase);
-    }
-
-    function bukaKasirSetelahLogin() {
-      if (!kasirSectionDibuat) {
-        injectKasirSection();
-        kasirSectionDibuat = true;
-      }
-      ['home-section','menu-section','about-section'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.display = 'none';
-      });
-      ['btn-tab-home','btn-tab-menu','btn-tab-about'].forEach(id =>
-        document.getElementById(id).classList.remove('active')
-      );
-      document.getElementById('kasir-section').style.display = 'block';
-      renderTabelStok();
-      updateTampilanStruk();
-      mulaiPollingPesanan();
-    }
-
-    function injectKasirSection() {
-      const main    = document.querySelector('main');
-      const section = document.createElement('section');
-      section.id        = 'kasir-section';
-      section.className = 'section-container';
-      section.style.display = 'none';
-
-      section.innerHTML = `
-        <div class="kasir-exit-bar">
-          <div style="display: flex; gap: 0.5rem;">
-            <button class="kasir-settings-btn" onclick="bukaMenuManagementModal()">📦 Kelola Menu</button>
-            <button class="kasir-settings-btn" onclick="bukaChangePasswordModal()">🔐 Ganti Password</button>
-          </div>
-          <button class="kasir-exit-btn" onclick="tutupPanelKasir()">Tutup Panel Kasir</button>
-        </div>
-        <div class="section-title-wrapper">
-          <span class="section-subtitle">Panel Operator</span>
-          <h2 class="section-title">Kasir & Stok Realtime</h2>
-        </div>
-        <div class="admin-summary-grid">
-          <div class="admin-stat-card">
-            <span class="admin-stat-value" id="stat-pendapatan">Rp 0</span>
-            <span class="admin-stat-label">Pendapatan Sesi Ini</span>
-          </div>
-          <div class="admin-stat-card">
-            <span class="admin-stat-value" id="stat-terjual">0 Cup</span>
-            <span class="admin-stat-label">Total Jus Terjual</span>
-          </div>
-          <div class="admin-stat-card">
-            <span class="admin-stat-value" style="color: var(--text-main);">●●●●</span>
-            <span class="admin-stat-label">Sesi Terautentikasi</span>
-          </div>
-        </div>
-        <div class="home-layout" style="grid-template-columns: 1.1fr 1.1fr 1.1fr; gap: 1.5rem; align-items: start; max-width: 100%;">
-          
-          <div class="admin-table-wrapper">
-            <div style="background: var(--primary-yellow); padding: 0.8rem 1.2rem; border-bottom: 3px solid var(--text-main);">
-              <h3 style="font-family: var(--font-header); font-size: 1.1rem; margin: 0;">Logistik &amp; Stok</h3>
-            </div>
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Nama Jus</th>
-                  <th>Stok</th>
-                  <th colspan="2" style="text-align: center;">Aksi</th>
-                </tr>
-              </thead>
-              <tbody id="tabel-stok-body"></tbody>
-            </table>
-          </div>
-
-          <div class="admin-table-wrapper" style="display: flex; flex-direction: column; min-height: 350px;">
-            <div style="background: var(--green-accent); color: white; padding: 0.8rem 1.2rem; border-bottom: 3px solid var(--text-main); display: flex; justify-content: space-between; align-items: center;">
-              <h3 style="font-family: var(--font-header); font-size: 1.1rem; margin: 0; color: white;">Live Orders</h3>
-              <button onclick="tampilkanPesananCustomer()" class="action-toggle-btn" style="padding: 0.2rem 0.6rem; font-size: 0.8rem;">🔄</button>
-            </div>
-            <div id="live-orders-container" style="padding: 1rem; overflow-y: auto; flex-grow: 1; display: flex; flex-direction: column; gap: 0.8rem;">
-              <p style="color: var(--text-muted); text-align: center; font-style: italic;">Memuat pesanan...</p>
-            </div>
-          </div>
-
-          <div class="receipt-box">
-            <div style="border-bottom: 2px dashed var(--text-main); padding-bottom: 1rem; margin-bottom: 1rem;">
-              <h3 style="font-family: var(--font-header);">POS Manual Walk-in</h3>
-              <span style="font-size: 0.8rem; color: var(--text-muted);">Mode Pop-Art Kasir</span>
-            </div>
-            <div id="receipt-items-container" style="flex-grow:1; display:flex; flex-direction:column; gap:0.6rem; font-size:0.95rem; min-height:80px;">
-              <p style="color:var(--text-muted);text-align:center;font-style:italic;">Belum ada pesanan.</p>
-            </div>
-            <div class="receipt-total" style="border-top: 2px dashed var(--text-main); margin-top: 1rem;">
-              <span>TOTAL:</span>
-              <span id="receipt-total-harga">Rp 0</span>
-            </div>
-            <div style="margin-top:1rem; display:flex; gap:0.5rem;">
-              <button class="submit-btn" style="padding:0.8rem; background:var(--text-main); font-size: 0.85rem;" onclick="kosongkanKeranjang()">Batal</button>
-              <button class="submit-btn" style="padding:0.8rem; font-size: 0.85rem;" onclick="prosesTransaksi()">Bayar (POS)</button>
-            </div>
-          </div>
-
-        </div>
-      `;
-      main.appendChild(section);
-    }
-
-    function tutupPanelKasir() {
-      hentikanPollingPesanan();
-      const kasirEl = document.getElementById('kasir-section');
-      if (kasirEl) kasirEl.style.display = 'none';
-      switchTab('home');
-    }
-
-    function renderTabelStok() {
-      const tbody = document.getElementById('tabel-stok-body');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      for (let namaJus in databaseStok) {
-        let item = databaseStok[namaJus];
-        tbody.innerHTML += `
-          <tr>
-            <td><strong>${namaJus}</strong><br><small style="color:var(--text-muted)">Rp ${item.harga.toLocaleString('id-ID')}</small></td>
-            <td><span>${item.stok}</span> Cup</td>
-            <td><button class="bill-shortcut-btn" onclick="tambahKeKeranjang('${namaJus}',${item.harga},true)" style="font-size: 0.75rem;">+ Ke Bill</button></td>
-            <td><button class="action-toggle-btn" onclick="restokItem('${namaJus}')">Isi +10</button></td>
-          </tr>`;
-      }
-    }
-
-    function updateTampilanStruk() {
-      const container = document.getElementById('receipt-items-container');
-      const totalText = document.getElementById('receipt-total-harga');
-      if (!container || !totalText) return;
-
-      container.innerHTML = '';
-      let total = 0;
-
-      if (Object.keys(keranjangBelanja).length === 0) {
-        container.innerHTML = '<p style="color:var(--text-muted);text-align:center;font-style:italic;">Belum ada pesanan.</p>';
-        totalText.innerText = 'Rp 0';
-        return;
-      }
-
-      for (let nama in keranjangBelanja) {
-        let item = keranjangBelanja[nama];
-        let sub  = item.harga * item.qty;
-        total   += sub;
-        container.innerHTML += `
-          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed var(--primary-yellow);padding-bottom:4px;">
-            <span><strong>${item.qty}x</strong> ${nama}</span>
-            <span>Rp ${sub.toLocaleString('id-ID')}</span>
-          </div>`;
-      }
-      totalText.innerText = 'Rp ' + total.toLocaleString('id-ID');
-    }
-
-    async function prosesTransaksi() {
-      const daftar = Object.keys(keranjangBelanja);
-      if (daftar.length === 0) {
-        alert("Belum ada menu yang dipilih!");
-        return;
-      }
-
-      let totalSesi = 0;
-      let cupSesi   = 0;
-
-      for (const nama of daftar) {
-        const item = keranjangBelanja[nama];
-        if (databaseStok[nama]) databaseStok[nama].stok -= item.qty;
-        totalSesi += item.harga * item.qty;
-        cupSesi   += item.qty;
-      }
-
-      await updateStatusSelesaiSupabase();
-
-      totalPendapatanSesi += totalSesi;
-      totalJusTerjualSesi += cupSesi;
-
-      const sp = document.getElementById('stat-pendapatan');
-      const st = document.getElementById('stat-terjual');
-      if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
-      if (st) st.innerText = totalJusTerjualSesi + ' Cup';
-
-      keranjangBelanja = {};
-      updateTampilanStruk();
-      renderTabelStok();
-      tampilkanPesananCustomer();
-
-      alert("Pembayaran Sukses! Status pesanan pelanggan diperbarui ke Selesai.");
-    }
-
-    function kosongkanKeranjang() {
-      for (const namaMenu of Object.keys(pendingOrderIds)) {
-        for (const info of pendingOrderIds[namaMenu]) {
-          const btn = document.querySelector(`.selesai-btn[data-order-id="${info.orderId}"]`);
-          if (btn) {
-            btn.innerText         = "Selesaikan";
-            btn.disabled          = false;
-            btn.style.background  = "var(--green-accent)";
-            btn.style.color       = "white";
-            btn.style.borderColor = "#2B2D42";
-            btn.style.boxShadow   = "2px 2px 0px var(--text-main)";
-            btn.style.cursor      = "pointer";
-          }
-        }
-      }
-      keranjangBelanja = {};
-      pendingOrderIds  = {};
-      updateTampilanStruk();
-    }
-
-    async function restokItem(nama) {
-
-    const item = databaseStok[nama];
-
-    const stokBaru = item.stok + 10;
-
-    const { error } = await supabase
-        .from("produk")
-        .update({
-            stock: stokBaru
-        })
-        .eq("id", item.id);
-
-    if (error) {
-        console.error("Gagal restok:", error);
-        alert("Gagal menambah stok.");
-        return;
-    }
-
-    // Ambil ulang data terbaru dari Supabase
+  }
+  async function hapusProduk(nama) {
+    if (!confirm(`Hapus "${nama}"?`)) return;
+    const { error } = await sbClient.from("produk").delete().eq("id", databaseStok[nama].id);
+    if (error) { console.error(error); return; }
     await loadDatabaseStok();
-
-    // Refresh tampilan
+    renderMenuManagement();
     renderTabelStok();
+  }
 
-}
-
-    document.addEventListener('keydown', function(e) {
-      if (e.ctrlKey && e.altKey && (e.key === 'k' || e.key === 'K')) {
-        e.preventDefault();
-        bukaLoginOverlay();
+  // ── KASIR: LIVE ORDERS ──
+  async function tampilkanPesananCustomer() {
+    const container = document.getElementById('live-orders-container');
+    if (!container) return;
+    const data = await ambilPesananDariSupabase();
+    if (!data || data.length === 0) {
+      container.innerHTML = '<p style="color:var(--text-muted);text-align:center;font-style:italic;">Tidak ada antrean pesanan.</p>';
+      return;
+    }
+    container.innerHTML = '';
+    data.forEach(order => {
+      const isCompleted = order.status === "Selesai" || completedOrders.has(order.id);
+      const card = document.createElement('div');
+      card.style.cssText = 'background:var(--bg-soft);border:2px solid var(--text-main);border-radius:12px;padding:0.8rem;box-shadow:3px 3px 0px var(--text-main);display:flex;flex-direction:column;gap:0.3rem;';
+      const btnStyle = isCompleted
+        ? 'background:#6c757d;border-color:#2B2D42;box-shadow:none;cursor:not-allowed;'
+        : 'background:var(--green-accent);';
+      card.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed var(--text-main);padding-bottom:4px;margin-bottom:4px;">
+          <strong style="font-family:var(--font-header);font-size:0.95rem;color:var(--green-accent);">${order.user || 'Customer'}</strong>
+          <span style="font-size:0.7rem;color:var(--text-muted);font-weight:bold;">ID: #${order.id}</span>
+        </div>
+        <div style="font-size:0.82rem;font-weight:bold;color:var(--text-main);">${order.produk || '-'}</div>
+        <div style="display:flex;justify-content:flex-end;margin-top:0.3rem;">
+          <button class="bill-shortcut-btn selesai-btn" ${isCompleted ? 'disabled' : ''}
+            data-order-id="${order.id}"
+            style="padding:0.2rem 0.5rem;font-size:0.75rem;${btnStyle}">
+            ${isCompleted ? 'Selesai' : 'Selesaikan'}
+          </button>
+        </div>`;
+      container.appendChild(card);
+      if (!isCompleted) {
+        card.querySelector('.selesai-btn').addEventListener('click', () =>
+          selesaikanPesanan(order.id, order.produk || '', order.user || 'Customer')
+        );
       }
     });
+  }
 
-    document.getElementById('login-overlay').addEventListener('click', function(e) {
-      if (e.target === this) tutupLoginOverlay();
+  function selesaikanPesanan(orderId, produkText, namaUser) {
+    const btn = document.querySelector(`.selesai-btn[data-order-id="${orderId}"]`);
+    let namaMenu = null, harga = 0, qty = 1;
+    for (let nama in databaseStok) {
+      if (produkText.includes(nama)) {
+        namaMenu = nama;
+        harga    = databaseStok[nama].harga;
+        const m  = produkText.match(/x(\d+)/i);
+        if (m) qty = parseInt(m[1], 10);
+        break;
+      }
+    }
+    if (!namaMenu) { alert("Menu tidak dikenali."); return; }
+    if (keranjangBelanja[namaMenu]) keranjangBelanja[namaMenu].qty += qty;
+    else keranjangBelanja[namaMenu] = { harga, qty };
+    if (!pendingOrderIds[namaMenu]) pendingOrderIds[namaMenu] = [];
+    pendingOrderIds[namaMenu].push({ orderId, namaUser, qty });
+    updateTampilanStruk();
+    if (btn) {
+      btn.innerText = "Di Keranjang";
+      btn.disabled  = true;
+      btn.style.cssText += 'background:#FFD23F;color:#2B2D42;border-color:#2B2D42;box-shadow:none;cursor:not-allowed;';
+    }
+  }
+
+  async function updateStatusSelesaiSupabase() {
+    for (const namaMenu of Object.keys(pendingOrderIds)) {
+      for (const info of pendingOrderIds[namaMenu]) {
+        const { error } = await sbClient.from("id").update({ status: "Selesai" }).eq("id", info.orderId);
+        if (error) console.error("Update status error:", info.orderId, error);
+        else completedOrders.add(info.orderId);
+      }
+    }
+    pendingOrderIds = {};
+  }
+
+  // ── KASIR: POS ──
+  function tambahKeKeranjang(nama, harga, dariKasir) {
+    if (!databaseStok[nama] || databaseStok[nama].stok <= 0) { alert("Stok habis!"); return; }
+    if (keranjangBelanja[nama]) {
+      if (keranjangBelanja[nama].qty >= databaseStok[nama].stok) { alert("Melebihi stok!"); return; }
+      keranjangBelanja[nama].qty += 1;
+    } else {
+      keranjangBelanja[nama] = { harga, qty: 1 };
+    }
+    updateTampilanStruk();
+  }
+
+  function updateTampilanStruk() {
+    const container = document.getElementById('receipt-items-container');
+    const totalText = document.getElementById('receipt-total-harga');
+    if (!container || !totalText) return;
+    container.innerHTML = '';
+    let total = 0;
+    if (Object.keys(keranjangBelanja).length === 0) {
+      container.innerHTML = '<p style="color:var(--text-muted);text-align:center;font-style:italic;">Belum ada pesanan.</p>';
+      totalText.innerText = 'Rp 0'; return;
+    }
+    for (let nama in keranjangBelanja) {
+      const item = keranjangBelanja[nama];
+      const sub  = item.harga * item.qty;
+      total += sub;
+      container.innerHTML += `
+        <div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--primary-yellow);padding-bottom:4px;">
+          <span><strong>${item.qty}x</strong> ${nama}</span>
+          <span>Rp ${sub.toLocaleString('id-ID')}</span>
+        </div>`;
+    }
+    totalText.innerText = 'Rp ' + total.toLocaleString('id-ID');
+  }
+
+  async function prosesTransaksi() {
+    if (Object.keys(keranjangBelanja).length === 0) { alert("Keranjang kosong!"); return; }
+    let totalSesi = 0, cupSesi = 0;
+    for (const nama of Object.keys(keranjangBelanja)) {
+      const item = keranjangBelanja[nama];
+      totalSesi += item.harga * item.qty;
+      cupSesi   += item.qty;
+    }
+    await updateStatusSelesaiSupabase();
+    totalPendapatanSesi += totalSesi;
+    totalJusTerjualSesi += cupSesi;
+    const sp = document.getElementById('stat-pendapatan');
+    const st = document.getElementById('stat-terjual');
+    if (sp) sp.innerText = 'Rp ' + totalPendapatanSesi.toLocaleString('id-ID');
+    if (st) st.innerText = totalJusTerjualSesi + ' Cup';
+    keranjangBelanja = {};
+    updateTampilanStruk();
+    renderTabelStok();
+    tampilkanPesananCustomer();
+    alert("Pembayaran Sukses! Status pesanan diperbarui ke Selesai.");
+  }
+
+  function kosongkanKeranjang() {
+    for (const namaMenu of Object.keys(pendingOrderIds)) {
+      for (const info of pendingOrderIds[namaMenu]) {
+        const btn = document.querySelector(`.selesai-btn[data-order-id="${info.orderId}"]`);
+        if (btn) {
+          btn.innerText = "Selesaikan";
+          btn.disabled  = false;
+          btn.style.cssText = 'background:var(--green-accent);color:white;border-color:#2B2D42;box-shadow:2px 2px 0px var(--text-main);cursor:pointer;';
+        }
+      }
+    }
+    keranjangBelanja = {};
+    pendingOrderIds  = {};
+    updateTampilanStruk();
+  }
+
+  function renderTabelStok() {
+    const tbody = document.getElementById('tabel-stok-body');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    for (let nama in databaseStok) {
+      const item = databaseStok[nama];
+      tbody.innerHTML += `
+        <tr>
+          <td><strong>${nama}</strong><br><small style="color:var(--text-muted)">Rp ${item.harga.toLocaleString('id-ID')}</small></td>
+          <td>${item.stok} Cup</td>
+          <td><button class="bill-shortcut-btn" onclick="tambahKeKeranjang('${nama}',${item.harga},true)" style="font-size:0.75rem;">+ Ke Bill</button></td>
+          <td><button class="action-toggle-btn" onclick="restokItem('${nama}')">Isi +10</button></td>
+        </tr>`;
+    }
+  }
+
+  async function restokItem(nama) {
+    const stokBaru = databaseStok[nama].stok + 10;
+    const { error } = await sbClient.from("produk").update({ stock: stokBaru }).eq("id", databaseStok[nama].id);
+    if (error) { alert("Gagal restok."); return; }
+    await loadDatabaseStok();
+    renderTabelStok();
+  }
+
+  // ── KASIR SECTION INJECT ──
+  function bukaKasirSetelahLogin() {
+    if (!kasirSectionDibuat) { injectKasirSection(); kasirSectionDibuat = true; }
+    ['home-section','menu-section','about-section'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.style.display = 'none';
     });
+    ['btn-tab-home','btn-tab-menu','btn-tab-about'].forEach(id =>
+      document.getElementById(id).classList.remove('active')
+    );
+    document.getElementById('kasir-section').style.display = 'block';
+    renderTabelStok();
+    updateTampilanStruk();
+    mulaiPollingPesanan();
+  }
 
-    document.getElementById('struk-modal').addEventListener('click', function(e) {
-      if (e.target === this) tutupStrukModal();
-    });
+  function injectKasirSection() {
+    const main = document.querySelector('main');
+    const sec  = document.createElement('section');
+    sec.id = 'kasir-section';
+    sec.className = 'section-container';
+    sec.style.display = 'none';
+    sec.innerHTML = `
+      <div class="kasir-exit-bar">
+        <div style="display:flex;gap:0.5rem;">
+          <button class="kasir-settings-btn" onclick="bukaMenuManagementModal()">📦 Kelola Menu</button>
+          <button class="kasir-settings-btn" onclick="bukaChangePasswordModal()">🔐 Ganti Password</button>
+        </div>
+        <button class="kasir-exit-btn" onclick="tutupPanelKasir()">Tutup Panel Kasir</button>
+      </div>
+      <div class="section-title-wrapper">
+        <span class="section-subtitle">Panel Operator</span>
+        <h2 class="section-title">Kasir & Stok Realtime</h2>
+      </div>
+      <div class="admin-summary-grid">
+        <div class="admin-stat-card"><span class="admin-stat-value" id="stat-pendapatan">Rp 0</span><span class="admin-stat-label">Pendapatan Sesi</span></div>
+        <div class="admin-stat-card"><span class="admin-stat-value" id="stat-terjual">0 Cup</span><span class="admin-stat-label">Total Terjual</span></div>
+        <div class="admin-stat-card"><span class="admin-stat-value" style="color:var(--text-main);">●●●●</span><span class="admin-stat-label">Sesi Terautentikasi</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1.1fr 1fr;gap:1.5rem;align-items:start;">
+        <div class="admin-table-wrapper">
+          <div style="background:var(--primary-yellow);padding:0.8rem 1.2rem;border-bottom:3px solid var(--text-main);">
+            <h3 style="font-family:var(--font-header);font-size:1.1rem;margin:0;">Logistik & Stok</h3>
+          </div>
+          <table class="admin-table">
+            <thead><tr><th>Produk</th><th>Stok</th><th colspan="2" style="text-align:center;">Aksi</th></tr></thead>
+            <tbody id="tabel-stok-body"></tbody>
+          </table>
+        </div>
+        <div class="admin-table-wrapper" style="display:flex;flex-direction:column;min-height:350px;">
+          <div style="background:var(--green-accent);color:white;padding:0.8rem 1.2rem;border-bottom:3px solid var(--text-main);display:flex;justify-content:space-between;align-items:center;">
+            <h3 style="font-family:var(--font-header);font-size:1.1rem;margin:0;color:white;">Live Orders</h3>
+            <button onclick="tampilkanPesananCustomer()" class="action-toggle-btn">🔄</button>
+          </div>
+          <div id="live-orders-container" style="padding:1rem;overflow-y:auto;flex-grow:1;display:flex;flex-direction:column;gap:0.8rem;">
+            <p style="color:var(--text-muted);text-align:center;font-style:italic;">Memuat...</p>
+          </div>
+        </div>
+        <div class="receipt-box">
+          <div style="border-bottom:2px dashed var(--text-main);padding-bottom:1rem;margin-bottom:1rem;">
+            <h3 style="font-family:var(--font-header);">POS Manual Walk-in</h3>
+            <span style="font-size:0.8rem;color:var(--text-muted);">Bill Kasir</span>
+          </div>
+          <div id="receipt-items-container" style="min-height:80px;display:flex;flex-direction:column;gap:0.6rem;font-size:0.95rem;">
+            <p style="color:var(--text-muted);text-align:center;font-style:italic;">Belum ada pesanan.</p>
+          </div>
+          <div class="receipt-total" style="border-top:2px dashed var(--text-main);margin-top:1rem;">
+            <span>TOTAL:</span><span id="receipt-total-harga">Rp 0</span>
+          </div>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;">
+            <button class="submit-btn" style="padding:0.8rem;background:var(--text-main);font-size:0.85rem;" onclick="kosongkanKeranjang()">Batal</button>
+            <button class="submit-btn" style="padding:0.8rem;font-size:0.85rem;" onclick="prosesTransaksi()">Bayar (POS)</button>
+          </div>
+        </div>
+      </div>`;
+    main.appendChild(sec);
+  }
 
-    document.getElementById('change-password-modal').addEventListener('click', function(e) {
-      if (e.target === this) tutupChangePasswordModal();
-    });
+  function tutupPanelKasir() {
+    hentikanPollingPesanan();
+    document.getElementById('kasir-section').style.display = 'none';
+    switchTab('home');
+  }
+  function mulaiPollingPesanan() {
+    if (intervalSupabase) clearInterval(intervalSupabase);
+    tampilkanPesananCustomer();
+    intervalSupabase = setInterval(tampilkanPesananCustomer, 5000);
+  }
+  function hentikanPollingPesanan() {
+    if (intervalSupabase) { clearInterval(intervalSupabase); intervalSupabase = null; }
+  }
 
-    document.getElementById('menu-management-modal').addEventListener('click', function(e) {
-      if (e.target === this) tutupMenuManagementModal();
-    });
+  // ── EVENT LISTENERS ──
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.altKey && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); bukaLoginOverlay(); }
+  });
+  document.getElementById('login-overlay').addEventListener('click', e => { if (e.target === e.currentTarget) tutupLoginOverlay(); });
+  document.getElementById('struk-modal').addEventListener('click', e => { if (e.target === e.currentTarget) tutupStrukModal(); });
+  document.getElementById('change-password-modal').addEventListener('click', e => { if (e.target === e.currentTarget) tutupChangePasswordModal(); });
+  document.getElementById('menu-management-modal').addEventListener('click', e => { if (e.target === e.currentTarget) tutupMenuManagementModal(); });
+  document.getElementById('product-form-modal').addEventListener('click', e => { if (e.target === e.currentTarget) tutupFormProduk(); });
 
-    document.getElementById('product-form-modal').addEventListener('click', function(e) {
-      if (e.target === this) tutupFormProduk();
-    });
-
-    // Muat data stok produk dari Supabase saat halaman pertama kali dibuka
-    loadDatabaseStok();
+  // ── INIT ──
+  loadDatabaseStok();
   </script>
-
 </body>
 </html>
