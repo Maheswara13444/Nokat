@@ -370,19 +370,14 @@
     </div>
   </div>
 
-  <!-- FIX #1: Hanya load Supabase SDK SEKALI via CDN, tidak ada const supabase lagi -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-  // =====================================================================
-  // FIX #1: Gunakan window.supabase.createClient, BUKAN "const supabase"
-  // karena CDN sudah mendeklarasikan "supabase" di window scope
-  // Menggunakan "const supabase" akan konflik → SyntaxError: already declared
-  // =====================================================================
+  <script type="module">
+  // Import Supabase via ESM - TIDAK ada konflik variable sama sekali
+  // karena module scope terisolasi dari window scope
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
   const SUPABASE_URL = "https://ayyndglgelrveglikssy.supabase.co";
   const SUPABASE_KEY = "sb_publishable_U2xOGIx7_kHbQ4c-OJFpFw_Z0pR2LWH";
-
-  // FIX: pakai nama berbeda supaya tidak bentrok dengan window.supabase dari CDN
-  const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  const sbClient = createClient(SUPABASE_URL, SUPABASE_KEY);
   console.log("Supabase client ready:", sbClient);
 
   // =====================================================================
@@ -1070,6 +1065,39 @@
   function hentikanPollingPesanan() {
     if (intervalSupabase) { clearInterval(intervalSupabase); intervalSupabase = null; }
   }
+
+
+  // ── DAFTARKAN SEMUA FUNGSI KE WINDOW AGAR BISA DIPANGGIL DARI HTML ONCLICK ──
+  // (wajib karena script type="module" punya scope terisolasi)
+  window.switchTab = switchTab;
+  window.bukaCheckoutModal = bukaCheckoutModal;
+  window.tutupCheckoutModal = tutupCheckoutModal;
+  window.setPayMethod = setPayMethod;
+  window.setOrderType = setOrderType;
+  window.kirimPesananLangsung = kirimPesananLangsung;
+  window.tutupStrukModal = tutupStrukModal;
+  window.bukaLoginOverlay = bukaLoginOverlay;
+  window.tutupLoginOverlay = tutupLoginOverlay;
+  window.verifikasiPassword = verifikasiPassword;
+  window.toggleShowPassword = toggleShowPassword;
+  window.bukaChangePasswordModal = bukaChangePasswordModal;
+  window.tutupChangePasswordModal = tutupChangePasswordModal;
+  window.prosesGantiPassword = prosesGantiPassword;
+  window.bukaMenuManagementModal = bukaMenuManagementModal;
+  window.tutupMenuManagementModal = tutupMenuManagementModal;
+  window.bukaFormTambahProduk = bukaFormTambahProduk;
+  window.bukaFormEditProduk = bukaFormEditProduk;
+  window.tutupFormProduk = tutupFormProduk;
+  window.submitFormProduk = submitFormProduk;
+  window.hapusProduk = hapusProduk;
+  window.tampilkanPesananCustomer = tampilkanPesananCustomer;
+  window.tambahKeKeranjang = tambahKeKeranjang;
+  window.restokItem = restokItem;
+  window.kosongkanKeranjang = kosongkanKeranjang;
+  window.prosesTransaksi = prosesTransaksi;
+  window.tutupPanelKasir = tutupPanelKasir;
+  window.selesaikanPesanan = selesaikanPesanan;
+  window.renderMenuManagement = renderMenuManagement;
 
   // ── EVENT LISTENERS ──
   document.addEventListener('keydown', e => {
